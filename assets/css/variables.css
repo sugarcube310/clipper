@@ -1,0 +1,22 @@
+/*====================================
+  Break Point
+====================================*/
+@custom-media --sp (max-width: 767px);
+@custom-media --not-sp (min-width: 768px);
+
+/*====================================
+  PostCSS 変数定義
+====================================*/
+:root {
+  /* color */
+  --color-primary: blue;
+  --color-secondary: red;
+  --color-text: #333;
+  --color-bg: #E5E5E5;
+  --color-white: #fff;
+  --color-black: #000;
+
+  /* font */
+  --font-family-base: 'Hiragino Kaku Gothic Std', sans-serif;
+  --font-family-title: 'Montserrat', sans-serif;
+}
