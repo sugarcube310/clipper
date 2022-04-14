@@ -12,8 +12,12 @@ body {
   margin: 0;
 }
 
-h1, h2, h3 {
-  margin: 0;
+h1 {
+  font-size: 48px;
+  font-weight: normal;
+  letter-spacing: .02em;
+  line-height: 1.5;
+  text-align: center;
 }
 
 ul {

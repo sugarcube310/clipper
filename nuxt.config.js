@@ -6,8 +6,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: 'Gallery',
-    title: 'Gallery',
+    titleTemplate: 'penta - ペンタ -',
+    title: 'penta - ペンタ -',
     htmlAttrs: {
       lang: 'ja'
     },
@@ -25,7 +25,10 @@ export default {
       // { hid: 'og:image', property: 'og:image', content: '/ogp.png' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Noto+Sans&display=swap' }
     ]
   },
 
@@ -43,7 +46,12 @@ export default {
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: {
+    dirs: [
+      '~/components',
+      '~/components/layouts'
+    ]
+  },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -55,21 +63,40 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: "AIzaSyCzqI2BUo5vpGKTdZX5wZxdYVCRGYxdpOw",
+          authDomain: "penta-gallery.firebaseapp.com",
+          projectId: "penta-gallery",
+          storageBucket: "penta-gallery.appspot.com",
+          messagingSenderId: "931114198562",
+          appId: "1:931114198562:web:e823a428ac18999ff88c7b",
+          measurementId: "G-TG3GYXKJD0"
+        },
+        services: {
+          auth: true,
+          firestore: true,
+          functions: true,
+        }
+      }
+    ]
   ],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
+    customVariables: ['~/assets/css/variables.css'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
-        dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
+        light: {
+          primary: '#333',
+          accent: '#00699c',
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
+          error: '#c00',
           success: colors.green.accent3
         }
       }

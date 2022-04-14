@@ -17,6 +17,6 @@
   --color-black: #000;
 
   /* font */
-  --font-family-base: 'Hiragino Kaku Gothic Std', sans-serif;
+  --font-family-base: 'Noto Sans JP', 'Noto Sans', sans-serif;
   --font-family-title: 'Montserrat', sans-serif;
 }
