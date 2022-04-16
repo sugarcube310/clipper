@@ -49,7 +49,8 @@ export default {
   components: {
     dirs: [
       '~/components',
-      '~/components/layouts'
+      '~/components/layouts',
+      '~/components/pages/top'
     ]
   },
 

@@ -14,16 +14,12 @@
           </p>
         </div>
         <div class="login__form">
-          <div class="form__inner">
-            <v-form
-              v-model="valid"
-              @submit.prevent
-            >
+          <div class="form__inner pa-10">
+            <v-form @submit.prevent>
               <v-row class="mb-8">
                 <v-col cols="12">
                   <v-text-field
-                    v-model="email"
-                    :rules="emailRules"
+                    v-model="form.email"
                     label="メールアドレス"
                     required
                     outlined
@@ -31,12 +27,26 @@
                 </v-col>
                 <v-col cols="12" class="py-0">
                   <v-text-field
-                    v-model="password"
-                    :rules="passwordRules"
+                    v-model="form.password"
                     label="パスワード"
                     required
                     outlined
                   ></v-text-field>
+                </v-col>
+
+                <v-col cols="12" class="py-0">
+                  <p
+                    v-if="formEmptyText && !$store.getters.loginErrorMessage"
+                    class="form__error-text -empty text-center"
+                  >
+                    {{ formEmptyText }}
+                  </p>
+                  <p
+                    v-if="$store.getters.loginErrorMessage"
+                    class="form__error-text -message text-center"
+                  >
+                    {{ $store.getters.loginErrorMessage }}
+                  </p>
                 </v-col>
 
                 <v-col cols="12" class="form__submit text-center">
@@ -45,7 +55,8 @@
                     height="44"
                     width="160"
                     type="submit"
-                    @click="login()"
+                    :loading="$store.getters.loginLoading"
+                    @click="onLogin()"
                   >
                     ログイン
                   </v-btn>
@@ -55,56 +66,67 @@
 
             <v-divider />
 
-            <nuxt-link to="/register" class="register__text d-block mt-8 text-center">
-              アカウントをお持ちでない方
-            </nuxt-link>
+            <p
+              class="register__text d-block mt-8 text-center"
+              @click="openRegisterDialog()"
+            >
+              アカウントをお持ちでない方はこちら
+            </p>
           </div>
         </div>
       </div>
+
+      <RegisterDialog ref="registerDialogRef" />
     </section>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, SetupContext } from '@vue/composition-api'
-import { useRouter } from '../plugins/use-router'
-import { auth } from '../plugins/firebase'
+import { defineComponent, reactive, toRefs, ref } from '@vue/composition-api'
+import { useRouter } from '@/plugins/use-router'
 
 export default defineComponent({
+  computed: {
+    user () {
+      return this.$store.getters['user']
+    }
+  },
   setup (_) {
     const router = useRouter()
+    const registerDialogRef = ref<any>(null)
 
     /** Reactive State **/
     const reactiveState = reactive({
-      valid: false,
-      email: '',
-      password: '',
-      emailRules: [
-        (v: string) => !!v || 'メールアドレスは必須項目です',
-        (v: string) => /.+@.+/.test(v) || 'メールアドレスを正しく入力してください',
-      ],
-      passwordRules: [
-        (v: string) => !!v || 'パスワードは必須項目です',
-        (v: string) => v.length >= 8 || 'パスワードは8文字以上で設定してください',
-      ]
+      form: {
+        email: '',
+        password: '',
+      },
+      formEmptyText: ''
     })
 
     /** Methods **/
     const methods = {
-      login() {
-        auth.signInWithEmailAndPassword(reactiveState.email, reactiveState.password)
-        .then(() => {
-          router.push('/list')
-        })
-        .catch((error: any) => {
-          console.log(`Login error: ${ error.message }`)
-        })
+      onLogin () {
+        if (reactiveState.form.email !== '' && reactiveState.form.password !== '') {
+          (this as any).$store.dispatch('login', { email: reactiveState.form.email, password: reactiveState.form.password })
+          return
+        } else {
+          reactiveState.formEmptyText = 'メールアドレスとパスワードを入力してください。'
+          return
+        }
+      },
+
+      openRegisterDialog () {
+        if (registerDialogRef.value) {
+          registerDialogRef.value.isOpen = true
+        }
       }
     }
 
     return {
       ...toRefs(reactiveState),
-      ...methods
+      ...methods,
+      registerDialogRef
     }
   }
 })
@@ -140,8 +162,29 @@ export default defineComponent({
     max-width: 560px;
     margin: auto;
 
-    & .form__inner {
-      padding: 40px;
+    & .form__error-text {
+      color: #c00;
+      font-size: 12px;
+      letter-spacing: .01em;
+      line-height: 1.75;
+      white-space: pre-line;
+      margin-top: -24px;
+    }
+  }
+
+  & .register__text {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 4px;
+    transition: all .15s;
+
+    &:hover {
+      @media (--not-sp) {
+        text-decoration-color: #333;
+      }
     }
   }
 }
