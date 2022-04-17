@@ -17,7 +17,7 @@
     </v-btn>
     <div class="register__head mb-8">
       <h2 class="register__title">
-        ようこそ！
+        pentaへようこそ！
       </h2>
     </div>
     <div class="register__form">
@@ -159,14 +159,14 @@ export default defineComponent({
 <style lang="postcss">
 .register__dialog-inner {
   background-color: #fff;
-  border: 1px solid rgba(51, 51, 51, .5);
+  border: 1px solid rgba(102, 102, 102, .6);
   border-radius: 8px;
 
   & .register__head {
     margin-top: -4px;
 
     & .register__title {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 500;
       letter-spacing: .02em;
       line-height: 1.5;
@@ -186,6 +186,7 @@ export default defineComponent({
   }
 
   & .login__text {
+    color: var(--color-secondary);
     cursor: pointer;
     display: inline-block;
     font-size: 14px;
@@ -196,7 +197,7 @@ export default defineComponent({
 
     &:hover {
       @media (--not-sp) {
-        text-decoration-color: #333;
+        text-decoration-color: var(--color-secondary);
       }
     }
   }

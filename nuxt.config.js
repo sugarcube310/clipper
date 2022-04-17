@@ -93,12 +93,12 @@ export default {
       themes: {
         light: {
           primary: '#333',
+          secondary: '#666',
           accent: '#00699c',
-          secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: '#c00',
-          success: colors.green.accent3
+          success: '009c0c'
         }
       }
     }

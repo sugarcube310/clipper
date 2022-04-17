@@ -7,7 +7,11 @@
             penta
             <span>- ペンタ -</span>
           </h1>
-          <p class="login__title-subtext">
+          <figure class="login__title-image">
+            <img src="~/assets/images/icon.png" alt="" class="hat d-block ma-auto">
+            <img src="~/assets/images/penta.png" alt="" class="boy d-block ma-auto">
+          </figure>
+          <p class="login__title-subtext mt-8 mb-0">
             Lorem ipsum dolor sit amet,<br>
             consectetur adipiscing elit,<br>
             sed do eiusmod tempor incididunt ut labore
@@ -137,27 +141,51 @@ export default defineComponent({
   padding: 120px 0;
 
   & .login__head {
-    margin-bottom: 80px;
+    margin-bottom: 60px;
 
-    & .login__title span {
-      display: block;
-      font-size: 14px;
-      line-height: 0;
-      padding-top: 12px;
+    & .login__title {
+      color: var(--color-secondary);
+
+      & span {
+        color: var(--color-secondary);
+        display: block;
+        font-size: 14px;
+        letter-spacing: .06em;
+        line-height: 0;
+        padding-top: 12px;
+      }
     }
 
     & .login__title-subtext {
       font-size: 28px;
       font-weight: 300;
       letter-spacing: .02em;
-      line-height: 1.5;
+      line-height: 1.75;
       text-align: center;
-      margin-top: 32px;
+    }
+
+    & .login__title-image {
+      margin-top: 64px;
+      position: relative;
+      pointer-events: none;
+
+      & .hat {
+        transform: rotate(12deg);
+        position: absolute;
+        top: -16px;
+        left: 0;
+        right: -16px;
+        width: 64px;
+      }
+
+      & .boy {
+        width: 120px;
+      }
     }
   }
 
   & .login__form {
-    border: 1px solid rgba(51, 51, 51, .5);
+    border: 1px solid rgba(102, 102, 102, .6);
     border-radius: 4px;
     max-width: 560px;
     margin: auto;
@@ -173,9 +201,9 @@ export default defineComponent({
   }
 
   & .register__text {
+    color: var(--color-secondary);
     cursor: pointer;
     display: inline-block;
-    font-size: 14px;
     text-decoration: underline;
     text-decoration-color: transparent;
     text-underline-offset: 4px;
@@ -183,7 +211,7 @@ export default defineComponent({
 
     &:hover {
       @media (--not-sp) {
-        text-decoration-color: #333;
+        text-decoration-color: var(--color-secondary);
       }
     }
   }

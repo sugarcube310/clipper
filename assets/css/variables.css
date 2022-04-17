@@ -9,12 +9,11 @@
 ====================================*/
 :root {
   /* color */
-  --color-primary: blue;
-  --color-secondary: red;
+  --color-primary: #333;
+  --color-secondary: #666;
+  --color-accent: #00699c;
   --color-text: #333;
   --color-bg: #E5E5E5;
-  --color-white: #fff;
-  --color-black: #000;
 
   /* font */
   --font-family-base: 'Noto Sans JP', 'Noto Sans', sans-serif;
