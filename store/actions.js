@@ -85,7 +85,7 @@ export default {
   },
 
   /**** ログイン認証状態のチェック ****/
-  onAuth({ commit }) {
+  onAuth ({ commit }) {
     auth.onAuthStateChanged((user) => {
       user = user ? user : {}
       commit('getUserData', { uid: user.uid, email: user.email })
