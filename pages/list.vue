@@ -6,7 +6,6 @@
     >
     list
     </p>
-    {{ user }}
 
     <v-btn @click="onLogout()">
       logout

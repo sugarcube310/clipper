@@ -12,3 +12,5 @@ export const db = firebase.firestore()
 export const firestore = firebase.firestore()
 export const dbUsersRef = db.collection('users')
 export const functions = firebase.app().functions('asia-northeast1')
+
+auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)

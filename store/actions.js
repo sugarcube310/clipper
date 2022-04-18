@@ -3,16 +3,16 @@ import { auth, dbUsersRef } from '@/plugins/firebase'
 export default {
   /**** ログイン ****/
   login ({ dispatch, commit }, payload) {
-    /* ローディングアニメーション開始 */
-    commit('onLoginLoading')
+    commit('onLoading')
 
     /* ログイン処理 */
     auth.signInWithEmailAndPassword(payload.email, payload.password)
     .then(() => {
       auth.onAuthStateChanged((user) => {
         if (user) {
-          commit('getData', { uid: user.uid, email: user.email })
-          commit('switchLogin')
+          commit('getUserData', { uid: user.uid, email: user.email })
+          commit('switchLogin', true)
+          commit('clearLoginFormError')
         }
       })
       this.$router.push('/list')
@@ -29,18 +29,16 @@ export default {
 
   /**** ユーザー登録 ****/
   register ({ dispatch, commit }, payload) {
-    /* ローディングアニメーション開始 */
-    commit('onRegisterLoading')
-
-    console.log('payload' + payload.name)
+    commit('onLoading')
 
     /* ユーザー登録処理 */
     auth.createUserWithEmailAndPassword(payload.email, payload.password)
     .then(() => {
       auth.onAuthStateChanged((user) => {
         if (user) {
-          commit('getData', { uid: user.uid, email: user.email })
-          commit('switchLogin')
+          commit('getUserData', { uid: user.uid, email: user.email })
+          commit('switchLogin', true)
+          commit('clearRegisterFormError')
 
           // users コレクションに登録
           dbUsersRef
@@ -76,13 +74,28 @@ export default {
   logout ({ commit }) {
     auth.signOut()
     .then(() => {
-      commit('switchLogout')
       setTimeout(() => {
         this.$router.push('/')
+        commit('switchLogin', false)
       }, 1000)
     })
     .catch((error) => {
       console.log(`Logout error: ${ error.message }`)
+    })
+  },
+
+  /**** ログイン認証状態のチェック ****/
+  onAuth({ commit }) {
+    auth.onAuthStateChanged((user) => {
+      user = user ? user : {}
+      commit('getUserData', { uid: user.uid, email: user.email })
+
+      const isAuthenticated = user.uid ? true : false
+      commit('switchLogin', isAuthenticated)
+
+      if (!isAuthenticated) {
+        this.$router.push('/')
+      }
     })
   }
 }

@@ -41,10 +41,10 @@
 
                 <v-col cols="12" class="py-0">
                   <p
-                    v-if="formEmptyText && !$store.getters.loginErrorMessage"
+                    v-if="formErrorMessage && !$store.getters.loginErrorMessage"
                     class="form__error-text -empty text-center"
                   >
-                    {{ formEmptyText }}
+                    {{ formErrorMessage }}
                   </p>
                   <p
                     v-if="$store.getters.loginErrorMessage"
@@ -60,8 +60,8 @@
                     height="44"
                     width="160"
                     type="submit"
-                    :loading="$store.getters.loginLoading"
-                    :disabled="$store.getters.loginLoading"
+                    :loading="$store.getters.loading"
+                    :disabled="$store.getters.loading"
                     @click="onLogin()"
                   >
                     ログイン
@@ -108,7 +108,7 @@ export default defineComponent({
         email: '',
         password: ''
       },
-      formEmptyText: ''
+      formErrorMessage: ''
     })
 
     /** Methods **/
@@ -118,7 +118,7 @@ export default defineComponent({
           (this as any).$store.dispatch('login', { email: reactiveState.form.email, password: reactiveState.form.password })
           return
         } else {
-          reactiveState.formEmptyText = 'メールアドレスとパスワードを入力してください。'
+          reactiveState.formErrorMessage = 'メールアドレスとパスワードを入力してください。'
           return
         }
       },

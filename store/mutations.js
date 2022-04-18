@@ -1,19 +1,18 @@
 export default {
-  getData (state, payload) {
+  /**** ユーザー情報の取得 ****/
+  getUserData (state, payload) {
     state.user.uid = payload.uid
     state.user.email = payload.email
+    state.user.login = payload.uid ? true: false
   },
 
-  onLoginLoading (state) {
-    state.loginLoading = true
+  /**** ログイン認証状態を変更 ****/
+  switchLogin (state, status) {
+    state.user.login = status
   },
 
-  switchLogin (state) {
-    state.user.login = true
-    state.loginLoading = false
-    state.loginErrorMessage = ''
-    state.registerLoading = false
-    state.registerErrorMessage = ''
+  onLoading (state) {
+    state.loading = true
   },
 
   setLoginErrorMessage (state, errorCode) {
@@ -28,21 +27,23 @@ export default {
     } else if (errorCode === 'auth/too-many-requests') {
       state.loginErrorMessage = 'ログインに何度も失敗しました。\n少し時間をおいてから、再度試してみてください。'
     }
-    state.loginLoading = false
+    state.loading = false
   },
 
-  onRegisterLoading (state) {
-    state.registerLoading = true
+  clearLoginFormError (state) {
+    state.loginErrorMessage = ''
+    state.loading = false
   },
 
   setRegisterErrorMessage (state, errorCode) {
     if (errorCode === 'auth/email-already-in-use') {
       state.registerErrorMessage = 'すでに登録済みのアカウントです。'
     }
-    state.registerLoading = false
+    state.loading = false
   },
 
-  switchLogout (state) {
-    state.user.login = false
+  clearRegisterFormError (state) {
+    state.registerErrorMessage = ''
+    state.loading = false
   }
 }

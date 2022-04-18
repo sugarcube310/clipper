@@ -74,8 +74,8 @@
                 height="44"
                 width="180"
                 type="submit"
-                :loading="$store.getters.registerLoading"
-                :disabled="$store.getters.registerLoading"
+                :loading="$store.getters.loading"
+                :disabled="$store.getters.loading"
                 @click="onRegister()"
               >
                 アカウント登録
