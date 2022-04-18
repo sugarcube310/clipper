@@ -85,13 +85,14 @@ export default {
   },
 
   /**** ログイン認証状態のチェック ****/
-  onAuth ({ commit }) {
+  checkAuth ({ commit }) {
     auth.onAuthStateChanged((user) => {
       user = user ? user : {}
       commit('getUserData', { uid: user.uid, email: user.email })
 
       const isAuthenticated = user.uid ? true : false
       commit('switchLogin', isAuthenticated)
+      console.log('checkAuth: ' + isAuthenticated)
 
       if (!isAuthenticated) {
         this.$router.push('/')

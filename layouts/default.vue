@@ -15,7 +15,7 @@ import { defineComponent } from '@vue/composition-api'
 
 export default defineComponent({
   created () {
-    this.$store.dispatch('onAuth')
+    this.$store.dispatch('checkAuth')
   }
 })
 </script>
