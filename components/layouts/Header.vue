@@ -1,10 +1,15 @@
 <template>
-  <v-footer
-    :absolute="!fixed"
+  <v-app-bar
     app
+    fixed
+    color="white"
   >
-    <span>&copy; {{ new Date().getFullYear() }}</span>
-  </v-footer>
+    <v-spacer></v-spacer>
+    <v-btn icon>
+      <v-icon>mdi-heart</v-icon>
+    </v-btn>
+    <v-app-bar-nav-icon></v-app-bar-nav-icon>
+  </v-app-bar>
 </template>
 
 <script lang="ts">
@@ -14,7 +19,6 @@ export default defineComponent({
   setup (_) {
     /** Reactive State **/
     const reactiveState = reactive({
-      fixed: false,
     })
 
     /** Methods **/
@@ -30,4 +34,11 @@ export default defineComponent({
 </script>
 
 <style lang="postcss">
+.footer {
+  background-color: #ccc;
+}
+.footer__copy {
+  font-size: 11px;
+  letter-spacing: .02em;
+}
 </style>

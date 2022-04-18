@@ -1,11 +1,9 @@
 <template>
   <v-app>
-    <Header />
     <v-main>
       <v-container>
         <Nuxt />
       </v-container>
-      <upload-file />
     </v-main>
   </v-app>
 </template>

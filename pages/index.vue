@@ -17,11 +17,12 @@
             sed do eiusmod tempor incididunt ut labore
           </p>
         </div>
+
         <div class="login__form">
           <div class="form__inner pa-10">
             <v-form @submit.prevent>
               <v-row class="mb-8">
-                <v-col cols="12">
+                <v-col cols="12" class="pb-1">
                   <v-text-field
                     v-model="form.email"
                     label="メールアドレス"
@@ -29,7 +30,7 @@
                     outlined
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" class="py-0">
+                <v-col cols="12" class="py-1">
                   <v-text-field
                     v-model="form.password"
                     label="パスワード"
@@ -60,6 +61,7 @@
                     width="160"
                     type="submit"
                     :loading="$store.getters.loginLoading"
+                    :disabled="$store.getters.loginLoading"
                     @click="onLogin()"
                   >
                     ログイン
@@ -90,6 +92,7 @@ import { defineComponent, reactive, toRefs, ref } from '@vue/composition-api'
 import { useRouter } from '@/plugins/use-router'
 
 export default defineComponent({
+  layout: 'noHeader',
   computed: {
     user () {
       return this.$store.getters['user']
@@ -103,7 +106,7 @@ export default defineComponent({
     const reactiveState = reactive({
       form: {
         email: '',
-        password: '',
+        password: ''
       },
       formEmptyText: ''
     })
@@ -138,7 +141,7 @@ export default defineComponent({
 
 <style lang="postcss">
 .login__inner {
-  padding: 120px 0;
+  padding: 60px 0 120px;
 
   & .login__head {
     margin-bottom: 60px;
