@@ -4,14 +4,16 @@ export default {
     state.user.email = payload.email
   },
 
-  switchLoginLoading (state) {
+  onLoginLoading (state) {
     state.loginLoading = true
   },
 
   switchLogin (state) {
     state.user.login = true
-    state.loginErrorMessage = ''
     state.loginLoading = false
+    state.loginErrorMessage = ''
+    state.registerLoading = false
+    state.registerErrorMessage = ''
   },
 
   setLoginErrorMessage (state, errorCode) {
@@ -27,6 +29,17 @@ export default {
       state.loginErrorMessage = 'ログインに何度も失敗しました。\n少し時間をおいてから、再度試してみてください。'
     }
     state.loginLoading = false
+  },
+
+  onRegisterLoading (state) {
+    state.registerLoading = true
+  },
+
+  setRegisterErrorMessage (state, errorCode) {
+    if (errorCode === 'auth/email-already-in-use') {
+      state.registerErrorMessage = 'すでに登録済みのアカウントです。'
+    }
+    state.registerLoading = false
   },
 
   switchLogout (state) {

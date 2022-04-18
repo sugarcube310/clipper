@@ -6,6 +6,8 @@
     >
     list
     </p>
+    {{ user }}
+
     <v-btn @click="onLogout()">
       logout
     </v-btn>
@@ -31,7 +33,7 @@ export default defineComponent({
     const methods = {
       onLogout () {
         (this as any).$store.dispatch('logout')
-      },
+      }
     }
 
     return {

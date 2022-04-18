@@ -19,12 +19,16 @@
       <h2 class="register__title">
         pentaへようこそ！
       </h2>
+      <div class="register__icon text-center mt-1">
+        <p v-if="formErrorMessage || $store.getters.registerErrorMessage" class="icon mb-0">:o</p>
+        <p v-else class="icon mb-0">:)</p>
+      </div>
     </div>
     <div class="register__form">
       <div class="form__inner">
         <v-form @submit.prevent>
           <v-row class="mb-8">
-            <v-col cols="12">
+            <v-col cols="12" class="py-1">
               <v-text-field
                 v-model="form.email"
                 label="メールアドレス"
@@ -32,7 +36,7 @@
                 outlined
               ></v-text-field>
             </v-col>
-            <v-col cols="12" class="py-0">
+            <v-col cols="12" class="py-1">
               <v-text-field
                 v-model="form.password"
                 label="パスワード"
@@ -40,13 +44,27 @@
                 outlined
               ></v-text-field>
             </v-col>
+            <v-col cols="12" class="py-1">
+              <v-text-field
+                v-model="form.name"
+                label="ユーザー名"
+                required
+                outlined
+              ></v-text-field>
+            </v-col>
 
             <v-col cols="12" class="py-0">
               <p
-                v-if="formEmptyText"
+                v-if="formErrorMessage && !$store.getters.registerErrorMessage"
                 class="form__error-text -empty text-center"
               >
-                {{ formEmptyText }}
+                {{ formErrorMessage }}
+              </p>
+              <p
+                v-if="$store.getters.registerErrorMessage"
+                class="form__error-text -message text-center py-0"
+              >
+                {{ $store.getters.registerErrorMessage }}
               </p>
             </v-col>
 
@@ -56,7 +74,8 @@
                 height="44"
                 width="180"
                 type="submit"
-                :loading="isRegisterLoading"
+                :loading="$store.getters.registerLoading"
+                :disabled="$store.getters.registerLoading"
                 @click="onRegister()"
               >
                 アカウント登録
@@ -90,40 +109,32 @@ export default defineComponent({
       form: {
         email: '',
         password: '',
+        name: ''
       },
-      emailRules: [
-        (v: string) => !!v || 'メールアドレスは必須項目です。',
-        (v: string) => /.+@.+/.test(v) || 'メールアドレスを正しく入力してください。',
-      ],
-      passwordRules: [
-        (v: string) => !!v || 'パスワードは必須項目です。',
-        (v: string) => v.length >= 8 || 'パスワードは8文字以上で設定してください。',
-      ],
-      isRegisterLoading: false,
-      formEmptyText: ''
+      formErrorMessage: ''
     })
 
     /** Methods **/
     const methods = {
       onRegister () {
         if (reactiveState.form.email === '' && reactiveState.form.password === '') {
-          reactiveState.formEmptyText = 'メールアドレスとパスワードを入力してください。'
-        } else if (reactiveState.form.email === '' && reactiveState.form.password !== '') {
-          reactiveState.formEmptyText = 'メールアドレスを入力してください。'
-        } else if (reactiveState.form.email !== '' && reactiveState.form.password === '') {
-          reactiveState.formEmptyText = 'パスワードを入力してください。'
+          reactiveState.formErrorMessage = '上記項目は必須です。'
+        } else if (reactiveState.form.email === '' && reactiveState.form.password !== '' && reactiveState.form.name !== '') {
+          reactiveState.formErrorMessage = 'メールアドレスを入力してください。'
+        } else if (reactiveState.form.email !== '' && reactiveState.form.password === '' && reactiveState.form.name !== '') {
+          reactiveState.formErrorMessage = 'パスワードを入力してください。'
+        } else if (reactiveState.form.email !== '' && reactiveState.form.password !== '' && reactiveState.form.name === '') {
+          reactiveState.formErrorMessage = 'ユーザー名を入力してください。'
         }
 
-        if (reactiveState.form.email !== '' && reactiveState.form.password !== '') {
+        if (reactiveState.form.email !== '' && reactiveState.form.password !== '' && reactiveState.form.name !== '') {
           if (!methods.checkEmail(reactiveState.form.email)) {
-            reactiveState.formEmptyText = '無効なメールアドレスです。'
+            reactiveState.formErrorMessage = '無効なメールアドレスです。'
           } else if (!methods.checkPassword(reactiveState.form.password)) {
-            reactiveState.formEmptyText = 'パスワードは半角英数字を含む8文字以上で設定してください。'
+            reactiveState.formErrorMessage = 'パスワードは半角英数字を含む8文字以上で設定してください。'
           } else {
-            reactiveState.isRegisterLoading = true
-            setTimeout(() => {
-              (this as any).$store.dispatch('register', { email: reactiveState.form.email, password: reactiveState.form.password })
-            }, 1000)
+            (this as any).$store.dispatch('register', { email: reactiveState.form.email, password: reactiveState.form.password, name: reactiveState.form.name })
+            reactiveState.formErrorMessage = ''
             return
           }
         }
@@ -139,11 +150,17 @@ export default defineComponent({
         return passwordRule.test(password)
       },
 
+      clearForm () {
+        reactiveState.form.email = ''
+        reactiveState.form.password = ''
+        reactiveState.form.name = ''
+      },
+
       onClose () {
         reactiveState.isOpen = false
         setTimeout(() => {
-          reactiveState.form.email = ''
-          reactiveState.form.password = ''
+          methods.clearForm()
+          reactiveState.formErrorMessage = ''
         }, 500)
       }
     }
@@ -168,9 +185,19 @@ export default defineComponent({
     & .register__title {
       font-size: 24px;
       font-weight: 500;
-      letter-spacing: .02em;
+      letter-spacing: .025em;
       line-height: 1.5;
       text-align: center;
+    }
+
+    & .register__icon {
+      & .icon {
+        display: inline-block;
+        font-size: 24px;
+        font-weight: bold;
+        letter-spacing: .1em;
+        transform: rotate(90deg);
+      }
     }
   }
 

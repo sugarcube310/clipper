@@ -9,7 +9,9 @@ export const state = () => ({
     login: false
   },
   loginErrorMessage: '',
-  loginLoading: false
+  loginLoading: false,
+  registerErrorMessage: '',
+  registerLoading: false,
 })
 
 export default {

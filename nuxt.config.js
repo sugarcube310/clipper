@@ -45,11 +45,16 @@ export default {
     '@/plugins/composition-api'
   ],
 
+  router: {
+    middleware: 'authenticated'
+  },
+
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: {
     dirs: [
       '~/components',
       '~/components/layouts',
+      '~/components/parts',
       '~/components/pages/top'
     ]
   },
