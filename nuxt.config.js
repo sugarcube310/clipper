@@ -45,9 +45,9 @@ export default {
     '@/plugins/composition-api'
   ],
 
-  // router: {
-  //   middleware: 'authenticated'
-  // },
+  router: {
+    middleware: 'authenticated'
+  },
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: {
