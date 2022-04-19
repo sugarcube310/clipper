@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    v-model="isOpen"
+    v-model="isOpenDialog"
     persistent
     width="560"
   >
@@ -16,7 +16,7 @@
       <v-icon>mdi-close</v-icon>
     </v-btn>
     <div class="register__head mb-8">
-      <h2 class="register__title">
+      <h2 class="text-center">
         pentaへようこそ！
       </h2>
       <div class="register__icon text-center mt-1">
@@ -24,75 +24,76 @@
         <p v-else class="icon mb-0">:)</p>
       </div>
     </div>
-    <div class="register__form">
-      <div class="form__inner">
-        <v-form @submit.prevent>
-          <v-row class="mb-8">
-            <v-col cols="12" class="py-1">
-              <v-text-field
-                v-model="form.email"
-                label="メールアドレス"
-                required
-                outlined
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" class="py-1">
-              <v-text-field
-                v-model="form.password"
-                label="パスワード"
-                required
-                outlined
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" class="py-1">
-              <v-text-field
-                v-model="form.name"
-                label="ユーザー名"
-                required
-                outlined
-              ></v-text-field>
-            </v-col>
+    <div class="register__form-wrapper">
+      <v-form @submit.prevent class="register__form">
+        <v-row class="mb-8">
+          <v-col cols="12" class="py-1">
+            <v-text-field
+              v-model="form.email"
+              label="メールアドレス"
+              outlined
+              required
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" class="py-1">
+            <v-text-field
+              v-model="form.password"
+              label="パスワード"
+              outlined
+              required
+              :append-icon="password_show ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="password_show ? 'text' : 'password'"
+              @click:append="password_show = !password_show"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" class="py-1">
+            <v-text-field
+              v-model="form.name"
+              label="ユーザー名"
+              outlined
+              required
+            ></v-text-field>
+          </v-col>
 
-            <v-col cols="12" class="py-0">
-              <p
-                v-if="formErrorMessage && !$store.getters.registerErrorMessage"
-                class="form__error-text -empty text-center"
-              >
-                {{ formErrorMessage }}
-              </p>
-              <p
-                v-if="$store.getters.registerErrorMessage"
-                class="form__error-text -message text-center py-0"
-              >
-                {{ $store.getters.registerErrorMessage }}
-              </p>
-            </v-col>
+          <v-col cols="12" class="py-0">
+            <p
+              v-if="formErrorMessage && !$store.getters.registerErrorMessage"
+              class="form__error-text -empty text-center"
+            >
+              {{ formErrorMessage }}
+            </p>
+            <p
+              v-if="$store.getters.registerErrorMessage"
+              class="form__error-text -message text-center py-0"
+            >
+              {{ $store.getters.registerErrorMessage }}
+            </p>
+          </v-col>
 
-            <v-col cols="12" class="form__submit text-center">
-              <v-btn
-                color="accent"
-                height="44"
-                width="180"
-                type="submit"
-                :loading="$store.getters.loading"
-                :disabled="$store.getters.loading"
-                @click="onRegister()"
-              >
-                アカウント登録
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-form>
+          <v-col cols="12" class="form__submit text-center">
+            <v-btn
+              color="accent"
+              height="44"
+              width="180"
+              type="submit"
+              :loading="$store.getters.loading"
+              :disabled="$store.getters.loading"
+              @click="onRegister()"
+            >
+              アカウント登録
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-form>
 
-        <v-divider />
+      <v-divider />
 
-        <p
-          class="login__text d-block mt-8 text-center"
-          @click="onClose()"
-        >
-          すでにアカウントをお持ちの方はこちら
-        </p>
-      </div>
+      <p
+        class="login__text d-block mt-8 text-center"
+        @click="onClose()"
+      >
+        すでにアカウントをお持ちの方はこちら
+      </p>
     </div>
   </div>
   </v-dialog>
@@ -105,12 +106,13 @@ export default defineComponent({
   setup (_) {
     /** Reactive State **/
     const reactiveState = reactive({
-      isOpen: false,
+      isOpenDialog: false,
       form: {
         email: '',
         password: '',
         name: ''
       },
+      password_show: false,
       formErrorMessage: ''
     })
 
@@ -157,7 +159,7 @@ export default defineComponent({
       },
 
       onClose () {
-        reactiveState.isOpen = false
+        reactiveState.isOpenDialog = false
         setTimeout(() => {
           methods.clearForm()
           reactiveState.formErrorMessage = ''
@@ -182,12 +184,11 @@ export default defineComponent({
   & .register__head {
     margin-top: -4px;
 
-    & .register__title {
+    & h2 {
       font-size: 24px;
       font-weight: 500;
       letter-spacing: .025em;
       line-height: 1.5;
-      text-align: center;
     }
 
     & .register__icon {
@@ -201,7 +202,7 @@ export default defineComponent({
     }
   }
 
-  & .register__form {
+  & .register__form-wrapper{
     & .form__error-text {
       color: #c00;
       font-size: 12px;

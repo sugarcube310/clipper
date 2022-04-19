@@ -27,16 +27,19 @@
                   <v-text-field
                     v-model="form.email"
                     label="メールアドレス"
-                    required
                     outlined
+                    required
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" class="py-1">
                   <v-text-field
                     v-model="form.password"
                     label="パスワード"
-                    required
                     outlined
+                    required
+                    :append-icon="password_show ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="password_show ? 'text' : 'password'"
+                    @click:append="password_show = !password_show"
                   ></v-text-field>
                 </v-col>
 
@@ -109,6 +112,7 @@ export default defineComponent({
         email: '',
         password: ''
       },
+      password_show: false,
       formErrorMessage: ''
     })
 
@@ -126,7 +130,7 @@ export default defineComponent({
 
       openRegisterDialog () {
         if (registerDialogRef.value) {
-          registerDialogRef.value.isOpen = true
+          registerDialogRef.value.isOpenDialog = true
         }
       }
     }
