@@ -2,7 +2,6 @@
   <div class="page-container -top">
     <section class="login">
       <div class="login__inner">
-        {{ user }}
         <div class="login__head">
           <h1 class="login__title">
             penta
@@ -19,74 +18,75 @@
           </p>
         </div>
 
-        <div class="login__form">
-          <div class="form__inner pa-10">
-            <v-form @submit.prevent>
-              <v-row class="mb-8">
-                <v-col cols="12" class="pb-1">
-                  <v-text-field
-                    v-model="form.email"
-                    label="メールアドレス"
-                    outlined
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" class="py-1">
-                  <v-text-field
-                    v-model="form.password"
-                    label="パスワード"
-                    outlined
-                    required
-                    :append-icon="password_show ? 'mdi-eye' : 'mdi-eye-off'"
-                    :type="password_show ? 'text' : 'password'"
-                    @click:append="password_show = !password_show"
-                  ></v-text-field>
-                </v-col>
+        <div class="form__wrapper pa-10">
+          <v-form
+            class="form -login"
+            @submit.prevent
+          >
+            <v-row class="mb-8">
+              <v-col cols="12" class="pb-1">
+                <v-text-field
+                  v-model="form.email"
+                  label="メールアドレス"
+                  outlined
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" class="py-1">
+                <v-text-field
+                  v-model="form.password"
+                  label="パスワード"
+                  outlined
+                  required
+                  :append-icon="password_show ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="password_show ? 'text' : 'password'"
+                  @click:append="password_show = !password_show"
+                ></v-text-field>
+              </v-col>
 
-                <v-col cols="12" class="py-0">
-                  <p
-                    v-if="formErrorMessage && !$store.getters.loginErrorMessage"
-                    class="form__error-text -empty text-center"
-                  >
-                    {{ formErrorMessage }}
-                  </p>
-                  <p
-                    v-if="$store.getters.loginErrorMessage"
-                    class="form__error-text -message text-center"
-                  >
-                    {{ $store.getters.loginErrorMessage }}
-                  </p>
-                </v-col>
+              <v-col cols="12" class="py-0">
+                <p
+                  v-if="formErrorMessage && !$store.getters.loginErrorMessage"
+                  class="form__error-text -empty text-center"
+                >
+                  {{ formErrorMessage }}
+                </p>
+                <p
+                  v-if="$store.getters.loginErrorMessage"
+                  class="form__error-text -message text-center"
+                >
+                  {{ $store.getters.loginErrorMessage }}
+                </p>
+              </v-col>
 
-                <v-col cols="12" class="form__submit text-center">
-                  <v-btn
-                    color="accent"
-                    height="44"
-                    width="160"
-                    type="submit"
-                    :loading="$store.getters.loading"
-                    :disabled="$store.getters.loading"
-                    @click="onLogin()"
-                  >
-                    ログイン
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-form>
+              <v-col cols="12" class="form__submit text-center">
+                <v-btn
+                  color="accent"
+                  height="44"
+                  width="160"
+                  type="submit"
+                  :loading="$store.getters.loading"
+                  :disabled="$store.getters.loading"
+                  @click="onLogin()"
+                >
+                  ログイン
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-form>
 
-            <v-divider />
+          <v-divider />
 
-            <p
-              class="register__text d-block mt-8 text-center"
-              @click="openRegisterDialog()"
-            >
-              アカウントをお持ちでない方はこちら
-            </p>
-          </div>
+          <p
+            class="register__text d-block mt-8 text-center"
+            @click="openRegistUserDialog()"
+          >
+            アカウントをお持ちでない方はこちら
+          </p>
         </div>
       </div>
 
-      <RegisterDialog ref="registerDialogRef" />
+      <RegistUserDialog ref="registUserDialogRef" />
     </section>
   </div>
 </template>
@@ -104,7 +104,7 @@ export default defineComponent({
   },
   setup () {
     const router = useRouter()
-    const registerDialogRef = ref<any>(null)
+    const registUserDialogRef = ref<any>(null)
 
     /** Reactive State **/
     const reactiveState = reactive({
@@ -128,9 +128,9 @@ export default defineComponent({
         }
       },
 
-      openRegisterDialog () {
-        if (registerDialogRef.value) {
-          registerDialogRef.value.isOpenDialog = true
+      openRegistUserDialog () {
+        if (registUserDialogRef.value) {
+          registUserDialogRef.value.isOpenDialog = true
         }
       }
     }
@@ -138,13 +138,13 @@ export default defineComponent({
     return {
       ...toRefs(reactiveState),
       ...methods,
-      registerDialogRef
+      registUserDialogRef
     }
   }
 })
 </script>
 
-<style lang="postcss">
+<style lang="postcss" scoped>
 .login__inner {
   padding: 60px 0 120px;
 
@@ -192,7 +192,7 @@ export default defineComponent({
     }
   }
 
-  & .login__form {
+  & .form__wrapper {
     border: 1px solid rgba(102, 102, 102, .6);
     border-radius: 4px;
     max-width: 560px;
