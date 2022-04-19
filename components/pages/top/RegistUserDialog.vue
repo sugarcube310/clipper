@@ -4,7 +4,7 @@
     persistent
     width="560"
   >
-  <div class="register__dialog-inner px-10 pt-8 pb-10">
+  <div class="registerDialog__inner px-10 pt-8 pb-10">
     <v-btn
       icon
       color="primary"
@@ -15,17 +15,20 @@
     >
       <v-icon>mdi-close</v-icon>
     </v-btn>
-    <div class="register__head mb-8">
+    <div class="registerDialog__head mb-8">
       <h2 class="text-center">
         pentaへようこそ！
       </h2>
-      <div class="register__icon text-center mt-1">
+      <div class="registerDialog__head-icon text-center mt-1">
         <p v-if="formErrorMessage || $store.getters.registerErrorMessage" class="icon mb-0">:o</p>
         <p v-else class="icon mb-0">:)</p>
       </div>
     </div>
-    <div class="register__form-wrapper">
-      <v-form @submit.prevent class="register__form">
+    <div class="form__wrapper">
+      <v-form
+        class="form -register"
+        @submit.prevent
+      >
         <v-row class="mb-8">
           <v-col cols="12" class="py-1">
             <v-text-field
@@ -175,13 +178,13 @@ export default defineComponent({
 })
 </script>
 
-<style lang="postcss">
-.register__dialog-inner {
+<style lang="postcss" scoped>
+.registerDialog__inner {
   background-color: #fff;
   border: 1px solid rgba(102, 102, 102, .6);
   border-radius: 8px;
 
-  & .register__head {
+  & .registerDialog__head {
     margin-top: -4px;
 
     & h2 {
@@ -191,7 +194,7 @@ export default defineComponent({
       line-height: 1.5;
     }
 
-    & .register__icon {
+    & .registerDialog__head-icon {
       & .icon {
         display: inline-block;
         font-size: 24px;
@@ -202,15 +205,13 @@ export default defineComponent({
     }
   }
 
-  & .register__form-wrapper{
-    & .form__error-text {
-      color: #c00;
-      font-size: 12px;
-      letter-spacing: .01em;
-      line-height: 1.75;
-      white-space: pre-line;
-      margin-top: -24px;
-    }
+  & .form__error-text {
+    color: #c00;
+    font-size: 12px;
+    letter-spacing: .01em;
+    line-height: 1.75;
+    white-space: pre-line;
+    margin-top: -24px;
   }
 
   & .login__text {
