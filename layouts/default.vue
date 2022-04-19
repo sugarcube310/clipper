@@ -5,7 +5,6 @@
       <v-container>
         <Nuxt />
       </v-container>
-      <upload-file />
     </v-main>
   </v-app>
 </template>

@@ -1,5 +1,6 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
+import 'firebase/compat/storage'
 import 'firebase/compat/firestore'
 import 'firebase/compat/functions'
 
@@ -8,9 +9,9 @@ import * as firebase_secret from '../_secrets/firebase'
 firebase.initializeApp(firebase_secret)
 
 export const auth = firebase.auth()
-export const db = firebase.firestore()
+export const storage = firebase.storage()
 export const firestore = firebase.firestore()
-export const dbUsersRef = db.collection('users')
+export const dbUsersRef = firestore.collection('users')
 export const functions = firebase.app().functions('asia-northeast1')
 
 auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)

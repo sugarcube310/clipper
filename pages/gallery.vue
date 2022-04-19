@@ -11,6 +11,7 @@
       logout
     </v-btn>
 
+    <PostButton />
   </div>
 </template>
 
@@ -43,5 +44,5 @@ export default defineComponent({
 })
 </script>
 
-<style lang="postcss">
+<style lang="postcss" scoped>
 </style>

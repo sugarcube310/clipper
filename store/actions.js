@@ -1,4 +1,4 @@
-import { auth, dbUsersRef } from '@/plugins/firebase'
+import { auth, storage, dbUsersRef } from '@/plugins/firebase'
 
 export default {
   /**** ログイン ****/
@@ -92,6 +92,17 @@ export default {
 
       const isAuthenticated = user.uid ? true : false
       commit('switchLogin', isAuthenticated)
+    })
+  },
+
+  submit ({ context }, image) {
+    const storageRef = storage.ref().child('file.png')
+    storageRef.put(image)
+    .then((res) => {
+      console.log('res: ' + JSON.stringify(res))
+    })
+    .catch((error) => {
+      console.log(`Submit Image Error: ${ error.message }`)
     })
   }
 }
