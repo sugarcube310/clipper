@@ -3,12 +3,12 @@ export default function ({ store, route, redirect }) {
     const isAuthenticated = store.getters.isAuthenticated
 
     if (isAuthenticated) { // ログイン済みの場合
-      if (route.name === 'index') {
-        return redirect({ name: 'list' })
+      if (route.name === 'login') {
+        return redirect({ name: 'gallery' })
       }
     } else { // 未ログインの場合
-      if (route.name !== 'index') {
-        return redirect({ name: 'index' })
+      if (route.name !== 'login') {
+        return redirect({ name: 'login' })
       }
     }
   })

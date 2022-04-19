@@ -15,7 +15,7 @@ export default {
           commit('clearLoginFormError')
         }
       })
-      this.$router.push('/list')
+      this.$router.push('/gallery')
     })
     .catch((error) => {
       dispatch('showLoginError', error.code)
@@ -58,7 +58,7 @@ export default {
           })
         }
       })
-      this.$router.push('/list')
+      this.$router.push('/gallery')
     })
     .catch((error) => {
       dispatch('showRegisterError', error.code)

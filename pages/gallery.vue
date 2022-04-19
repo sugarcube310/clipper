@@ -1,10 +1,10 @@
 <template>
-  <div class="page-container -list">
+  <div class="page-container -gallery">
     <p
       v-if="user.login"
       class="text"
     >
-    list
+    {{ user }}
     </p>
 
     <v-btn @click="onLogout()">
@@ -23,7 +23,7 @@ export default defineComponent({
       return this.$store.getters['user']
     }
   },
-  setup (_) {
+  setup () {
     /** Reactive State **/
     const reactiveState = reactive({
     })
