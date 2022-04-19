@@ -92,11 +92,6 @@ export default {
 
       const isAuthenticated = user.uid ? true : false
       commit('switchLogin', isAuthenticated)
-      console.log('checkAuth: ' + isAuthenticated)
-
-      if (!isAuthenticated) {
-        this.$router.push('/')
-      }
     })
   }
 }
