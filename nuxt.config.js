@@ -98,12 +98,12 @@ export default {
       themes: {
         light: {
           primary: '#333',
-          secondary: '#666',
-          accent: '#00699c',
+          secondary: '#757575',
+          accent: '#529E8F',
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: '#c00',
-          success: '009c0c'
+          success: '#529E8F'
         }
       }
     }
