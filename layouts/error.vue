@@ -1,10 +1,7 @@
 <template>
-  <v-app dark>
-    <h1 v-if="error.statusCode === 404">
-      {{ pageNotFound }}
-    </h1>
-    <h1 v-else>
-      {{ otherError }}
+  <v-app>
+    <h1>
+      404 Not Found
     </h1>
     <NuxtLink to="/">
       Home page
@@ -19,8 +16,6 @@ export default defineComponent({
   setup () {
     /** Reactive State **/
     const reactiveState = reactive({
-      pageNotFound: '404 Not Found',
-      otherError: 'An error occurred'
     })
 
     return {
