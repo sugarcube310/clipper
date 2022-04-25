@@ -1,0 +1,11 @@
+.v-application {
+  font-family: var(--font-family-base) !important;
+}
+
+.v-dialog {
+  border-radius: 8px !important;
+}
+
+.theme--light.v-label {
+  color: var(--color-secondary) !important;
+}

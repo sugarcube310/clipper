@@ -11,10 +11,7 @@ export default {
     state.user.login = status
   },
 
-  onLoading (state) {
-    state.loading = true
-  },
-
+  /**** ログインフォーム関連 ****/
   setLoginErrorMessage (state, errorCode) {
     if (errorCode === 'auth/invalid-email') {
       state.loginErrorMessage = '無効なメールアドレスです。'
@@ -35,6 +32,7 @@ export default {
     state.loading = false
   },
 
+  /**** 新規登録フォーム関連 ****/
   setRegisterErrorMessage (state, errorCode) {
     if (errorCode === 'auth/email-already-in-use') {
       state.registerErrorMessage = 'すでに登録済みのアカウントです。'
@@ -45,5 +43,14 @@ export default {
   clearRegisterFormError (state) {
     state.registerErrorMessage = ''
     state.loading = false
-  }
+  },
+
+  /**** ローディング切り替え ****/
+  startLoading (state) {
+    state.loading = true
+  },
+
+  endLoading (state) {
+    state.loading = false
+  },
 }

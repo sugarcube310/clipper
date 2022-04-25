@@ -1,9 +1,9 @@
-import { auth, storage, dbUsersRef } from '@/plugins/firebase'
+import { auth, storage, dbUsersRef, dbPicturesRef } from '@/plugins/firebase'
 
 export default {
   /**** ログイン ****/
   login ({ dispatch, commit }, payload) {
-    commit('onLoading')
+    commit('startLoading')
 
     /* ログイン処理 */
     auth.signInWithEmailAndPassword(payload.email, payload.password)
@@ -29,7 +29,7 @@ export default {
 
   /**** ユーザー登録 ****/
   register ({ dispatch, commit }, payload) {
-    commit('onLoading')
+    commit('startLoading')
 
     /* ユーザー登録処理 */
     auth.createUserWithEmailAndPassword(payload.email, payload.password)
@@ -95,14 +95,32 @@ export default {
     })
   },
 
-  submit ({ context }, image) {
-    const storageRef = storage.ref().child('file.png')
-    storageRef.put(image)
-    .then((res) => {
-      console.log('res: ' + JSON.stringify(res))
-    })
-    .catch((error) => {
-      console.log(`Submit Image Error: ${ error.message }`)
+  /**** 投稿 ****/
+  postImage ({ commit }, { public_setting, image_url }) {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        commit('startLoading')
+
+        const uid = user.uid
+
+        dbPicturesRef
+        .doc()
+        .set({
+          created_time: new Date(),
+          image_url: image_url,
+          public_setting: public_setting,
+          user_id: uid
+        })
+        .then(() => {
+          console.log('Successfully added picture!')
+          commit('endLoading')
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+      } else {
+        return
+      }
     })
   }
 }

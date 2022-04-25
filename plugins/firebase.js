@@ -12,6 +12,7 @@ export const auth = firebase.auth()
 export const storage = firebase.storage()
 export const firestore = firebase.firestore()
 export const dbUsersRef = firestore.collection('users')
+export const dbPicturesRef = firestore.collection('pictures')
 export const functions = firebase.app().functions('asia-northeast1')
 
 auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
