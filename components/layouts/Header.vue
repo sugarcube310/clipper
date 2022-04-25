@@ -10,8 +10,6 @@
     <v-menu
       rounded="lg"
       bottom
-      origin="center center"
-      transition="scale-transition"
     >
       <template v-slot:activator="{ attrs, on }">
         <v-btn
