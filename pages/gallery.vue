@@ -17,12 +17,11 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@vue/composition-api'
+import { mapGetters } from 'vuex'
 
 export default defineComponent({
   computed: {
-    user () {
-      return this.$store.getters['user']
-    }
+    ...mapGetters(['user'])
   },
   setup () {
     /** Reactive State **/

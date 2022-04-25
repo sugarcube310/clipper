@@ -126,6 +126,7 @@ export default {
           grid: 'autoplace'
         }
       }
-    }
+    },
+    transpile: ['vuex-composition-helpers']
   }
 }

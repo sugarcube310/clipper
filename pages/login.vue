@@ -93,14 +93,13 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref } from '@vue/composition-api'
+import { mapGetters } from 'vuex'
 import { useRouter } from '@/plugins/use-router'
 
 export default defineComponent({
   layout: 'noHeader',
   computed: {
-    user () {
-      return this.$store.getters['user']
-    }
+    ...mapGetters(['user'])
   },
   setup () {
     const router = useRouter()

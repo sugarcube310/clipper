@@ -1,5 +1,6 @@
 <template>
   <div class="page-container -setting">
+    {{ user.uid }}
     <form
       class="form"
       @submit.prevent="submitImg"
@@ -35,9 +36,13 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@vue/composition-api'
+import { mapGetters } from 'vuex'
 import { storage } from '@/plugins/firebase'
 
 export default defineComponent({
+  computed: {
+    ...mapGetters(['user'])
+  },
   setup () {
     /** Reactive State **/
     const reactiveState = reactive({
@@ -62,6 +67,7 @@ export default defineComponent({
           // @ts-ignore
           reader.readAsDataURL(reactiveState.thumbnail)
           console.log('選択完了')
+
           methods.submitImg(reactiveState.thumbnail)
         }
       },
@@ -71,10 +77,12 @@ export default defineComponent({
         storageRef.put(thumbnail)
         .then(res => console.log(res))
         .catch(error => console.log(error))
+
+        console.log('user: ' + (this as any).$store.getters.user)
       },
 
       getImg () {
-        let storageRef = storage.ref().child('file.png')
+        let storageRef = storage.ref().child('userid/i.png')
         storageRef.getDownloadURL()
         .then((res) => {
           console.log(res)
