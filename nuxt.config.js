@@ -128,5 +128,9 @@ export default {
       }
     },
     transpile: ['vuex-composition-helpers']
+  },
+
+  server: {
+    host: '0.0.0.0'
   }
 }
