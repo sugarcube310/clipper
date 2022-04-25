@@ -89,5 +89,8 @@ sw.*
 # Vim swap files
 *.swp
 
+# Firebase hosting cache file
+.firebase
+
 # Secret files
 _secrets
