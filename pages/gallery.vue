@@ -1,12 +1,17 @@
 <template>
   <div class="page-container -gallery">
-    <ul>
-      <li v-for="(post, i) in posts" :key="i">
+    <v-row class="gallery__list">
+      <v-col
+        cols="3"
+        class="d-flex align-center justify-center list__item"
+        v-for="(post, i) in posts"
+        :key="i"
+      >
         <figure>
           <img :src="post.data.image_url" alt="">
         </figure>
-      </li>
-    </ul>
+      </v-col>
+    </v-row>
 
     <CreatePost @success="showMessage" />
 
@@ -93,4 +98,24 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
+.gallery__list {
+  margin: auto;
+  max-width: 1340px;
+  width: 90%;
+
+  & .list__item {
+    cursor: pointer;
+    transition: all .3s;
+
+    &:hover {
+      @media (--not-sp) {
+        opacity: .8;
+      }
+    }
+
+    & img {
+      border-radius: 8px;
+    }
+  }
+}
 </style>
