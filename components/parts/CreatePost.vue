@@ -1,142 +1,154 @@
 <template>
-  <v-dialog
-    v-model="isOpenDialog"
-    persistent
-    width="760"
-  >
-    <div class="postDialog__inner py-12 px-10">
-      <div class="postDialog__head mb-10">
-        <h2 class="text-center">
-          投稿の作成
-        </h2>
-      </div>
-      <div class="form__wrapper">
-        <v-form class="form -post">
-          <v-row class="mb-1">
-            <v-col
-              v-if="!form.image.data"
-              cols="12"
-              class="py-1"
-            >
-              <div
-                class="fileDropArea ma-auto"
-                @dragenter.prevent="switchEnter"
-                @dragleave.prevent="switchEnter"
-                @dragover.prevent
-                @drop.prevent="dropFile"
-                :class="{ enter: isEnter }"
-              >
-                ここにファイルをドロップ
-                <span>または</span>
-                <label
-                  for="input_file"
-                  class="inputButton mt-1 px-5 py-1"
-                >
-                  ファイルを選択
-                  <input
-                    id="input_file"
-                    style="display: none;"
-                    type="file"
-                    accept="img/*"
-                    @change="inputFile"
-                  >
-                </label>
-              </div>
-            </v-col>
-            <v-col v-else>
+  <div class="createPost">
+    <v-btn
+      class="ma-4"
+      fixed
+      bottom
+      right
+      fab
+      color="white"
+      @click="openDialog()"
+    >
+      <v-icon large color="secondary">
+        mdi-plus
+      </v-icon>
+    </v-btn>
+
+    <v-dialog
+      v-model="isOpenDialog"
+      persistent
+      width="760"
+    >
+      <div class="postDialog__inner py-12 px-10">
+        <div class="postDialog__head mb-10">
+          <h2 class="text-center">
+            投稿の作成
+          </h2>
+        </div>
+        <div class="form__wrapper">
+          <v-form class="form -post">
+            <v-row class="mb-1">
               <v-col
+                v-if="!form.image.data"
                 cols="12"
                 class="py-1"
               >
-                <div class="filePrevArea">
-                  <v-tooltip top>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        v-bind="attrs"
-                        v-on="on"
-                        fab
-                        outlined
-                        color="secondary lighten-2"
-                        class="d-flex ml-auto"
-                        height="40"
-                        width="40"
-                        @click="clearFile()"
-                      >
-                        <v-icon color="secondary lighten-1">mdi-delete</v-icon>
-                      </v-btn>
-                    </template>
-                    <span>ファイルを削除</span>
-                  </v-tooltip>
-                  <figure class="mt-3">
-                    <img :src="form.image.url" alt="">
-                  </figure>
+                <div
+                  class="fileDropArea ma-auto"
+                  @dragenter.prevent="switchEnter"
+                  @dragleave.prevent="switchEnter"
+                  @dragover.prevent
+                  @drop.prevent="dropFile"
+                  :class="{ enter: isEnter }"
+                >
+                  ここにファイルをドロップ
+                  <span>または</span>
+                  <label
+                    for="input_file"
+                    class="inputButton mt-1 px-5 py-1"
+                  >
+                    ファイルを選択
+                    <input
+                      id="input_file"
+                      style="display: none;"
+                      type="file"
+                      accept="img/*"
+                      @change="inputFile"
+                    >
+                  </label>
                 </div>
               </v-col>
-              <v-col cols="12" class="d-flex justify-center mt-2 pb-1">
-                <v-checkbox
-                  v-model="form.private_setting"
-                  label="非公開設定"
-                  hint="非公開設定にすると、一覧ページには表示されません。"
-                  persistent-hint
-                  color="accent"
-                  class="mt-0 pt-0"
-                ></v-checkbox>
+              <v-col v-else>
+                <v-col
+                  cols="12"
+                  class="py-1"
+                >
+                  <div class="filePrevArea">
+                    <v-tooltip top>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                          v-bind="attrs"
+                          v-on="on"
+                          fab
+                          outlined
+                          color="secondary lighten-2"
+                          class="d-flex ml-auto"
+                          height="40"
+                          width="40"
+                          @click="clearFile()"
+                        >
+                          <v-icon color="secondary lighten-1">mdi-delete</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>ファイルを削除</span>
+                    </v-tooltip>
+                    <figure class="mt-3">
+                      <img :src="form.image.url" alt="">
+                    </figure>
+                  </div>
+                </v-col>
+                <v-col cols="12" class="d-flex justify-center mt-2 pb-1">
+                  <v-checkbox
+                    v-model="form.private_setting"
+                    label="非公開設定"
+                    hint="非公開設定にすると、一覧ページには表示されません。"
+                    persistent-hint
+                    color="accent"
+                    class="mt-0 pt-0"
+                  ></v-checkbox>
+                </v-col>
               </v-col>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12" class="py-0">
-              <p
-                v-if="formErrorMessage"
-                class="form__error-text text-center"
+            </v-row>
+            <v-row>
+              <v-col cols="12" class="py-0">
+                <p
+                  v-if="formErrorMessage"
+                  class="form__error-text text-center"
+                >
+                  {{ formErrorMessage }}
+                </p>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col
+                cols="12"
+                class="form__submit text-center mt-5"
               >
-                {{ formErrorMessage }}
-              </p>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col
-              cols="12"
-              class="form__submit text-center mt-5"
-            >
-              <v-btn
-                color="accent"
-                class="mr-3"
-                height="44"
-                width="160"
-                :loading="isLoading"
-                :disabled="isLoading"
-                @click="createPost()"
-              >
-                投稿
-              </v-btn>
-              <v-btn
-                color="gray"
-                class="ml-3"
-                height="44"
-                width="160"
-                @click="onClose()"
-              >
-                キャンセル
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-form>
+                <v-btn
+                  color="accent"
+                  class="mr-3"
+                  height="44"
+                  width="160"
+                  :loading="isLoading"
+                  :disabled="isLoading"
+                  @click="createPost()"
+                >
+                  投稿
+                </v-btn>
+                <v-btn
+                  color="gray"
+                  class="ml-3"
+                  height="44"
+                  width="160"
+                  @click="onClose()"
+                >
+                  キャンセル
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-form>
+        </div>
       </div>
-    </div>
-  </v-dialog>
+    </v-dialog>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@vue/composition-api'
-import { mapGetters } from 'vuex'
 import { auth, dbPicturesRef } from '@/plugins/firebase'
 
 export default defineComponent({
-  computed: {
-    ...mapGetters(['user'])
-  },
-  setup () {
+  setup (_, { emit }) {
     /** Reactive State **/
     const reactiveState = reactive({
       isOpenDialog: false,
@@ -154,6 +166,10 @@ export default defineComponent({
 
     /** Methods **/
     const methods = {
+      openDialog () {
+        reactiveState.isOpenDialog = true
+      },
+
       onClose () {
         reactiveState.isOpenDialog = false
         methods.clearFile()
@@ -238,9 +254,10 @@ export default defineComponent({
                 })
                 .then(() => {
                   console.log('Successfully created post!')
-
                   reactiveState.isLoading = false
                   methods.onClose()
+
+                  emit('success')
                 })
                 .catch((error) => {
                   console.error(error)

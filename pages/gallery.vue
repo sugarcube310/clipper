@@ -1,14 +1,18 @@
 <template>
   <div class="page-container -gallery">
     <ul>
-      <li v-for="post in posts" :key="post.id">
+      <li v-for="(post, i) in posts" :key="i">
         <figure>
           <img :src="post.data.image_url" alt="">
         </figure>
       </li>
     </ul>
 
-    <PostButton />
+    <CreatePost @success="showMessage" />
+
+    <transition name="fade" appear>
+      <SuccessMessage v-if="isShowMessage" />
+    </transition>
   </div>
 </template>
 
@@ -24,7 +28,8 @@ export default defineComponent({
   setup () {
     /** Reactive State **/
     const reactiveState = reactive({
-      posts: [] as any[]
+      posts: [] as any[],
+      isShowMessage: false
     })
 
     /** Methods **/
@@ -37,7 +42,7 @@ export default defineComponent({
             setTimeout(() => {
               dbPicturesRef
               .where('user_id', '==', uid)
-              .where('public_setting', '==', true)
+              .where('private_setting', '==', false)
               .onSnapshot((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                   const id =  doc.id
@@ -51,12 +56,27 @@ export default defineComponent({
                     }
                   })
                 })
+
+                // 予約リストを予約日時でソート
+                const sortResult = reactiveState.posts.sort((item, item2) => {
+                  if (item.data.created_time.getTime() > item2.data.created_time.getTime()) return -1
+                  if (item.data.created_time.getTime() < item2.data.created_time.getTime()) return 1
+                  return 0
+                })
+                reactiveState.posts = sortResult
               })
             }, 500)
           } else {
             return
           }
         })
+      },
+
+      showMessage () {
+        reactiveState.isShowMessage = true
+        setTimeout(() => {
+          reactiveState.isShowMessage = false
+        }, 3000)
       }
     }
 
