@@ -39,7 +39,7 @@ export default defineComponent({
 
     /** Methods **/
     const methods = {
-      getImages () {
+      getPosts () {
         auth.onAuthStateChanged((user) => {
           if (user) {
             const uid = user.uid
@@ -86,7 +86,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      methods.getImages()
+      methods.getPosts()
     })
 
     return {
