@@ -32,8 +32,9 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .successMessage {
-  position: absolute;
-  top: 20px;
+  position: fixed;
+  top: 64px;
   right: 20px;
+  z-index: 5;
 }
 </style>
