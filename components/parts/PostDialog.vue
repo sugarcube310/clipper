@@ -20,8 +20,8 @@
             >
               <div
                 class="fileDropArea ma-auto"
-                @dragenter.prevent="dragEnter"
-                @dragleave.prevent="dragLeave"
+                @dragenter.prevent="switchEnter"
+                @dragleave.prevent="switchEnter"
                 @dragover.prevent
                 @drop.prevent="dropFile"
                 :class="{ enter: isEnter }"
@@ -67,15 +67,17 @@
                     </template>
                     <span>ファイルを削除</span>
                   </v-tooltip>
-                  <figure class="mt-4">
+                  <figure class="mt-3">
                     <img :src="form.image.url" alt="">
                   </figure>
                 </div>
               </v-col>
               <v-col cols="12" class="d-flex justify-center mt-2 pb-1">
                 <v-checkbox
-                  v-model="form.public_setting"
-                  label="公開する"
+                  v-model="form.private_setting"
+                  label="非公開設定"
+                  hint="非公開設定にすると、一覧ページには表示されません。"
+                  persistent-hint
                   color="accent"
                   class="mt-0 pt-0"
                 ></v-checkbox>
@@ -83,35 +85,39 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col
-              v-if="!form.image.data"
-              cols="12"
-              class="form__cancel text-center mt-5"
-            >
-              <v-btn
-                color="gray"
-                height="44"
-                width="160"
-                @click="onClose()"
+            <v-col cols="12" class="py-0">
+              <p
+                v-if="formErrorMessage"
+                class="form__error-text text-center"
               >
-                キャンセル
-              </v-btn>
+                {{ formErrorMessage }}
+              </p>
             </v-col>
+          </v-row>
+          <v-row>
             <v-col
-              v-else
               cols="12"
               class="form__submit text-center mt-5"
             >
               <v-btn
                 color="accent"
+                class="mr-3"
                 height="44"
                 width="160"
-                type="submit"
-                :loading="$store.getters.loading"
-                :disabled="$store.getters.loading"
-                @click="post()"
+                :loading="isLoading"
+                :disabled="isLoading"
+                @click="createPost()"
               >
                 投稿
+              </v-btn>
+              <v-btn
+                color="gray"
+                class="ml-3"
+                height="44"
+                width="160"
+                @click="onClose()"
+              >
+                キャンセル
               </v-btn>
             </v-col>
           </v-row>
@@ -124,6 +130,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@vue/composition-api'
 import { mapGetters } from 'vuex'
+import { auth, dbPicturesRef } from '@/plugins/firebase'
 
 export default defineComponent({
   computed: {
@@ -138,51 +145,58 @@ export default defineComponent({
           data: '',
           url: ''
         },
-        files: [],
-        public_setting: false,
+        private_setting: false,
       },
       isEnter: false,
+      isLoading: false,
+      formErrorMessage: ''
     })
 
     /** Methods **/
     const methods = {
       onClose () {
         reactiveState.isOpenDialog = false
+        methods.clearFile()
       },
 
-      dragEnter () {
-        reactiveState.isEnter = true
-      },
-
-      dragLeave () {
-        reactiveState.isEnter = false
-      },
-
-      dragOver () {
-        console.log('DragOver')
+      switchEnter () {
+        reactiveState.isEnter = !reactiveState.isEnter
       },
 
       dropFile () {
+        reactiveState.formErrorMessage = ''
+
         //@ts-ignore
         const files = event.dataTransfer.files
+        const fileName = files[0].name
+
         if (files.length >= 2) {
-          console.log('ファイルは1つだけにしてね')
+          reactiveState.formErrorMessage = 'ファイルは1つのみ選択してください。'
           return
         } else {
-          reactiveState.form.image.data = files[0]
-          console.log(files[0])
+          if (
+            fileName.toUpperCase().match(/\.(jpg)$/i) ||
+            fileName.toUpperCase().match(/\.(jpeg)$/i) ||
+            fileName.toUpperCase().match(/\.(png)$/i) ||
+            fileName.toUpperCase().match(/\.(gif)$/i)
+          ) {
+            reactiveState.form.image.data = files[0]
 
-          if (reactiveState.form.image.data) {
-            const reader = new FileReader()
-            // @ts-ignore
-            reader.readAsDataURL(reactiveState.form.image.data)
-            reader.onload = () => {
-              reactiveState.form.image.url = reader.result + ''
-              console.log('reactiveState.form.image.url' + reactiveState.form.image.url)
+            if (reactiveState.form.image.data) {
+              const reader = new FileReader()
+              // @ts-ignore
+              reader.readAsDataURL(reactiveState.form.image.data)
+              reader.onload = () => {
+                reactiveState.form.image.url = reader.result + ''
+              }
             }
+
+            reactiveState.isEnter = false
+          } else {
+            reactiveState.formErrorMessage = '画像ファイルを選択してください。'
+            return
           }
         }
-        reactiveState.isEnter = false
       },
 
       inputFile (e: any) {
@@ -203,10 +217,37 @@ export default defineComponent({
         }
       },
 
-      post () {
+      createPost () {
         if (reactiveState.form.image.url !== '') {
-          (this as any).$store.dispatch('postImage', { public_setting: reactiveState.form.public_setting, image_url: reactiveState.form.image.url })
-          return
+          return auth.onAuthStateChanged((user) => {
+            if (user) {
+              reactiveState.isLoading = true
+
+              setTimeout(() => {
+                const uid = user.uid
+                const image_url = reactiveState.form.image.url
+                const private_setting = reactiveState.form.private_setting
+
+                dbPicturesRef
+                .doc()
+                .set({
+                  created_time: new Date(),
+                  image_url: image_url,
+                  private_setting: private_setting,
+                  user_id: uid
+                })
+                .then(() => {
+                  console.log('Successfully created post!')
+
+                  reactiveState.isLoading = false
+                  methods.onClose()
+                })
+                .catch((error) => {
+                  console.error(error)
+                })
+              }, 1000)
+            }
+          })
         } else {
           return
         }
@@ -291,6 +332,15 @@ export default defineComponent({
         border-radius: 16px;
         pointer-events: none;
       }
+    }
+
+    & .form__error-text {
+      color: #c00;
+      font-size: 12px;
+      letter-spacing: .01em;
+      line-height: 1.75;
+      white-space: pre-line;
+      margin-top: -24px;
     }
   }
 }

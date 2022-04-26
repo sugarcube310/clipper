@@ -93,34 +93,5 @@ export default {
       const isAuthenticated = user.uid ? true : false
       commit('switchLogin', isAuthenticated)
     })
-  },
-
-  /**** 投稿 ****/
-  postImage ({ commit }, { public_setting, image_url }) {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        commit('startLoading')
-
-        const uid = user.uid
-
-        dbPicturesRef
-        .doc()
-        .set({
-          created_time: new Date(),
-          image_url: image_url,
-          public_setting: public_setting,
-          user_id: uid
-        })
-        .then(() => {
-          console.log('Successfully added picture!')
-          commit('endLoading')
-        })
-        .catch((error) => {
-          console.error(error)
-        })
-      } else {
-        return
-      }
-    })
   }
 }
