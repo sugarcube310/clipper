@@ -61,13 +61,13 @@
           <v-col cols="12" class="py-0">
             <p
               v-if="formErrorMessage && !$store.getters.registerErrorMessage"
-              class="form__error-text -empty text-center"
+              class="form__error-text text-center"
             >
               {{ formErrorMessage }}
             </p>
             <p
               v-if="$store.getters.registerErrorMessage"
-              class="form__error-text -message text-center py-0"
+              class="form__error-text text-center py-0"
             >
               {{ $store.getters.registerErrorMessage }}
             </p>
