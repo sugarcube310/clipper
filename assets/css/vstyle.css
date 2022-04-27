@@ -11,11 +11,6 @@
   display: none;
 }
 
-.container {
-  height: 100%;
-  overflow: hidden;
-}
-
 .v-dialog {
   border-radius: 12px !important;
 }
