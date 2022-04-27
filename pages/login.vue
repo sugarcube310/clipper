@@ -62,6 +62,7 @@
               <v-col cols="12" class="form__submit text-center">
                 <v-btn
                   color="accent"
+                  class="rounded-lg"
                   height="44"
                   width="160"
                   type="submit"

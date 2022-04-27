@@ -116,7 +116,7 @@
               >
                 <v-btn
                   color="accent"
-                  class="mr-3"
+                  class="rounded-lg mr-3"
                   height="44"
                   width="160"
                   :loading="isLoading"
@@ -127,7 +127,7 @@
                 </v-btn>
                 <v-btn
                   color="gray"
-                  class="ml-3"
+                  class="rounded-lg ml-3"
                   height="44"
                   width="160"
                   @click="onClose()"
@@ -324,11 +324,12 @@ export default defineComponent({
 
       & .inputButton {
         background-color: #848484;
-        border-radius: 4px;
+        border-radius: 8px;
         color: #fff;
         cursor: pointer;
         font-size: 16px;
         font-weight: normal;
+        letter-spacing: .04em;
         line-height: 1.85;
         transition: all .3s;
         z-index: 1;

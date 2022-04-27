@@ -76,6 +76,7 @@
           <v-col cols="12" class="form__submit text-center">
             <v-btn
               color="accent"
+              class="rounded-lg"
               height="44"
               width="180"
               type="submit"
@@ -195,7 +196,7 @@ export default defineComponent({
     & .registerDialog__head-icon {
       & .icon {
         display: inline-block;
-        font-size: 24px;
+        font-size: 20px;
         font-weight: bold;
         letter-spacing: .1em;
         transform: rotate(90deg);
