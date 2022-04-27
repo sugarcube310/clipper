@@ -139,9 +139,9 @@ export default defineComponent({
       methods.getPosts()
 
       reactiveState.isPageLoading = true
-      setTimeout(() => {
-        reactiveState.isPageLoading = false
-      }, 3000)
+      // setTimeout(() => {
+      //   reactiveState.isPageLoading = false
+      // }, 3000)
     })
 
     return {
@@ -155,39 +155,43 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.gallery__list {
-  margin: auto;
-  max-width: 1340px;
-  width: 90%;
+.page-container.-gallery {
+  padding-bottom: 200px;
 
-  & .list__item {
-    cursor: pointer;
-    transition: all .3s;
+  & .gallery__list {
+    margin: auto;
+    max-width: 1340px;
+    width: 90%;
 
-    &:hover {
-      @media (--not-sp) {
-        opacity: .8;
+    & .list__item {
+      cursor: pointer;
+      transition: all .3s;
+
+      &:hover {
+        @media (--not-sp) {
+          opacity: .8;
+        }
+      }
+
+      & img {
+        border-radius: 8px;
       }
     }
-
-    & img {
-      border-radius: 8px;
-    }
   }
-}
 
-.gallery__nothing {
-  margin-top: 120px;
+  & .gallery__nothing {
+    margin-top: 120px;
 
-  & .gallery__nothing-text {
-    font-size: 18px;
-    letter-spacing: .02em;
+    & .gallery__nothing-text {
+      font-size: 18px;
+      letter-spacing: .02em;
 
-    & .icon {
-      display: block;
-      font-size: 24px;
-      letter-spacing: .1em;
-      transform: rotate(90deg);
+      & .icon {
+        display: block;
+        font-size: 24px;
+        letter-spacing: .1em;
+        transform: rotate(90deg);
+      }
     }
   }
 }

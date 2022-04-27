@@ -29,15 +29,15 @@
 
     & .spinner {
       animation: spinner-animation 4s infinite ease;
-      border: 4px solid var(--color-secondary);
-      border-radius: 8px;
+      border: 4px solid var(--color-accent);
+      border-radius: 12px;
       position: relative;
       height: 52px;
       width: 52px;
 
       & .spinner__inner {
         animation: spinner__inner-animation 4s infinite ease-in;
-        background-color: var(--color-secondary);
+        background-color: var(--color-accent);
         display: inline-block;
         opacity: 1;
         vertical-align: top;
