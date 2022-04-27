@@ -139,9 +139,9 @@ export default defineComponent({
       methods.getPosts()
 
       reactiveState.isPageLoading = true
-      // setTimeout(() => {
-      //   reactiveState.isPageLoading = false
-      // }, 3000)
+      setTimeout(() => {
+        reactiveState.isPageLoading = false
+      }, 3000)
     })
 
     return {
