@@ -11,11 +11,6 @@
             <img src="~/assets/images/icon.png" alt="" class="hat d-block ma-auto">
             <img src="~/assets/images/penta.png" alt="" class="boy d-block ma-auto">
           </figure>
-          <p class="login__title-subtext mt-8 mb-0">
-            Lorem ipsum dolor sit amet,<br>
-            consectetur adipiscing elit,<br>
-            sed do eiusmod tempor incididunt ut labore
-          </p>
         </div>
 
         <div class="form__wrapper pa-10">
@@ -146,7 +141,7 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .login__inner {
-  padding: 60px 0 120px;
+  padding: 80px 0 120px;
 
   & .login__head {
     margin-bottom: 60px;
@@ -173,21 +168,21 @@ export default defineComponent({
     }
 
     & .login__title-image {
-      margin-top: 64px;
+      margin-top: 52px;
       position: relative;
       pointer-events: none;
 
       & .hat {
         transform: rotate(12deg);
         position: absolute;
-        top: -16px;
+        top: -12px;
         left: 0;
         right: -16px;
-        width: 64px;
+        width: 60px;
       }
 
       & .boy {
-        width: 120px;
+        width: 100px;
       }
     }
   }

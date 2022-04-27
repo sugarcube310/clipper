@@ -32,6 +32,12 @@ img {
   width: 100%;
 }
 
+.page-container {
+  height: 100%;
+  overflow: hidden;
+  padding-bottom: 200px;
+}
+
 .hidden-sp {
   @media (--not-sp) {
     display: block;
