@@ -37,7 +37,7 @@ export default {
     '@/assets/css/common.css', // サイト全体の共通スタイル
     '@/assets/css/keyframes.css', // keyframes
     '@/assets/css/variables.css', // PostCSS 変数定義
-    '@/assets/css/vcustom.css' // Vuetifyスタイルのカスタム
+    '@/assets/css/vstyle.css' // Vuetifyスタイルのカスタマイズ
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -55,7 +55,8 @@ export default {
       '~/components',
       '~/components/layouts',
       '~/components/parts',
-      '~/components/pages/top'
+      '~/components/pages/top',
+      '~/components/pages/gallery'
     ]
   },
 
@@ -65,6 +66,7 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxtjs/date-fns'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules

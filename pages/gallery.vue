@@ -6,6 +6,7 @@
         class="d-flex align-center justify-center list__item"
         v-for="(post, i) in posts"
         :key="i"
+        @click="openDetailDialog(post)"
       >
         <figure>
           <img :src="post.data.image_url" alt="">
@@ -18,11 +19,13 @@
     <transition name="fade" appear>
       <SuccessMessage v-if="isShowMessage" />
     </transition>
+
+    <PostDetailDialog ref="postDetailDialogRef" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, onMounted } from '@vue/composition-api'
+import { defineComponent, reactive, toRefs, ref, onMounted } from '@vue/composition-api'
 import { mapGetters } from 'vuex'
 import { auth, dbPicturesRef } from '@/plugins/firebase'
 
@@ -31,6 +34,8 @@ export default defineComponent({
     ...mapGetters(['user'])
   },
   setup () {
+    const postDetailDialogRef = ref<any>(null)
+
     /** Reactive State **/
     const reactiveState = reactive({
       posts: [] as any[],
@@ -82,6 +87,12 @@ export default defineComponent({
         setTimeout(() => {
           reactiveState.isShowMessage = false
         }, 3000)
+      },
+
+      openDetailDialog (post: any) {
+        if (postDetailDialogRef.value) {
+          postDetailDialogRef.value.showDetail(post)
+        }
       }
     }
 
@@ -91,7 +102,8 @@ export default defineComponent({
 
     return {
       ...toRefs(reactiveState),
-      ...methods
+      ...methods,
+      postDetailDialogRef
     }
   }
 })

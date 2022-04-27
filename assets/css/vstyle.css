@@ -3,7 +3,11 @@
 }
 
 .v-dialog {
-  border-radius: 8px !important;
+  border-radius: 12px !important;
+}
+
+.v-dialog::-webkit-scrollbar {
+  display: none;
 }
 
 .theme--light.v-label {
