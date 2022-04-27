@@ -2,6 +2,19 @@
   font-family: var(--font-family-base) !important;
 }
 
+.v-main__wrap {
+  height: 100vh !important;
+  overflow-y: auto !important;
+}
+
+.v-main__wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.container {
+  height: 100%;
+}
+
 .v-dialog {
   border-radius: 12px !important;
 }

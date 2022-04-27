@@ -1,26 +1,60 @@
 <template>
-  <div class="page-container -gallery">
-    <v-row class="gallery__list">
-      <v-col
-        cols="3"
-        class="d-flex align-center justify-center list__item"
-        v-for="(post, i) in posts"
-        :key="i"
-        @click="openDetailDialog(post)"
-      >
-        <figure>
-          <img :src="post.data.image_url" alt="">
-        </figure>
-      </v-col>
-    </v-row>
+  <div>
+    <PageLoading v-if="isPageLoading" />
+    <transition v-else name="fade-long" appear>
+      <div class="page-container -gallery">
+        <v-row
+          v-if="posts.length >= 1"
+          class="gallery__list"
+        >
+          <v-col
+            cols="3"
+            class="d-flex align-center justify-center list__item"
+            v-for="(post, i) in posts"
+            :key="i"
+            @click="openDetailDialog(post)"
+          >
+            <figure>
+              <img :src="post.data.image_url" alt="">
+            </figure>
+          </v-col>
+        </v-row>
 
-    <CreatePost @success="showMessage" />
+        <v-row
+          v-else
+          class="d-flex justify-center gallery__nothing"
+        >
+          <v-col cols="12">
+            <p class="mb-0 text-center gallery__nothing-text">
+              まだ投稿がありません！
+              <span class="pl-5 icon">:o</span>
+            </p>
+          </v-col>
+          <v-col cols="12" class="d-flex justify-center mt-6">
+            <v-btn
+              color="accent"
+              class="rounded-lg"
+              height="44"
+              width="180"
+              @click="openCreatePostDialog()"
+            >
+              投稿を作成する
+            </v-btn>
+          </v-col>
+        </v-row>
 
-    <transition name="fade" appear>
-      <SuccessMessage v-if="isShowMessage" />
+        <CreatePost
+          ref="createPostDialogRef"
+          @success="showMessage"
+        />
+
+        <transition name="fade" appear>
+          <SuccessMessage v-if="isShowMessage" />
+        </transition>
+
+        <PostDetailDialog ref="postDetailDialogRef" />
+      </div>
     </transition>
-
-    <PostDetailDialog ref="postDetailDialogRef" />
   </div>
 </template>
 
@@ -34,12 +68,14 @@ export default defineComponent({
     ...mapGetters(['user'])
   },
   setup () {
+    const createPostDialogRef = ref<any>(null)
     const postDetailDialogRef = ref<any>(null)
 
     /** Reactive State **/
     const reactiveState = reactive({
+      isPageLoading: false,
+      isShowMessage: false,
       posts: [] as any[],
-      isShowMessage: false
     })
 
     /** Methods **/
@@ -49,33 +85,30 @@ export default defineComponent({
           if (user) {
             const uid = user.uid
 
-            setTimeout(() => {
-              dbPicturesRef
-              .where('user_id', '==', uid)
-              .where('private_setting', '==', false)
-              .onSnapshot((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                  const id =  doc.id
-                  const data = doc.data()
+            dbPicturesRef
+            .where('user_id', '==', uid)
+            .onSnapshot((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                const id =  doc.id
+                const data = doc.data()
 
-                  reactiveState.posts.push({
-                    id: id,
-                    data: {
-                      created_time: data.created_time.toDate(),
-                      image_url: data.image_url
-                    }
-                  })
+                reactiveState.posts.push({
+                  id: id,
+                  data: {
+                    created_time: data.created_time.toDate(),
+                    image_url: data.image_url
+                  }
                 })
-
-                // 予約リストを予約日時でソート
-                const sortResult = reactiveState.posts.sort((item, item2) => {
-                  if (item.data.created_time.getTime() > item2.data.created_time.getTime()) return -1
-                  if (item.data.created_time.getTime() < item2.data.created_time.getTime()) return 1
-                  return 0
-                })
-                reactiveState.posts = sortResult
               })
-            }, 500)
+
+              // 予約リストを予約日時でソート
+              const sortResult = reactiveState.posts.sort((item, item2) => {
+                if (item.data.created_time.getTime() > item2.data.created_time.getTime()) return -1
+                if (item.data.created_time.getTime() < item2.data.created_time.getTime()) return 1
+                return 0
+              })
+              reactiveState.posts = sortResult
+            })
           } else {
             return
           }
@@ -93,16 +126,28 @@ export default defineComponent({
         if (postDetailDialogRef.value) {
           postDetailDialogRef.value.showDetail(post)
         }
+      },
+
+      openCreatePostDialog () {
+        if (createPostDialogRef.value) {
+          createPostDialogRef.value.isOpenDialog = true
+        }
       }
     }
 
     onMounted(() => {
       methods.getPosts()
+
+      reactiveState.isPageLoading = true
+      setTimeout(() => {
+        reactiveState.isPageLoading = false
+      }, 3000)
     })
 
     return {
       ...toRefs(reactiveState),
       ...methods,
+      createPostDialogRef,
       postDetailDialogRef
     }
   }
@@ -127,6 +172,22 @@ export default defineComponent({
 
     & img {
       border-radius: 8px;
+    }
+  }
+}
+
+.gallery__nothing {
+  margin-top: 120px;
+
+  & .gallery__nothing-text {
+    font-size: 18px;
+    letter-spacing: .02em;
+
+    & .icon {
+      display: block;
+      font-size: 24px;
+      letter-spacing: .1em;
+      transform: rotate(90deg);
     }
   }
 }
