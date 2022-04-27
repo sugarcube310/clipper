@@ -17,7 +17,7 @@
     <v-dialog
       v-model="isOpenDialog"
       persistent
-      width="760"
+      width="720"
     >
       <div class="postDialog__inner py-12 px-10">
         <div class="postDialog__head mb-10">
@@ -112,7 +112,7 @@
             <v-row>
               <v-col
                 cols="12"
-                class="form__submit text-center mt-5"
+                class="form__submit text-center mt-3"
               >
                 <v-btn
                   color="accent"

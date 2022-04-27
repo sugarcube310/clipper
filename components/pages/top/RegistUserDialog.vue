@@ -19,7 +19,7 @@
       <h2 class="text-center">
         pentaへようこそ！
       </h2>
-      <div class="registerDialog__head-icon text-center mt-1">
+      <div class="registerDialog__head-icon text-center mt-2">
         <p v-if="formErrorMessage || $store.getters.registerErrorMessage" class="icon mb-0">:o</p>
         <p v-else class="icon mb-0">:)</p>
       </div>
@@ -181,8 +181,6 @@ export default defineComponent({
 <style lang="postcss" scoped>
 .registerDialog__inner {
   background-color: #fff;
-  border: 1px solid rgba(102, 102, 102, .6);
-  border-radius: 8px;
 
   & .registerDialog__head {
     margin-top: -4px;
