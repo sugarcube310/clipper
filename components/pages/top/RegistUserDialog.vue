@@ -15,7 +15,7 @@
     >
       <v-icon>mdi-close</v-icon>
     </v-btn>
-    <div class="registerDialog__head mb-8">
+    <div class="registerDialog__head mb-9">
       <h2 class="text-center">
         pentaへようこそ！
       </h2>
@@ -35,6 +35,7 @@
               v-model="form.email"
               label="メールアドレス"
               outlined
+              class="rounded-lg"
               required
             ></v-text-field>
           </v-col>
@@ -43,6 +44,7 @@
               v-model="form.password"
               label="パスワード"
               outlined
+              class="rounded-lg"
               required
               :append-icon="password_show ? 'mdi-eye' : 'mdi-eye-off'"
               :type="password_show ? 'text' : 'password'"
@@ -54,6 +56,7 @@
               v-model="form.name"
               label="ユーザー名"
               outlined
+              class="rounded-lg"
               required
             ></v-text-field>
           </v-col>

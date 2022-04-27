@@ -8,14 +8,6 @@ body {
   margin: 0;
 }
 
-h1 {
-  font-family: var(--font-family-base);
-  font-size: 52px;
-  letter-spacing: .06em;
-  line-height: 1.5;
-  text-align: center;
-}
-
 ul {
   padding-left: 0;
 }
@@ -35,7 +27,6 @@ img {
 .page-container {
   height: 100%;
   overflow: hidden;
-  padding-bottom: 200px;
 }
 
 .hidden-sp {

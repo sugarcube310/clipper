@@ -1,16 +1,16 @@
 <template>
-  <div class="page-container -top">
+  <div class="page-container -login d-flex align-center justify-center">
     <section class="login">
       <div class="login__inner">
         <div class="login__head">
-          <h1 class="login__title">
-            penta
-            <span>- ペンタ -</span>
-          </h1>
           <figure class="login__title-image">
             <img src="~/assets/images/icon.png" alt="" class="hat d-block ma-auto">
             <img src="~/assets/images/penta.png" alt="" class="boy d-block ma-auto">
           </figure>
+          <h1 class="login__title">
+            penta
+            <span>- ペンタ -</span>
+          </h1>
         </div>
 
         <div class="form__wrapper pa-10">
@@ -24,6 +24,7 @@
                   v-model="form.email"
                   label="メールアドレス"
                   outlined
+                  class="rounded-lg"
                   required
                 ></v-text-field>
               </v-col>
@@ -32,6 +33,7 @@
                   v-model="form.password"
                   label="パスワード"
                   outlined
+                  class="rounded-lg"
                   required
                   :append-icon="password_show ? 'mdi-eye' : 'mdi-eye-off'"
                   :type="password_show ? 'text' : 'password'"
@@ -141,34 +143,28 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .login__inner {
-  padding: 80px 0 120px;
-
   & .login__head {
-    margin-bottom: 60px;
+    margin-bottom: 48px;
 
     & .login__title {
-      color: var(--color-secondary);
+      color: #555;
+      font-family: var(--font-family-base);
+      font-size: 28px;
+      letter-spacing: .08em;
+      line-height: 1.5;
+      text-align: center;
 
       & span {
-        color: var(--color-secondary);
+        color: #555;
         display: block;
-        font-size: 14px;
-        letter-spacing: .06em;
+        font-size: 12px;
+        letter-spacing: .08em;
         line-height: 0;
-        padding-top: 12px;
+        padding-top: 8px;
       }
     }
 
-    & .login__title-subtext {
-      font-size: 28px;
-      font-weight: 300;
-      letter-spacing: .02em;
-      line-height: 1.75;
-      text-align: center;
-    }
-
     & .login__title-image {
-      margin-top: 52px;
       position: relative;
       pointer-events: none;
 
@@ -182,15 +178,15 @@ export default defineComponent({
       }
 
       & .boy {
-        width: 100px;
+        width: 120px;
       }
     }
   }
 
   & .form__wrapper {
     border: 1px solid rgba(102, 102, 102, .6);
-    border-radius: 4px;
-    max-width: 560px;
+    border-radius: 12px;
+    max-width: 520px;
     margin: auto;
 
     & .form__error-text {
