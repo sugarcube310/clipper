@@ -26,19 +26,19 @@
         >
           <v-col cols="12">
             <p class="mb-0 text-center gallery__nothing-text">
-              まだ投稿がありません！
-              <span class="pl-5 icon">:o</span>
+              作品を投稿しましょう！
+              <span class="pl-5 icon">:)</span>
             </p>
           </v-col>
-          <v-col cols="12" class="d-flex justify-center mt-6">
+          <v-col cols="12" class="d-flex justify-center mt-5">
             <v-btn
               color="accent"
               class="rounded-lg"
               height="44"
-              width="180"
+              width="102"
               @click="openCreatePostDialog()"
             >
-              投稿を作成する
+              投稿
             </v-btn>
           </v-col>
         </v-row>
