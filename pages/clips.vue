@@ -2,10 +2,10 @@
   <div>
     <PageLoading v-if="isPageLoading" />
     <transition v-else name="fade-long" appear>
-      <div class="page-container -gallery">
+      <div class="page-container -clips">
         <v-row
           v-if="clips.length >= 1"
-          class="gallery__list"
+          class="clip__list"
         >
           <v-col
             cols="3"
@@ -22,11 +22,11 @@
 
         <v-row
           v-else
-          class="d-flex justify-center gallery__nothing"
+          class="d-flex justify-center clip__nothing"
         >
           <v-col cols="12">
-            <p class="mb-0 text-center gallery__nothing-text">
-              クリップを追加しましょう！
+            <p class="mb-0 text-center clip__nothing-text">
+              お気に入りの画像を追加しましょう！
               <span class="pl-5 icon">:)</span>
             </p>
           </v-col>
@@ -155,10 +155,10 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.page-container.-gallery {
+.page-container.-clips {
   padding-bottom: 200px;
 
-  & .gallery__list {
+  & .clip__list {
     margin: auto;
     max-width: 1340px;
     width: 90%;
@@ -179,10 +179,10 @@ export default defineComponent({
     }
   }
 
-  & .gallery__nothing {
+  & .clip__nothing {
     margin-top: 120px;
 
-    & .gallery__nothing-text {
+    & .clip__nothing-text {
       font-size: 18px;
       letter-spacing: .02em;
 

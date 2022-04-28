@@ -1,4 +1,4 @@
-# gallery
+# Clipper
 
 ## Build Setup
 

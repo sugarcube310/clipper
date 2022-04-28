@@ -16,7 +16,7 @@ export default defineComponent({
       if (!user) {
         router.push('/login')
       } else {
-        router.push('/gallery')
+        router.push('/clips')
       }
     })
   }
