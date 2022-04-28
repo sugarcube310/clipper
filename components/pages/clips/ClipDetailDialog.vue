@@ -3,7 +3,7 @@
     v-model="isOpenDetailDialog"
     width="800"
   >
-  <div class="postDetailDialog__inner px-10 pt-7 pb-12">
+  <div class="clipDetailDialog__inner px-10 pt-7 pb-12">
     <v-btn
       icon
       color="primary"
@@ -15,15 +15,15 @@
       <v-icon>mdi-close</v-icon>
     </v-btn>
 
-    <v-row class="post__detail">
+    <v-row class="clip__detail">
       <v-col cols="12" class="mt-3 pb-0">
         <figure class="detail__image">
-          <img :src="post.image_url" alt="">
+          <img :src="clip.image_url" alt="">
         </figure>
       </v-col>
       <v-col cols="12" class="d-flex justify-end">
         <p class="mb-0 detail__time">
-          投稿日時：{{ $dateFns.format(new Date(), 'yyyy.MM.dd HH:mm') }}
+          追加日時：{{ $dateFns.format(new Date(), 'yyyy.MM.dd HH:mm') }}
         </p>
       </v-col>
     </v-row>
@@ -40,7 +40,7 @@ export default defineComponent({
     /** Reactive State **/
     const reactiveState = reactive({
       isOpenDetailDialog: false,
-      post: {
+      clip: {
         created_time: '',
         image_url: ''
       }
@@ -52,11 +52,11 @@ export default defineComponent({
         reactiveState.isOpenDetailDialog = false
       },
 
-      showDetail (post: any) {
+      showDetail (clip: any) {
         reactiveState.isOpenDetailDialog = true
 
-        reactiveState.post.created_time = format(post.data.created_time, 'yyyy.MM.dd HH:mm')
-        reactiveState.post.image_url = post.data.image_url
+        reactiveState.clip.created_time = format(clip.data.created_time, 'yyyy.MM.dd HH:mm')
+        reactiveState.clip.image_url = clip.data.image_url
       }
     }
 
@@ -69,10 +69,10 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.postDetailDialog__inner {
+.clipDetailDialog__inner {
   background-color: #fff;
 
-  & .post__detail {
+  & .clip__detail {
     margin: auto;
     width: 90%;
 

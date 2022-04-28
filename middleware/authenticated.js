@@ -4,7 +4,7 @@ export default function ({ store, route, redirect }) {
 
     if (isAuthenticated) { // ログイン済みの場合
       if (route.name === 'login') {
-        return redirect({ name: 'gallery' })
+        return redirect({ name: 'clips' })
       }
     } else { // 未ログインの場合
       if (route.name !== 'login') {

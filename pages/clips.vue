@@ -4,18 +4,18 @@
     <transition v-else name="fade-long" appear>
       <div class="page-container -gallery">
         <v-row
-          v-if="posts.length >= 1"
+          v-if="clips.length >= 1"
           class="gallery__list"
         >
           <v-col
             cols="3"
             class="d-flex align-center justify-center list__item"
-            v-for="(post, i) in posts"
+            v-for="(clip, i) in clips"
             :key="i"
-            @click="openDetailDialog(post)"
+            @click="openDetailDialog(clip)"
           >
             <figure>
-              <img :src="post.data.image_url" alt="">
+              <img :src="clip.data.image_url" alt="">
             </figure>
           </v-col>
         </v-row>
@@ -26,7 +26,7 @@
         >
           <v-col cols="12">
             <p class="mb-0 text-center gallery__nothing-text">
-              作品を投稿しましょう！
+              クリップを追加しましょう！
               <span class="pl-5 icon">:)</span>
             </p>
           </v-col>
@@ -36,15 +36,15 @@
               class="rounded-lg"
               height="44"
               width="102"
-              @click="openCreatePostDialog()"
+              @click="openAddClipDialog()"
             >
-              投稿
+              追加
             </v-btn>
           </v-col>
         </v-row>
 
-        <CreatePost
-          ref="createPostDialogRef"
+        <AddClip
+          ref="addClipDialogRef"
           @success="showMessage"
         />
 
@@ -52,7 +52,7 @@
           <SuccessMessage v-if="isShowMessage" />
         </transition>
 
-        <PostDetailDialog ref="postDetailDialogRef" />
+        <ClipDetailDialog ref="clipDetailDialogRef" />
       </div>
     </transition>
   </div>
@@ -68,19 +68,19 @@ export default defineComponent({
     ...mapGetters(['user'])
   },
   setup () {
-    const createPostDialogRef = ref<any>(null)
-    const postDetailDialogRef = ref<any>(null)
+    const addClipDialogRef = ref<any>(null)
+    const clipDetailDialogRef = ref<any>(null)
 
     /** Reactive State **/
     const reactiveState = reactive({
       isPageLoading: false,
       isShowMessage: false,
-      posts: [] as any[],
+      clips: [] as any[],
     })
 
     /** Methods **/
     const methods = {
-      getPosts () {
+      getClips () {
         auth.onAuthStateChanged((user) => {
           if (user) {
             const uid = user.uid
@@ -92,7 +92,7 @@ export default defineComponent({
                 const id =  doc.id
                 const data = doc.data()
 
-                reactiveState.posts.push({
+                reactiveState.clips.push({
                   id: id,
                   data: {
                     created_time: data.created_time.toDate(),
@@ -101,13 +101,13 @@ export default defineComponent({
                 })
               })
 
-              // 予約リストを予約日時でソート
-              const sortResult = reactiveState.posts.sort((item, item2) => {
+              // 作成日時の降順でソート
+              const sortResult = reactiveState.clips.sort((item, item2) => {
                 if (item.data.created_time.getTime() > item2.data.created_time.getTime()) return -1
                 if (item.data.created_time.getTime() < item2.data.created_time.getTime()) return 1
                 return 0
               })
-              reactiveState.posts = sortResult
+              reactiveState.clips = sortResult
             })
           } else {
             return
@@ -122,21 +122,21 @@ export default defineComponent({
         }, 3000)
       },
 
-      openDetailDialog (post: any) {
-        if (postDetailDialogRef.value) {
-          postDetailDialogRef.value.showDetail(post)
+      openDetailDialog (clip: any) {
+        if (clipDetailDialogRef.value) {
+          clipDetailDialogRef.value.showDetail(clip)
         }
       },
 
-      openCreatePostDialog () {
-        if (createPostDialogRef.value) {
-          createPostDialogRef.value.isOpenDialog = true
+      openAddClipDialog () {
+        if (addClipDialogRef.value) {
+          addClipDialogRef.value.isOpenDialog = true
         }
       }
     }
 
     onMounted(() => {
-      methods.getPosts()
+      methods.getClips()
 
       reactiveState.isPageLoading = true
       setTimeout(() => {
@@ -147,8 +147,8 @@ export default defineComponent({
     return {
       ...toRefs(reactiveState),
       ...methods,
-      createPostDialogRef,
-      postDetailDialogRef
+      addClipDialogRef,
+      clipDetailDialogRef
     }
   }
 })

@@ -56,7 +56,7 @@ export default {
       '~/components/layouts',
       '~/components/parts',
       '~/components/pages/top',
-      '~/components/pages/gallery'
+      '~/components/pages/clips'
     ]
   },
 

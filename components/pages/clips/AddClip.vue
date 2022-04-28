@@ -1,5 +1,5 @@
 <template>
-  <div class="createPost">
+  <div class="addClip">
     <v-btn
       class="ma-4"
       fixed
@@ -19,14 +19,14 @@
       persistent
       width="720"
     >
-      <div class="postDialog__inner py-12 px-10">
-        <div class="postDialog__head mb-10">
+      <div class="addClipDialog__inner py-12 px-10">
+        <div class="addClipDialog__head mb-10">
           <h2 class="text-center">
-            投稿の作成
+            クリップを追加する
           </h2>
         </div>
         <div class="form__wrapper">
-          <v-form class="form -post">
+          <v-form class="form -addClip">
             <v-row class="mb-1">
               <v-col
                 v-if="!form.image.data"
@@ -121,9 +121,9 @@
                   width="160"
                   :loading="isLoading"
                   :disabled="isLoading"
-                  @click="createPost()"
+                  @click="addClip()"
                 >
-                  投稿
+                  追加
                 </v-btn>
                 <v-btn
                   color="gray"
@@ -233,7 +233,7 @@ export default defineComponent({
         }
       },
 
-      createPost () {
+      addClip () {
         if (reactiveState.form.image.url !== '') {
           return auth.onAuthStateChanged((user) => {
             if (user) {
@@ -253,7 +253,7 @@ export default defineComponent({
                   user_id: uid
                 })
                 .then(() => {
-                  console.log('Successfully created post!')
+                  console.log('Successfully added clip!')
                   reactiveState.isLoading = false
                   methods.onClose()
 
@@ -280,13 +280,14 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.postDialog__inner {
+.addClipDialog__inner {
   background-color: #fff;
 
   & h2 {
-    font-size: 24px;
+    color: #555;
+    font-size: 22px;
     font-weight: 500;
-    letter-spacing: .04em;
+    letter-spacing: .02em;
     line-height: 1.5;
   }
 
