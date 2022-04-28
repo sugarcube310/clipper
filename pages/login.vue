@@ -2,15 +2,16 @@
   <div class="page-container -login d-flex align-center justify-center">
     <section class="login">
       <div class="login__inner">
-        <div class="login__head">
-          <figure class="login__title-image">
-            <img src="~/assets/images/icon.png" alt="" class="hat d-block ma-auto">
-            <img src="~/assets/images/penta.png" alt="" class="boy d-block ma-auto">
+        <div class="login__head mb-10">
+          <figure class="login__title-image mb-5">
+            <img src="~/assets/images/common/clip.png" alt="" class="d-block ma-auto">
           </figure>
           <h1 class="login__title">
-            penta
-            <span>- ペンタ -</span>
+            Clipperへようこそ！
           </h1>
+          <p class="login__title-subtext mt-3">
+            クリッパーは、あなただけのお気に入り画像をクリップ(保存)しておけるツールです。
+          </p>
         </div>
 
         <div class="form__wrapper pa-10">
@@ -144,41 +145,29 @@ export default defineComponent({
 <style lang="postcss" scoped>
 .login__inner {
   & .login__head {
-    margin-bottom: 48px;
-
     & .login__title {
-      color: #555;
+      color: var(--color-secondary);
       font-family: var(--font-family-base);
-      font-size: 28px;
+      font-size: 22px;
       letter-spacing: .08em;
-      line-height: 1.5;
+      line-height: 1.75;
       text-align: center;
+    }
 
-      & span {
-        color: #555;
-        display: block;
-        font-size: 12px;
-        letter-spacing: .08em;
-        line-height: 0;
-        padding-top: 8px;
-      }
+    & .login__title-subtext {
+      color: #555;
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: .025em;
+      line-height: 1.75;
+      text-align: center;
     }
 
     & .login__title-image {
-      position: relative;
       pointer-events: none;
 
-      & .hat {
-        transform: rotate(12deg);
-        position: absolute;
-        top: -12px;
-        left: 0;
-        right: -16px;
-        width: 60px;
-      }
-
-      & .boy {
-        width: 120px;
+      & img {
+        width: 70px;
       }
     }
   }

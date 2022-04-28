@@ -15,11 +15,11 @@
     >
       <v-icon>mdi-close</v-icon>
     </v-btn>
-    <div class="registerDialog__head mb-9">
-      <h2 class="text-center">
-        pentaへようこそ！
+    <div class="registerDialog__head mb-8">
+      <h2 class="text-center pt-2">
+        あなたのアカウントを作成しましょう
       </h2>
-      <div class="registerDialog__head-icon text-center mt-2">
+      <div class="registerDialog__head-icon text-center mt-1">
         <p v-if="formErrorMessage || $store.getters.registerErrorMessage" class="icon mb-0">:o</p>
         <p v-else class="icon mb-0">:)</p>
       </div>
@@ -190,17 +190,18 @@ export default defineComponent({
     margin-top: -4px;
 
     & h2 {
-      font-size: 24px;
+      color: #555;
+      font-size: 19px;
       font-weight: 500;
-      letter-spacing: .025em;
+      letter-spacing: .02em;
       line-height: 1.5;
     }
 
     & .registerDialog__head-icon {
       & .icon {
+        color: #333;
         display: inline-block;
         font-size: 20px;
-        font-weight: bold;
         letter-spacing: .1em;
         transform: rotate(90deg);
       }

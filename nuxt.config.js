@@ -6,22 +6,22 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: 'penta - ペンタ -',
-    title: 'penta - ペンタ -',
+    titleTemplate: 'Clipper',
+    title: 'Clipper',
     htmlAttrs: {
       lang: 'ja'
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'Clipper(クリッパー) | 自分だけのお気に入り画像を保存しておけるツール' },
       { name: 'format-detection', content: 'telephone=no' },
       // OGP
-      { hid: 'og:site_name', property: 'og:site_name', content: 'Gallery' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'Clipper' },
       { hid: 'og:type', property: 'og:type', content: 'website'  },
       { hid: 'og:url', property: 'og:url', content: '' },
-      { hid: 'og:title', property: 'og:title', content: 'Gallery' },
-      { hid: 'og:description', property: 'og:description', content: '' },
+      { hid: 'og:title', property: 'og:title', content: 'Clipper' },
+      { hid: 'og:description', property: 'og:description', content: 'Clipper(クリッパー) | 自分だけのお気に入り画像を保存しておけるツール' },
       // { hid: 'og:image', property: 'og:image', content: '/ogp.png' }
     ],
     link: [
@@ -75,18 +75,18 @@ export default {
       '@nuxtjs/firebase',
       {
         config: {
-          apiKey: "AIzaSyCzqI2BUo5vpGKTdZX5wZxdYVCRGYxdpOw",
-          authDomain: "penta-gallery.firebaseapp.com",
-          projectId: "penta-gallery",
-          storageBucket: "penta-gallery.appspot.com",
-          messagingSenderId: "931114198562",
-          appId: "1:931114198562:web:e823a428ac18999ff88c7b",
-          measurementId: "G-TG3GYXKJD0"
+          apiKey: "AIzaSyAhcGYCrZyapagts72zB8Hc8OEH0Eui8c8",
+          authDomain: "your-clipper.firebaseapp.com",
+          projectId: "your-clipper",
+          storageBucket: "your-clipper.appspot.com",
+          messagingSenderId: "719801788127",
+          appId: "1:719801788127:web:c95bb6ef2b0bb457716b6a",
+          measurementId: "G-E18WV4H76E"
         },
         services: {
           auth: true,
           firestore: true,
-          functions: true,
+          functions: true
         }
       }
     ]
@@ -101,11 +101,11 @@ export default {
         light: {
           primary: '#333',
           secondary: '#757575',
-          accent: '#529E8F',
+          accent: '#599F90',
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: '#c00',
-          success: '#529E8F'
+          success: '#599F90'
         }
       }
     }
