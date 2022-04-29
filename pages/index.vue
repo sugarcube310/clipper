@@ -14,9 +14,9 @@ export default defineComponent({
     const router = useRouter()
     auth.onAuthStateChanged((user) => {
       if (!user) {
-        router.push('/login')
+        router.push('/login/')
       } else {
-        router.push('/clips')
+        router.push('/clips/')
       }
     })
   }

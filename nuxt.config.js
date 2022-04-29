@@ -46,6 +46,7 @@ export default {
   ],
 
   router: {
+    trailingSlash: true,
     middleware: 'authenticated'
   },
 

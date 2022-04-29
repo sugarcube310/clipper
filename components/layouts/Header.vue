@@ -65,7 +65,7 @@ export default defineComponent({
           (this as any).$store.dispatch('logout')
         }
         if (menu.link !== '') {
-          router.push(`/${ menu.link }`)
+          router.push(`/${ menu.link }/`)
         }
       }
     }
