@@ -10,7 +10,7 @@
             Clipperへようこそ！
           </h1>
           <p class="login__title-subtext mt-3">
-            クリッパーは、あなただけのお気に入り画像をクリップ(保存)しておけるツールです。
+            クリッパーは、あなただけのお気に入り画像をクリップ(保存)しておけるアプリです。
           </p>
         </div>
 
@@ -36,9 +36,9 @@
                   outlined
                   class="rounded-lg"
                   required
-                  :append-icon="password_show ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="password_show ? 'text' : 'password'"
-                  @click:append="password_show = !password_show"
+                  :append-icon="isShowPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="isShowPassword ? 'text' : 'password'"
+                  @click:append="isShowPassword = !isShowPassword"
                 ></v-text-field>
               </v-col>
 
@@ -60,6 +60,7 @@
               <v-col cols="12" class="form__submit text-center">
                 <v-btn
                   color="accent"
+                  depressed
                   class="rounded-lg"
                   height="44"
                   width="160"
@@ -93,7 +94,6 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref } from '@vue/composition-api'
 import { mapGetters } from 'vuex'
-import { useRouter } from '@/plugins/use-router'
 
 export default defineComponent({
   layout: 'noHeader',
@@ -101,7 +101,6 @@ export default defineComponent({
     ...mapGetters(['user'])
   },
   setup () {
-    const router = useRouter()
     const registUserDialogRef = ref<any>(null)
 
     /** Reactive State **/
@@ -110,12 +109,13 @@ export default defineComponent({
         email: '',
         password: ''
       },
-      password_show: false,
+      isShowPassword: false,
       formErrorMessage: ''
     })
 
     /** Methods **/
     const methods = {
+      /* ログイン処理 */
       onLogin () {
         if (reactiveState.form.email !== '' && reactiveState.form.password !== '') {
           (this as any).$store.dispatch('login', { email: reactiveState.form.email, password: reactiveState.form.password })
@@ -126,6 +126,7 @@ export default defineComponent({
         }
       },
 
+      /* アカウント新規登録のダイアログを表示 */
       openRegistUserDialog () {
         if (registUserDialogRef.value) {
           registUserDialogRef.value.isOpenDialog = true
@@ -192,6 +193,7 @@ export default defineComponent({
     color: var(--color-secondary);
     cursor: pointer;
     display: inline-block;
+    font-size: 14px;
     text-decoration: underline;
     text-decoration-color: transparent;
     text-underline-offset: 4px;
