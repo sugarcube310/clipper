@@ -47,7 +47,10 @@ export default {
 
   router: {
     trailingSlash: true,
-    middleware: 'authenticated'
+    middleware: [
+      'slash-redirect',
+      'authenticated'
+    ]
   },
 
   // Auto import components: https://go.nuxtjs.dev/config-components
