@@ -7,12 +7,24 @@
           v-if="clips.length >= 1"
           class="clip__list"
         >
+          <v-col cols="12">
+            <p class="mb-0 list__length-text">
+              あなたのクリップ：{{ clips.length }}件
+            </p>
+            <v-switch
+              v-model="isShowAllClips"
+              color="accent"
+              inset
+              label="非公開のクリップを表示する"
+              @change="switchShowClips()"
+            ></v-switch>
+          </v-col>
           <v-col
             cols="3"
             class="d-flex align-center justify-center list__item"
             v-for="(clip, i) in clips"
             :key="i"
-            @click="openDetailDialog(clip)"
+            @click="showClipDetail(clip)"
           >
             <figure>
               <img :src="clip.data.image_url" alt="">
@@ -27,12 +39,13 @@
           <v-col cols="12">
             <p class="mb-0 text-center clip__nothing-text">
               お気に入りの画像を追加しましょう！
-              <span class="pl-5 icon">:)</span>
+              <span class="pl-6 icon">:)</span>
             </p>
           </v-col>
           <v-col cols="12" class="d-flex justify-center mt-5">
             <v-btn
               color="accent"
+              depressed
               class="rounded-lg"
               height="44"
               width="102"
@@ -45,14 +58,17 @@
 
         <AddClip
           ref="addClipDialogRef"
-          @success="showMessage"
+          @add="addClipComplete"
         />
 
         <transition name="fade" appear>
-          <SuccessMessage v-if="isShowMessage" />
+          <AddClipMessage v-if="isShowAddClipMessage" />
         </transition>
 
-        <ClipDetailDialog ref="clipDetailDialogRef" />
+        <ClipDetailDialog
+          ref="clipDetailDialogRef"
+          @save="getPublicClips()"
+        />
       </div>
     </transition>
   </div>
@@ -73,14 +89,16 @@ export default defineComponent({
 
     /** Reactive State **/
     const reactiveState = reactive({
-      isPageLoading: false,
-      isShowMessage: false,
-      clips: [] as any[],
+      isPageLoading: false, // true: ローディング画面を表示
+      isShowAllClips: false, // true: すべてのクリップ(非公開クリップも含む)を表示
+      isShowAddClipMessage: false, // true: クリップ追加完了メッセージを表示
+      clips: [] as any[]
     })
 
     /** Methods **/
     const methods = {
-      getClips () {
+      /* すべてのクリップを一覧取得 */
+      getAllClips () {
         auth.onAuthStateChanged((user) => {
           if (user) {
             const uid = user.uid
@@ -88,18 +106,23 @@ export default defineComponent({
             dbPicturesRef
             .where('user_id', '==', uid)
             .onSnapshot((querySnapshot) => {
+              const docs = [] as any[]
+
               querySnapshot.forEach((doc) => {
                 const id =  doc.id
                 const data = doc.data()
 
-                reactiveState.clips.push({
+                docs.push({
                   id: id,
                   data: {
                     created_time: data.created_time.toDate(),
-                    image_url: data.image_url
+                    image_url: data.image_url,
+                    private_setting: data.private_setting
                   }
                 })
               })
+
+              reactiveState.clips = Array.from(new Set(docs))
 
               // 作成日時の降順でソート
               const sortResult = reactiveState.clips.sort((item, item2) => {
@@ -115,28 +138,82 @@ export default defineComponent({
         })
       },
 
-      showMessage () {
-        reactiveState.isShowMessage = true
-        setTimeout(() => {
-          reactiveState.isShowMessage = false
-        }, 3000)
+      /* 公開設定中のクリップのみ一覧取得 */
+      getPublicClips () {
+        auth.onAuthStateChanged((user) => {
+          if (user) {
+            const uid = user.uid
+
+            dbPicturesRef
+            .where('user_id', '==', uid)
+            .where('private_setting', '==', false)
+            .onSnapshot((querySnapshot) => {
+              const docs = [] as any[]
+
+              querySnapshot.forEach((doc) => {
+                const id =  doc.id
+                const data = doc.data()
+
+                docs.push({
+                  id: id,
+                  data: {
+                    created_time: data.created_time.toDate(),
+                    image_url: data.image_url,
+                    private_setting: data.private_setting
+                  }
+                })
+              })
+
+              reactiveState.clips = Array.from(new Set(docs))
+
+              // 作成日時の降順でソート
+              const sortResult = reactiveState.clips.sort((item, item2) => {
+                if (item.data.created_time.getTime() > item2.data.created_time.getTime()) return -1
+                if (item.data.created_time.getTime() < item2.data.created_time.getTime()) return 1
+                return 0
+              })
+              reactiveState.clips = sortResult
+            })
+          } else {
+            return
+          }
+        })
       },
 
-      openDetailDialog (clip: any) {
-        if (clipDetailDialogRef.value) {
-          clipDetailDialogRef.value.showDetail(clip)
+      /* 表示するクリップの切り替え */
+      switchShowClips () {
+        if (reactiveState.isShowAllClips) {
+          methods.getAllClips()
+        } else {
+          methods.getPublicClips()
         }
       },
 
+      /* クリップ詳細ダイアログを表示 */
+      showClipDetail (clip: any) {
+        if (clipDetailDialogRef.value) {
+          clipDetailDialogRef.value.openDetailDialog(clip)
+        }
+      },
+
+      /* クリップの追加ダイアログを表示 */
       openAddClipDialog () {
         if (addClipDialogRef.value) {
           addClipDialogRef.value.isOpenDialog = true
         }
+      },
+
+      /* クリップ追加完了メッセージを表示 */
+      addClipComplete () {
+        reactiveState.isShowAddClipMessage = true
+        setTimeout(() => {
+          reactiveState.isShowAddClipMessage = false
+        }, 3000)
       }
     }
 
     onMounted(() => {
-      methods.getClips()
+      methods.getPublicClips()
 
       reactiveState.isPageLoading = true
       setTimeout(() => {
@@ -162,6 +239,13 @@ export default defineComponent({
     margin: auto;
     max-width: 1340px;
     width: 90%;
+
+    & .list__length-text {
+      color: var(--color-secondary);
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: .04em;
+    }
 
     & .list__item {
       cursor: pointer;

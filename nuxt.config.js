@@ -14,14 +14,14 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Clipper(クリッパー) | 自分だけのお気に入り画像を保存しておけるツール' },
+      { hid: 'description', name: 'description', content: 'Clipper(クリッパー) | 自分だけのお気に入り画像を保存しておけるアプリ' },
       { name: 'format-detection', content: 'telephone=no' },
       // OGP
       { hid: 'og:site_name', property: 'og:site_name', content: 'Clipper' },
       { hid: 'og:type', property: 'og:type', content: 'website'  },
       { hid: 'og:url', property: 'og:url', content: '' },
       { hid: 'og:title', property: 'og:title', content: 'Clipper' },
-      { hid: 'og:description', property: 'og:description', content: 'Clipper(クリッパー) | 自分だけのお気に入り画像を保存しておけるツール' },
+      { hid: 'og:description', property: 'og:description', content: 'Clipper(クリッパー) | 自分だけのお気に入り画像を保存しておけるアプリ' },
       // { hid: 'og:image', property: 'og:image', content: '/ogp.png' }
     ],
     link: [
@@ -55,7 +55,7 @@ export default {
       '~/components',
       '~/components/layouts',
       '~/components/parts',
-      '~/components/pages/top',
+      '~/components/pages/login',
       '~/components/pages/clips'
     ]
   },
@@ -101,11 +101,11 @@ export default {
         light: {
           primary: '#333',
           secondary: '#757575',
-          accent: '#599F90',
+          accent: '#61ab9b',
           info: colors.teal.lighten1,
-          warning: colors.amber.base,
+          warning: '#b78590',
           error: '#c00',
-          success: '#599F90'
+          success: '#61ab9b'
         }
       }
     }

@@ -1,7 +1,7 @@
 <template>
   <div class="addClip">
     <v-btn
-      class="ma-4"
+      class="ma-4 addClip__button"
       fixed
       bottom
       right
@@ -91,7 +91,7 @@
                   <v-checkbox
                     v-model="form.private_setting"
                     label="非公開設定"
-                    hint="非公開設定にすると、一覧ページには表示されません。"
+                    hint="非公開設定にすると、クリップ一覧には表示されなくなります。"
                     persistent-hint
                     color="accent"
                     class="mt-0 pt-0"
@@ -116,6 +116,7 @@
               >
                 <v-btn
                   color="accent"
+                  depressed
                   class="rounded-lg mr-3"
                   height="44"
                   width="160"
@@ -126,8 +127,9 @@
                   追加
                 </v-btn>
                 <v-btn
-                  color="gray"
-                  class="rounded-lg ml-3"
+                  color="#e8e8e8"
+                  depressed
+                  class="rounded-lg ml-3 color-gray__button"
                   height="44"
                   width="160"
                   @click="onClose()"
@@ -166,19 +168,23 @@ export default defineComponent({
 
     /** Methods **/
     const methods = {
+      /* クリップ追加ダイアログを表示 */
       openDialog () {
         reactiveState.isOpenDialog = true
       },
 
+      /* クリップ追加ダイアログを閉じる */
       onClose () {
         reactiveState.isOpenDialog = false
         methods.clearFile()
       },
 
+      /* ファイルドロップエリアに入ったときの処理 */
       switchEnter () {
         reactiveState.isEnter = !reactiveState.isEnter
       },
 
+      /* ファイルドロップエリアからファイルを選択したときの処理 */
       dropFile () {
         reactiveState.formErrorMessage = ''
 
@@ -215,6 +221,7 @@ export default defineComponent({
         }
       },
 
+      /* インプットボタンからファイルを選択したときの処理 */
       inputFile (e: any) {
         reactiveState.form.image.data = e.target.files[0]
         if (reactiveState.form.image.data) {
@@ -227,12 +234,14 @@ export default defineComponent({
         }
       },
 
+      /* 選択したファイルの削除 */
       clearFile () {
         if (reactiveState.form.image.data) {
           reactiveState.form.image.data = ''
         }
       },
 
+      /* クリップ追加 */
       addClip () {
         if (reactiveState.form.image.url !== '') {
           return auth.onAuthStateChanged((user) => {
@@ -257,7 +266,7 @@ export default defineComponent({
                   reactiveState.isLoading = false
                   methods.onClose()
 
-                  emit('success')
+                  emit('add')
                 })
                 .catch((error) => {
                   console.error(error)
@@ -280,6 +289,10 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
+.addClip__button::before {
+  background-color: #fff !important;
+}
+
 .addClipDialog__inner {
   background-color: #fff;
 

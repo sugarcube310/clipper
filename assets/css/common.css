@@ -72,3 +72,7 @@ img {
   border-radius: 8px;
   box-sizing: border-box;
 }
+
+.color-gray__button {
+  color: #666 !important;
+}

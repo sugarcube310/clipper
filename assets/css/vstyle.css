@@ -16,7 +16,7 @@
 }
 
 .v-dialog {
-  border-radius: 12px !important;
+  border-radius: 20px !important;
 }
 
 .v-dialog::-webkit-scrollbar {
@@ -25,4 +25,12 @@
 
 .theme--light.v-label {
   color: var(--color-secondary) !important;
+}
+
+.v-application .rounded-lg {
+  border-radius: 12px !important;
+}
+
+.v-alert:not(.v-sheet--tile) {
+  border-radius: 12px !important;
 }
