@@ -147,7 +147,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@vue/composition-api'
-import { auth, dbPicturesRef } from '@/plugins/firebase'
+import { auth, dbUsersRef, dbPicturesRef } from '@/plugins/firebase'
 
 export default defineComponent({
   setup (_, { emit }) {
@@ -262,11 +262,15 @@ export default defineComponent({
                   user_id: uid
                 })
                 .then(() => {
-                  console.log('Successfully added clip!')
+                  console.log('クリップ追加成功')
+
                   reactiveState.isLoading = false
                   methods.onClose()
 
                   emit('add')
+
+                  // 公開クリップ件数を更新
+                  methods.updateUserData()
                 })
                 .catch((error) => {
                   console.error(error)
@@ -277,6 +281,40 @@ export default defineComponent({
         } else {
           return
         }
+      },
+
+      /* ユーザー情報を更新(公開クリップ件数) */
+      updateUserData () {
+        auth.onAuthStateChanged((user) => {
+          if (user) {
+            const uid = user.uid
+
+            dbPicturesRef
+            .where('user_id', '==', uid)
+            .where('private_setting', '==', false)
+            .onSnapshot((querySnapshot) => {
+              const docs = [] as any[]
+
+              querySnapshot.forEach((doc) => {
+                docs.push(doc)
+              })
+
+              dbUsersRef
+              .doc(uid)
+              .set({
+                releases: docs.length,
+              },  { merge: true })
+              .then(() => {
+                console.log('ユーザーの公開クリップ数を更新しました')
+              })
+              .catch((error) => {
+                console.error(error)
+              })
+            })
+          } else {
+            return
+          }
+        })
       }
     }
 
