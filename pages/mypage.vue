@@ -58,6 +58,7 @@
       <v-col
         v-if="!isEditProfileMode"
         cols="12"
+        class="mt-1"
       >
         <p class="mb-0 text-center user__releases">
           公開クリップ数：{{ user.releases }}件
@@ -307,15 +308,14 @@ export default defineComponent({
   & .user__name {
     color: var(--color-secondary);
     font-size: 28px;
-    letter-spacing: .04em;
-    line-height: 1.75;
+    letter-spacing: .08em;
+    line-height: 2;
     line-height: 1;
 
     & .v-input {
       width: 100%;
 
       & input {
-        font-size: 18px;
         letter-spacing: .04em;
       }
     }
@@ -328,9 +328,8 @@ export default defineComponent({
 
   & .user__introduction {
     color: var(--color-secondary);
-    font-size: 18px;
-    letter-spacing: .02em;
-    line-height: 1.75;
+    letter-spacing: .04em;
+    line-height: 2;
     margin-top: -28px;
     white-space: pre-line;
 
@@ -338,8 +337,8 @@ export default defineComponent({
       width: 100%;
 
       & textarea {
-        font-size: 18px;
         letter-spacing: .04em;
+        line-height: 1.75;
         padding: 8px 8px 8px 0 !important;
       }
     }
