@@ -8,12 +8,6 @@ export default {
     state.user.introduction = payload.introduction ? payload.introduction : ''
     state.user.releases = payload.releases ? payload.releases : 0
     state.user.login = payload.uid ? true: false
-
-    console.log(name)
-  },
-
-  test () {
-    console.log('test')
   },
 
   /**** ログイン認証状態を変更 ****/

@@ -262,7 +262,7 @@ export default defineComponent({
                   user_id: uid
                 })
                 .then(() => {
-                  console.log('クリップ追加成功')
+                  console.log('Successfully: Added the Clip!')
 
                   reactiveState.isLoading = false
                   methods.onClose()
@@ -305,7 +305,7 @@ export default defineComponent({
                 releases: docs.length,
               },  { merge: true })
               .then(() => {
-                console.log('ユーザーの公開クリップ数を更新しました')
+                console.log('Successfully: Updated user data.')
               })
               .catch((error) => {
                 console.error(error)

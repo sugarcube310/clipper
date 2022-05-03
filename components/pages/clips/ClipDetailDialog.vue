@@ -218,7 +218,7 @@ export default defineComponent({
               private_setting: false
             }, { merge: true })
             .then(() => {
-              console.log('クリップを公開しました')
+              console.log('Successfully: The Clip is published!')
             })
             .catch((error: any) => {
               console.log(error)
@@ -232,7 +232,7 @@ export default defineComponent({
               private_setting: true
             }, { merge: true })
             .then(() => {
-              console.log('クリップを非公開にしました')
+              console.log('Successfully: The Clip is Closed.')
             })
             .catch((error: any) => {
               console.log(error)
