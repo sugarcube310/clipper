@@ -200,7 +200,7 @@ export default defineComponent({
               }, { merge: true })
               .then(() => {
                 (this as any).$store.dispatch('updateUserStore')
-                console.log('Successfully updated user!')
+                console.log('Successfully: Updated user data.')
 
                 setTimeout(() => {
                   reactiveState.isLoading = false
