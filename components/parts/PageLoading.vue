@@ -10,6 +10,7 @@
 
 <style lang="postcss" scoped>
 .page-loading {
+  margin-top: -64px;
   overflow: hidden;
   position: relative;
   height: 100vh;
@@ -17,7 +18,7 @@
 
   & .spinner__wrap {
     position: absolute;
-    top: calc(50% - 90px);
+    top: calc(50% - 30px);
     right: 0;
     left: 0;
     margin: 0 auto;
@@ -32,8 +33,8 @@
       border: 4px solid var(--color-accent);
       border-radius: 12px;
       position: relative;
-      height: 52px;
-      width: 52px;
+      height: 60px;
+      width: 60px;
 
       & .spinner__inner {
         animation: spinner__inner-animation 4s infinite ease-in;

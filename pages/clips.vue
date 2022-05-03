@@ -1,76 +1,71 @@
 <template>
-  <div>
-    <PageLoading v-if="isPageLoading" />
-    <transition v-else name="fade-long" appear>
-      <div class="page-container -clips">
-        <v-row
-          v-if="clips.length >= 1"
-          class="clip__list"
+  <div class="page-container -clips">
+    <v-row
+      v-if="clips.length >= 1"
+      class="clip__list"
+    >
+      <v-col cols="12">
+        <p class="mb-0 list__length-text">
+          あなたのクリップ：{{ clips.length }}件
+        </p>
+        <v-switch
+          v-model="isShowAllClips"
+          color="accent"
+          inset
+          label="非公開のクリップを表示する"
+          @change="switchShowClips()"
+        ></v-switch>
+      </v-col>
+      <v-col
+        cols="3"
+        class="d-flex align-center justify-center list__item"
+        v-for="(clip, i) in clips"
+        :key="i"
+        @click="showClipDetail(clip)"
+      >
+        <figure>
+          <img :src="clip.data.image_url" alt="">
+        </figure>
+      </v-col>
+    </v-row>
+
+    <v-row
+      v-else
+      class="d-flex justify-center clip__nothing"
+    >
+      <v-col cols="12">
+        <p class="mb-0 text-center clip__nothing-text">
+          お気に入りの画像を追加しましょう！
+          <span class="pl-6 icon">:)</span>
+        </p>
+      </v-col>
+      <v-col cols="12" class="d-flex justify-center mt-5">
+        <v-btn
+          color="accent"
+          depressed
+          class="rounded-lg"
+          height="44"
+          width="102"
+          @click="openAddClipDialog()"
         >
-          <v-col cols="12">
-            <p class="mb-0 list__length-text">
-              あなたのクリップ：{{ clips.length }}件
-            </p>
-            <v-switch
-              v-model="isShowAllClips"
-              color="accent"
-              inset
-              label="非公開のクリップを表示する"
-              @change="switchShowClips()"
-            ></v-switch>
-          </v-col>
-          <v-col
-            cols="3"
-            class="d-flex align-center justify-center list__item"
-            v-for="(clip, i) in clips"
-            :key="i"
-            @click="showClipDetail(clip)"
-          >
-            <figure>
-              <img :src="clip.data.image_url" alt="">
-            </figure>
-          </v-col>
-        </v-row>
+          追加
+        </v-btn>
+      </v-col>
+    </v-row>
 
-        <v-row
-          v-else
-          class="d-flex justify-center clip__nothing"
-        >
-          <v-col cols="12">
-            <p class="mb-0 text-center clip__nothing-text">
-              お気に入りの画像を追加しましょう！
-              <span class="pl-6 icon">:)</span>
-            </p>
-          </v-col>
-          <v-col cols="12" class="d-flex justify-center mt-5">
-            <v-btn
-              color="accent"
-              depressed
-              class="rounded-lg"
-              height="44"
-              width="102"
-              @click="openAddClipDialog()"
-            >
-              追加
-            </v-btn>
-          </v-col>
-        </v-row>
+    <AddClip
+      ref="addClipDialogRef"
+      @add="addClipComplete"
+    />
 
-        <AddClip
-          ref="addClipDialogRef"
-          @add="addClipComplete"
-        />
-
-        <transition name="fade" appear>
-          <AddClipMessage v-if="isShowAddClipMessage" />
-        </transition>
-
-        <ClipDetailDialog
-          ref="clipDetailDialogRef"
-          @save="getPublicClips()"
-        />
-      </div>
+    <transition name="fade" appear>
+      <AddClipMessage v-if="isShowAddClipMessage" />
     </transition>
+
+    <ClipDetailDialog
+      ref="clipDetailDialogRef"
+      @save="getPublicClips()"
+    />
   </div>
 </template>
 
@@ -89,7 +84,6 @@ export default defineComponent({
 
     /** Reactive State **/
     const reactiveState = reactive({
-      isPageLoading: false, // true: ローディング画面を表示
       isShowAllClips: false, // true: すべてのクリップ(非公開クリップも含む)を表示
       isShowAddClipMessage: false, // true: クリップ追加完了メッセージを表示
       clips: [] as any[]
@@ -214,11 +208,6 @@ export default defineComponent({
 
     onMounted(() => {
       methods.getPublicClips()
-
-      reactiveState.isPageLoading = true
-      setTimeout(() => {
-        reactiveState.isPageLoading = false
-      }, 3000)
     })
 
     return {
