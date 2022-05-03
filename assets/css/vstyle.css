@@ -34,3 +34,7 @@
 .v-alert:not(.v-sheet--tile) {
   border-radius: 12px !important;
 }
+
+.theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
+  color: var(--color-secondary) !important;
+}

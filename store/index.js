@@ -6,6 +6,10 @@ export const state = () => ({
   user: {
     uid: '',
     email: '',
+    name: '',
+    image: '',
+    introduction: '',
+    releases: 0,
     login: false
   },
   loading: false,

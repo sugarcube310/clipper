@@ -3,24 +3,47 @@
     app
     fixed
     color="white"
+    class="py-1 px-3"
     flat
   >
     <v-spacer></v-spacer>
 
     <v-menu
       rounded="lg"
-      bottom
+      offset-y
+      class="header__menu"
     >
       <template v-slot:activator="{ attrs, on }">
-        <v-btn
-          icon
+        <div
           v-bind="attrs"
           v-on="on"
+          class="d-flex align-center"
         >
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
+          <div class="header__user-icon">
+            <figure
+              v-if="user.image"
+              class="icon-image"
+            >
+              <img :src="user.image" alt="">
+            </figure>
+            <div
+              v-else
+              class="icon-image -no-setting"
+            >
+              <span class="mdi mdi-account-outline"></span>
+            </div>
+          </div>
+          <div class="ml-2 header__menu-toggle">
+            <span class="mdi mdi-chevron-down"></span>
+          </div>
+        </div>
       </template>
-      <v-list>
+      <v-list class="pt-0">
+        <div class="pa-4 mb-2 header__menu-greeting">
+          <p class="mb-0">
+            {{ user.name }}さん、こんにちは！
+          </p>
+        </div>
         <v-list-item
           v-for="menu in menus"
           :key="menu.id"
@@ -36,9 +59,13 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@vue/composition-api'
+import { mapGetters } from 'vuex'
 import { useRouter } from '@/plugins/use-router'
 
 export default defineComponent({
+  computed: {
+    ...mapGetters(['user'])
+  },
   setup () {
     const router = useRouter()
 
@@ -46,9 +73,9 @@ export default defineComponent({
     const reactiveState = reactive({
       menus: [
         {
-          id: 'setting',
-          title: 'アカウント設定',
-          link: 'setting'
+          id: 'mypage',
+          title: 'マイページ',
+          link: 'mypage'
         },
         {
           id: 'logout',
@@ -79,4 +106,50 @@ export default defineComponent({
 </script>
 
 <style lang="postcss">
+.header__user-icon {
+  & .icon-image {
+    background-color: var(--color-accent);
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+
+    & .mdi {
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px !important;
+      height: 100%;
+      width: 100%;
+    }
+
+    & img {
+      border-radius: 50%;
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+.header__menu-toggle .mdi {
+  color: var(--color-secondary);
+  display: block;
+  font-size: 28px !important;
+  transition: all .15s;
+
+  &:hover {
+    @media (--not-sp) {
+      padding-top: 4px;
+    }
+  }
+}
+
+.header__menu-greeting {
+  background-color: rgba(97, 171, 155, .2);
+  border-bottom: 2px solid var(--color-accent);
+  color: var(--color-secondary);
+  font-size: 14px;
+  font-weight: bold;
+}
 </style>

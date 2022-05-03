@@ -1,0 +1,348 @@
+<template>
+  <div class="page-container -mypage">
+    <PageBackButton />
+    <v-row class="pt-10 user__profile">
+      <v-col cols="12">
+        <div
+          class="mx-auto mb-2 user__icon"
+          :class="{ '-edit': isEditProfileMode }"
+        >
+          <div
+            v-if="user.image"
+            class="user__icon-image"
+          >
+            <figure>
+              <img :src="profile.image ? profile.image : user.image" alt="">
+            </figure>
+          </div>
+          <div
+            v-else
+            class="user__icon-image -no-setting"
+          >
+            <span class="mdi mdi-account-outline"></span>
+          </div>
+          <label
+            for="input_file"
+            class="inputButton"
+          >
+            画像を変更
+            <input
+              id="input_file"
+              style="display: none;"
+              type="file"
+              accept="img/*"
+              @change="inputFile"
+            >
+          </label>
+        </div>
+      </v-col>
+      <v-col
+        cols="12"
+        class="d-flex flex-column align-center justify-center user__name"
+      >
+        <p
+          v-if="!isEditProfileMode"
+          class="mb-0 text-center"
+        >
+          {{ user.name }}
+        </p>
+        <v-text-field
+          v-else
+          v-model="profile.name"
+          label="ユーザー名"
+          outlined
+          hide-details
+          class="rounded-lg mb-8"
+        ></v-text-field>
+      </v-col>
+      <v-col
+        v-if="!isEditProfileMode"
+        cols="12"
+      >
+        <p class="mb-0 text-center user__releases">
+          公開クリップ数：{{ user.releases }}件
+        </p>
+      </v-col>
+      <v-col
+        cols="12"
+        class="d-flex flex-column align-center justify-center user__introduction"
+      >
+        <p
+          v-if="!isEditProfileMode && user.introduction"
+          class="mb-0 text-center"
+        >
+          {{ user.introduction }}
+        </p>
+        <v-textarea
+          v-else-if="isEditProfileMode"
+          v-model="profile.introduction"
+          label="自己紹介文"
+          outlined
+          hide-details
+          class="rounded-lg"
+        ></v-textarea>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col
+        v-if="!isEditProfileMode"
+        cols="12"
+        class="form__submit text-center mt-3"
+      >
+        <v-btn
+          color="accent"
+          depressed
+          class="rounded-lg"
+          height="44"
+          width="180"
+          :loading="isLoading"
+          :disabled="isLoading"
+          @click="switchEditMode()"
+        >
+          プロフィールを編集
+        </v-btn>
+      </v-col>
+      <v-col
+        v-else
+        cols="12"
+        class="form__submit text-center mt-3"
+      >
+        <v-btn
+          color="accent"
+          depressed
+          class="rounded-lg mr-2"
+          height="44"
+          width="130"
+          :loading="isLoading"
+          :disabled="isLoading"
+          @click="updateProfile()"
+        >
+          保存
+        </v-btn>
+        <v-btn
+          color="#e8e8e8"
+          depressed
+          class="rounded-lg ml-2 color-gray__button"
+          height="44"
+          width="130"
+          @click="switchEditMode()"
+        >
+          キャンセル
+        </v-btn>
+      </v-col>
+    </v-row>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, reactive, toRefs } from '@vue/composition-api'
+import { mapGetters } from 'vuex'
+import { auth, dbUsersRef } from '@/plugins/firebase'
+
+export default defineComponent({
+  computed: {
+    ...mapGetters(['user'])
+  },
+  setup () {
+    /** Reactive State **/
+    const reactiveState = reactive({
+      isLoading: false,
+      isEditProfileMode: false,
+      profile: {
+        name: '',
+        image: '',
+        introduction: ''
+      }
+    })
+
+    /** Methods **/
+    const methods = {
+      /* プロフィール編集モードの切り替え */
+      switchEditMode () {
+        reactiveState.isEditProfileMode = !reactiveState.isEditProfileMode
+
+        if (reactiveState.isEditProfileMode) {
+          reactiveState.profile.name = (this as any).user.name
+          reactiveState.profile.introduction = (this as any).user.introduction
+        } else {
+          reactiveState.profile.image = ''
+        }
+      },
+
+      /* アイコン画像選択時の処理 */
+      inputFile (e: any) {
+        const file = e.target.files[0]
+        if (file) {
+          const reader = new FileReader()
+          // @ts-ignore
+          reader.readAsDataURL(file)
+          reader.onload = () => {
+            reactiveState.profile.image = reader.result + ''
+          }
+        }
+      },
+
+      /* ユーザー情報を更新 */
+      updateProfile () {
+        if (reactiveState.isEditProfileMode) {
+          reactiveState.isLoading = true
+
+          auth.onAuthStateChanged((user) => {
+            if (user) {
+              const uid = user.uid
+
+              dbUsersRef
+              .doc(uid)
+              .set({
+                name: reactiveState.profile.name,
+                image: reactiveState.profile.image ? reactiveState.profile.image : (this as any).user.image,
+                introduction: reactiveState.profile.introduction
+              }, { merge: true })
+              .then(() => {
+                (this as any).$store.dispatch('updateUserStore')
+                console.log('Successfully updated user!')
+
+                setTimeout(() => {
+                  reactiveState.isLoading = false
+                  reactiveState.isEditProfileMode = false
+                }, 1000)
+              })
+              .catch((error) => {
+                console.error(error)
+              })
+            }
+          })
+        } else {
+          return
+        }
+      }
+    }
+
+    return {
+      ...toRefs(reactiveState),
+      ...methods
+    }
+  }
+})
+</script>
+
+<style lang="postcss">
+.user__profile {
+  margin: auto;
+  max-width: 480px;
+  width: 50%;
+
+  & .user__icon {
+    position: relative;
+    height: 140px;
+    width: 140px;
+
+    & .inputButton {
+      background-color: rgba(117, 117, 117, .7);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: .08em;
+      transition: all .3s;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      visibility: hidden;
+    }
+
+    &.-edit {
+      & .user__icon-image {
+        cursor: pointer;
+      }
+
+      &:hover {
+        & .inputButton {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+
+    & .user__icon-image {
+      border-radius: 50%;
+      height: 100%;
+      width: 100%;
+
+      & figure {
+        height: 100%;
+        width: 100%;
+
+        & img {
+          border-radius: 50%;
+          object-fit: cover;
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      &.-no-setting {
+        background-color: var(--color-accent);
+
+        & .mdi {
+          color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 72px !important;
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  & .user__name {
+    color: var(--color-secondary);
+    font-size: 28px;
+    letter-spacing: .04em;
+    line-height: 1.75;
+    line-height: 1;
+
+    & .v-input {
+      width: 100%;
+
+      & input {
+        font-size: 18px;
+        letter-spacing: .04em;
+      }
+    }
+  }
+
+  & .user__releases {
+    color: var(--color-secondary);
+    letter-spacing: .02em;
+  }
+
+  & .user__introduction {
+    color: var(--color-secondary);
+    font-size: 18px;
+    letter-spacing: .02em;
+    line-height: 1.75;
+    margin-top: -28px;
+    white-space: pre-line;
+
+    & .v-input {
+      width: 100%;
+
+      & textarea {
+        font-size: 18px;
+        letter-spacing: .04em;
+        padding: 8px 8px 8px 0 !important;
+      }
+    }
+  }
+}
+</style>

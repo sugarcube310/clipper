@@ -1,9 +1,19 @@
 export default {
   /**** ユーザー情報の取得 ****/
-  getUserData (state, payload) {
+  getUserData (state, payload, name) {
     state.user.uid = payload.uid
     state.user.email = payload.email
+    state.user.name = payload.name ? payload.name : ''
+    state.user.image = payload.image ? payload.image : ''
+    state.user.introduction = payload.introduction ? payload.introduction : ''
+    state.user.releases = payload.releases ? payload.releases : 0
     state.user.login = payload.uid ? true: false
+
+    console.log(name)
+  },
+
+  test () {
+    console.log('test')
   },
 
   /**** ログイン認証状態を変更 ****/
