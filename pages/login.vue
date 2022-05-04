@@ -36,6 +36,7 @@
                   outlined
                   class="rounded-lg"
                   required
+                  autocomplete="on"
                   :append-icon="isShowPassword ? 'mdi-eye' : 'mdi-eye-off'"
                   :type="isShowPassword ? 'text' : 'password'"
                   @click:append="isShowPassword = !isShowPassword"
