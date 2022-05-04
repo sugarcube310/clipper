@@ -14,6 +14,8 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, onMounted } from '@vue/composition-api'
+import { useRouter } from '@/plugins/use-router'
+import { auth } from '@/plugins/firebase'
 
 export default defineComponent({
   created () {
@@ -21,6 +23,8 @@ export default defineComponent({
   },
 
   setup () {
+    const router = useRouter()
+
     /** Reactive State **/
     const reactiveState = reactive({
       isPageLoading: false // true: ローディング画面を表示
@@ -28,8 +32,16 @@ export default defineComponent({
 
     onMounted(() => {
       reactiveState.isPageLoading = true
+
       setTimeout(() => {
         reactiveState.isPageLoading = false
+
+        // 未ログインの場合はログインページに遷移
+        auth.onAuthStateChanged((user) => {
+          if (!user) {
+            return router.push('/login/')
+          }
+        })
       }, 3000)
     })
 

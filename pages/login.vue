@@ -96,10 +96,12 @@ import { defineComponent, reactive, toRefs, ref } from '@vue/composition-api'
 import { mapGetters } from 'vuex'
 
 export default defineComponent({
-  layout: 'noHeader',
+  layout: 'beforeAuth',
+
   computed: {
     ...mapGetters(['user'])
   },
+
   setup () {
     const registUserDialogRef = ref<any>(null)
 
