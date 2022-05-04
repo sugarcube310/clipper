@@ -22,7 +22,7 @@ export default {
       { hid: 'og:url', property: 'og:url', content: '' },
       { hid: 'og:title', property: 'og:title', content: 'Clipper' },
       { hid: 'og:description', property: 'og:description', content: 'Clipper(クリッパー) | 自分だけのお気に入り画像を保存しておけるアプリ' },
-      // { hid: 'og:image', property: 'og:image', content: '/ogp.png' }
+      { hid: 'og:image', property: 'og:image', content: '/ogp.png' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
