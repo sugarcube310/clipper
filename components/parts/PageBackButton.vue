@@ -46,7 +46,7 @@ export default defineComponent({
   }
 
   & .mdi {
-    color: var(--color-secondary);
+    color: var(--color-primary);
     font-size: 28px !important;
   }
 }

@@ -19,8 +19,8 @@
       persistent
       width="720"
     >
-      <div class="addClipDialog__inner py-12 px-10">
-        <div class="addClipDialog__head mb-10">
+      <div class="addClipDialog__inner">
+        <div class="addClipDialog__head">
           <h2 class="text-center">
             クリップを追加する
           </h2>
@@ -34,7 +34,7 @@
                 class="py-1"
               >
                 <div
-                  class="fileDropArea ma-auto"
+                  class="fileDropArea"
                   @dragenter.prevent="switchEnter"
                   @dragleave.prevent="switchEnter"
                   @dragover.prevent
@@ -45,7 +45,7 @@
                   <span>または</span>
                   <label
                     for="input_file"
-                    class="inputButton mt-1 px-5 py-1"
+                    class="inputButton"
                   >
                     ファイルを選択
                     <input
@@ -71,13 +71,13 @@
                           v-on="on"
                           fab
                           outlined
-                          color="secondary lighten-2"
+                          color="secondary"
                           class="d-flex ml-auto"
                           height="40"
                           width="40"
                           @click="clearFile()"
                         >
-                          <v-icon color="secondary lighten-1">mdi-delete</v-icon>
+                          <v-icon color="secondary">mdi-delete</v-icon>
                         </v-btn>
                       </template>
                       <span>ファイルを削除</span>
@@ -93,7 +93,7 @@
                     label="非公開設定"
                     hint="非公開設定にすると、クリップ一覧には表示されなくなります。"
                     persistent-hint
-                    color="accent"
+                    color="primary"
                     class="mt-0 pt-0"
                   ></v-checkbox>
                 </v-col>
@@ -112,12 +112,12 @@
             <v-row>
               <v-col
                 cols="12"
-                class="form__submit text-center mt-3"
+                class="form__submit text-center"
               >
                 <v-btn
                   color="accent"
                   depressed
-                  class="rounded-lg mr-3"
+                  class="rounded-lg"
                   height="44"
                   width="160"
                   :loading="isLoading"
@@ -129,7 +129,7 @@
                 <v-btn
                   color="#e8e8e8"
                   depressed
-                  class="rounded-lg ml-3 color-gray__button"
+                  class="rounded-lg color-gray__button"
                   height="44"
                   width="160"
                   @click="onClose()"
@@ -333,20 +333,37 @@ export default defineComponent({
 
 .addClipDialog__inner {
   background-color: #fff;
+  padding: 48px 40px;
 
-  & h2 {
-    color: #555;
-    font-size: 22px;
-    font-weight: 500;
-    letter-spacing: .02em;
-    line-height: 1.5;
+  @media (--sp) {
+    padding: 40px 24px;
+  }
+
+  & .addClipDialog__head {
+    margin-bottom: 40px;
+
+    @media (--sp) {
+      margin-bottom: 24px;
+    }
+
+    & h2 {
+      color: #555;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: .02em;
+      line-height: 1.5;
+
+      @media (--sp) {
+        font-size: 18px;
+      }
+    }
   }
 
   & .form {
     & .fileDropArea {
       background-color: rgba(102, 102, 102, .02);
       border: 4px solid #848484;
-      border-radius: 16px;
+      border-radius: 20px;
       box-sizing: content-box;
       color: rgba(102, 102, 102, .8);
       cursor: pointer;
@@ -356,12 +373,22 @@ export default defineComponent({
       justify-content: center;
       font-size: 18px;
       font-weight: bold;
+      margin: auto;
       letter-spacing: .02em;
       line-height: 2;
       text-align: center;
       margin: auto;
       height: 320px;
       width: 85%;
+
+      @media (--sp) {
+        border: 3px solid #848484;
+        border-radius: 16px;
+        font-size: 14px;
+        margin-top: 8px;
+        height: 180px;
+        width: 95%;
+      }
 
       &.enter {
         border: 4px solid #a3a3a3;
@@ -372,6 +399,10 @@ export default defineComponent({
 
       & span {
         font-size: 16px;
+
+        @media (--sp) {
+          font-size: 12px;
+        }
       }
 
       & .inputButton {
@@ -383,8 +414,16 @@ export default defineComponent({
         font-weight: normal;
         letter-spacing: .04em;
         line-height: 1.85;
+        margin-top: 4px;
+        padding: 4px 20px;
         transition: all .3s;
         z-index: 1;
+
+        @media (--sp) {
+          border-radius: 4px;
+          font-size: 14px;
+          padding: 4px 16px;
+        }
 
         &:hover {
           @media (--not-sp) {
@@ -398,9 +437,17 @@ export default defineComponent({
       margin: auto;
       width: 80%;
 
+      @media (--sp) {
+        width: 100%;
+      }
+
       & img {
         border-radius: 16px;
         pointer-events: none;
+
+        @media (--sp) {
+          border-radius: 12px;
+        }
       }
     }
 
@@ -411,6 +458,34 @@ export default defineComponent({
       line-height: 1.75;
       white-space: pre-line;
       margin-top: -24px;
+    }
+
+    & .form__submit {
+      margin-top: 12px;
+
+      @media (--sp) {
+        margin-top: 4px;
+      }
+
+      & button:not(.color-gray__button) {
+        @media (--not-sp) {
+          margin-right: 12px;
+        }
+
+        @media (--sp) {
+          margin-bottom: 8px;
+        }
+      }
+
+      & button.color-gray__button {
+        @media (--not-sp) {
+          margin-left: 12px;
+        }
+
+        @media (--sp) {
+          margin-top: 8px;
+        }
+      }
     }
   }
 }

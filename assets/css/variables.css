@@ -9,10 +9,11 @@
 ====================================*/
 :root {
   /* color */
-  --color-primary: #333;
-  --color-secondary: #757575;
+  --color-primary: #757575;
+  --color-secondary: #999;
   --color-accent: #61ab9b;
   --color-text: #333;
+  --color-text-light: #555;
   --color-bg: #E5E5E5;
 
   /* font */

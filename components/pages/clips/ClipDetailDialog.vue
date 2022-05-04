@@ -3,7 +3,7 @@
     v-model="isOpenDetailDialog"
     width="800"
   >
-    <div class="clipDetailDialog__inner px-10 pt-7 pb-12">
+    <div class="clipDetailDialog__inner">
       <v-row class="clip__detail">
         <v-menu
           rounded="lg"
@@ -45,14 +45,16 @@
           <v-checkbox
             v-if="clip.private_setting"
             v-model="isPublic"
-            label="このクリップを公開する"
+            label="クリップを公開する"
+            hide-details
             color="accent"
             class="mt-0 pt-0"
           ></v-checkbox>
           <v-checkbox
             v-else
             v-model="isPrivate"
-            label="このクリップを非公開にする"
+            label="クリップを非公開にする"
+            hide-details
             color="accent"
             class="mt-0 pt-0"
           ></v-checkbox>
@@ -60,7 +62,7 @@
         <v-col
           v-else
           cols="12"
-          class="d-flex justify-start"
+          class="d-flex justify-start pl-0"
         >
           <p class="mb-0 detail__time">
             追加日時：{{ $dateFns.format(new Date(), 'yyyy年MM月dd日 HH時mm分') }}
@@ -71,7 +73,7 @@
         <v-col
           v-if="isClipEditMode"
           cols="12"
-          class="d-flex justify-center my-2"
+          class="d-flex justify-center mt-2"
         >
           <v-btn
             color="warning"
@@ -160,7 +162,7 @@ export default defineComponent({
       editMenus: [
         {
           id: 'edit',
-          title: 'クリップを編集する'
+          title: 'クリップを編集'
         }
       ],
       isClipEditMode: false,
@@ -259,15 +261,29 @@ export default defineComponent({
 <style lang="postcss" scoped>
 .clipDetailDialog__inner {
   background-color: #fff;
+  padding: 40px 40px 48px;
+
+  @media (--sp) {
+    padding: 20px 24px 32px;
+    width: 100%;
+  }
 
   & .clip__detail {
     margin: auto;
     width: 85%;
 
+    @media (--sp) {
+      width: 100%;
+    }
+
     & .detail__time {
-      color: var(--color-secondary);
+      color: var(--color-primary);
       font-size: 13px;
       letter-spacing: .02em;
+
+      @media (--sp) {
+        font-size: 12px;
+      }
     }
   }
 }

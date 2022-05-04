@@ -1,7 +1,3 @@
-html {
-  overflow: hidden !important;
-}
-
 body {
   color: var(--color-text);
   font-family: var(--font-family-base);

@@ -3,18 +3,18 @@
     <section class="login">
       <div class="login__inner">
         <div class="login__head mb-10">
-          <figure class="login__title-image mb-5">
+          <figure class="login__title-image">
             <img src="~/assets/images/common/clip.png" alt="" class="d-block ma-auto">
           </figure>
           <h1 class="login__title">
             Clipperへようこそ！
           </h1>
-          <p class="login__title-subtext mt-3">
-            クリッパーは、あなただけのお気に入り画像をクリップ(保存)しておけるアプリです。
+          <p class="login__title-subtext">
+            クリッパーは、あなただけのお気に入り画像を<br class="hidden-pc">クリップ(保存)しておけるアプリです。
           </p>
         </div>
 
-        <div class="form__wrapper pa-10">
+        <div class="form__wrapper">
           <v-form
             class="form -login"
             @submit.prevent
@@ -25,6 +25,7 @@
                   v-model="form.email"
                   label="メールアドレス"
                   outlined
+                  color="secondary"
                   class="rounded-lg"
                   required
                 ></v-text-field>
@@ -34,6 +35,7 @@
                   v-model="form.password"
                   label="パスワード"
                   outlined
+                  color="secondary"
                   class="rounded-lg"
                   required
                   autocomplete="on"
@@ -79,7 +81,7 @@
           <v-divider />
 
           <p
-            class="register__text d-block mt-8 text-center"
+            class="register__text d-block text-center"
             @click="openRegistUserDialog()"
           >
             アカウントをお持ちでない方はこちら
@@ -150,37 +152,63 @@ export default defineComponent({
 .login__inner {
   & .login__head {
     & .login__title {
-      color: var(--color-secondary);
+      color: var(--color-primary);
       font-family: var(--font-family-base);
-      font-size: 22px;
+      font-size: 24px;
       letter-spacing: .08em;
       line-height: 1.75;
       text-align: center;
+
+      @media (--sp) {
+        font-size: 22px;
+      }
     }
 
     & .login__title-subtext {
-      color: #555;
+      color: var(--color-text-light);
       font-size: 14px;
       font-weight: 300;
+      margin-top: 16px;
       letter-spacing: .025em;
       line-height: 1.75;
       text-align: center;
+
+      @media (--sp) {
+        font-size: 13px;
+        margin-top: 12px;
+      }
     }
 
     & .login__title-image {
+      margin-bottom: 20px;
       pointer-events: none;
+
+      @media (--sp) {
+        margin-bottom: 16px;
+      }
 
       & img {
         width: 70px;
+
+        @media (--sp) {
+          width: 60px;
+        }
       }
     }
   }
 
   & .form__wrapper {
-    border: 1px solid rgba(102, 102, 102, .6);
-    border-radius: 12px;
-    max-width: 520px;
+    border: 1px solid rgba(102, 102, 102, .7);
+    border-radius: 16px;
     margin: auto;
+    max-width: 520px;
+    padding: 40px;
+
+    @media (--sp) {
+      border-radius: 12px;
+      max-width: 90%;
+      padding: 32px 24px;
+    }
 
     & .form__error-text {
       color: #c00;
@@ -189,22 +217,32 @@ export default defineComponent({
       line-height: 1.75;
       white-space: pre-line;
       margin-top: -24px;
+
+      @media (--sp) {
+        font-size: 11px;
+      }
     }
   }
 
   & .register__text {
-    color: var(--color-secondary);
+    color: var(--color-primary);
     cursor: pointer;
     display: inline-block;
     font-size: 14px;
+    margin-top: 32px;
     text-decoration: underline;
     text-decoration-color: transparent;
     text-underline-offset: 4px;
     transition: all .15s;
 
+    @media (--sp) {
+      font-size: 12px;
+      margin: 24px 0 0;
+    }
+
     &:hover {
       @media (--not-sp) {
-        text-decoration-color: var(--color-secondary);
+        text-decoration-color: var(--color-primary);
       }
     }
   }

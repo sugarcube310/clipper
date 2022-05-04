@@ -4,11 +4,11 @@
     persistent
     width="400"
   >
-    <div class="deleteClipDialog__inner pa-15">
+    <div class="deleteClipDialog__inner">
       <v-row>
         <v-col cols="12" class="d-flex justify-center">
-          <p class="deleteClipDialog__text">
-            クリップを削除しますか？
+          <p class="deleteClipDialog__text text-center">
+            このクリップを削除しますか？
           </p>
         </v-col>
         <v-col
@@ -102,12 +102,17 @@ export default defineComponent({
 <style lang="postcss" scoped>
 .deleteClipDialog__inner {
   background-color: #fff;
+  padding: 60px 20px;
 
   & .deleteClipDialog__text {
-    color: #555;
+    color: var(--color-text-light);
     font-size: 18px;
     font-weight: bold;
     letter-spacing: .025em;
+
+    @media (--sp) {
+      font-size: 17px;
+    }
   }
 }
 </style>

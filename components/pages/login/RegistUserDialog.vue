@@ -4,7 +4,7 @@
     persistent
     width="560"
   >
-  <div class="registerDialog__inner px-10 pt-8 pb-10">
+  <div class="registerDialog__inner">
     <v-btn
       icon
       color="primary"
@@ -17,9 +17,9 @@
     </v-btn>
     <div class="registerDialog__head mb-8">
       <h2 class="text-center pt-2">
-        あなたのアカウントを作成しましょう
+        あなたのアカウントを<br class="hidden-pc">作成しましょう
       </h2>
-      <div class="registerDialog__head-icon text-center mt-1">
+      <div class="registerDialog__head-icon text-center">
         <p v-if="formErrorMessage || $store.getters.registerErrorMessage" class="icon mb-0">:o</p>
         <p v-else class="icon mb-0">:)</p>
       </div>
@@ -35,6 +35,7 @@
               v-model="form.email"
               label="メールアドレス"
               outlined
+              color="secondary"
               class="rounded-lg"
               required
             ></v-text-field>
@@ -44,6 +45,7 @@
               v-model="form.password"
               label="パスワード"
               outlined
+              color="secondary"
               class="rounded-lg"
               required
               autocomplete="on"
@@ -57,6 +59,7 @@
               v-model="form.name"
               label="ユーザー名"
               outlined
+              color="secondary"
               class="rounded-lg"
               required
             ></v-text-field>
@@ -98,7 +101,7 @@
       <v-divider />
 
       <p
-        class="login__text d-block mt-8 text-center"
+        class="login__text d-block text-center"
         @click="onClose()"
       >
         すでにアカウントをお持ちの方はこちら
@@ -192,25 +195,39 @@ export default defineComponent({
 <style lang="postcss" scoped>
 .registerDialog__inner {
   background-color: #fff;
+  padding: 32px 40px 40px;
+
+  @media (--sp) {
+    padding: 24px 24px 36px;
+  }
 
   & .registerDialog__head {
     margin-top: -4px;
 
     & h2 {
-      color: #555;
+      color: var(--color-text-light);
       font-size: 19px;
       font-weight: 500;
       letter-spacing: .02em;
       line-height: 1.5;
+
+      @media (--sp) {
+        font-size: 17px;
+      }
     }
 
     & .registerDialog__head-icon {
       & .icon {
-        color: #333;
+        color: var(--color-text-light);
         display: inline-block;
         font-size: 20px;
+        margin-top: 4px;
         letter-spacing: .1em;
         transform: rotate(90deg);
+
+        @media (--sp) {
+          font-size: 18px;
+        }
       }
     }
   }
@@ -222,21 +239,31 @@ export default defineComponent({
     line-height: 1.75;
     white-space: pre-line;
     margin-top: -24px;
+
+    @media (--sp) {
+      font-size: 11px;
+    }
   }
 
   & .login__text {
-    color: var(--color-secondary);
+    color: var(--color-primary);
     cursor: pointer;
     display: inline-block;
     font-size: 14px;
+    margin-top: 32px;
     text-decoration: underline;
     text-decoration-color: transparent;
     text-underline-offset: 4px;
     transition: all .15s;
 
+    @media (--sp) {
+      font-size: 12px;
+      margin: 24px 0 0;
+    }
+
     &:hover {
       @media (--not-sp) {
-        text-decoration-color: var(--color-secondary);
+        text-decoration-color: var(--color-primary);
       }
     }
   }

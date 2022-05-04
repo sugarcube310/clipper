@@ -1,10 +1,10 @@
 <template>
   <div class="page-container -mypage">
     <PageBackButton />
-    <v-row class="pt-10 user__profile">
+    <v-row class="user__profile">
       <v-col cols="12">
         <div
-          class="mx-auto mb-2 user__icon"
+          class="mx-auto mb-3 user__icon"
           :class="{ '-edit': isEditProfileMode }"
         >
           <div
@@ -50,8 +50,9 @@
           v-else
           v-model="profile.name"
           label="ユーザー名"
-          outlined
           hide-details
+          outlined
+          color="secondary"
           class="rounded-lg mb-8"
         ></v-text-field>
       </v-col>
@@ -78,8 +79,9 @@
           v-else-if="isEditProfileMode"
           v-model="profile.introduction"
           label="自己紹介文"
-          outlined
           hide-details
+          outlined
+          color="secondary"
           class="rounded-lg"
         ></v-textarea>
       </v-col>
@@ -229,14 +231,25 @@ export default defineComponent({
 
 <style lang="postcss">
 .user__profile {
-  margin: auto;
+  margin: 40px auto 0;
   max-width: 480px;
   width: 50%;
+
+  @media (--sp) {
+    max-width: 100%;
+    width: 90%;
+    margin-top: 20px;
+  }
 
   & .user__icon {
     position: relative;
     height: 140px;
     width: 140px;
+
+    @media (--sp) {
+      height: 120px;
+      width: 120px;
+    }
 
     & .inputButton {
       background-color: rgba(117, 117, 117, .7);
@@ -300,17 +313,25 @@ export default defineComponent({
           font-size: 72px !important;
           height: 100%;
           width: 100%;
+
+          @media (--sp) {
+            font-size: 64px !important;
+          }
         }
       }
     }
   }
 
   & .user__name {
-    color: var(--color-secondary);
+    color: var(--color-text-light);
     font-size: 28px;
     letter-spacing: .08em;
     line-height: 2;
     line-height: 1;
+
+    @media (--sp) {
+      font-size: 26px;
+    }
 
     & .v-input {
       width: 100%;
@@ -322,12 +343,12 @@ export default defineComponent({
   }
 
   & .user__releases {
-    color: var(--color-secondary);
+    color: var(--color-text-light);
     letter-spacing: .02em;
   }
 
   & .user__introduction {
-    color: var(--color-secondary);
+    color: var(--color-text-light);
     letter-spacing: .04em;
     line-height: 2;
     margin-top: -28px;

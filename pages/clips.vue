@@ -4,7 +4,7 @@
       v-if="clips.length >= 1"
       class="clip__list"
     >
-      <v-col cols="12">
+      <v-col cols="12" class="mb-4">
         <p class="mb-0 list__length-text">
           あなたのクリップ：{{ clips.length }}件
         </p>
@@ -12,13 +12,15 @@
           v-model="isShowAllClips"
           color="accent"
           inset
+          hide-details
           label="非公開のクリップを表示する"
           @change="switchShowClips()"
         ></v-switch>
       </v-col>
       <v-col
-        cols="3"
-        class="d-flex align-center justify-center list__item"
+        cols="6"
+        md="3"
+        class="d-flex align-start justify-center list__item"
         v-for="(clip, i) in clips"
         :key="i"
         @click="showClipDetail(clip)"
@@ -36,7 +38,7 @@
       <v-col cols="12">
         <p class="mb-0 text-center clip__nothing-text">
           お気に入りの画像を追加しましょう！
-          <span class="pl-6 icon">:)</span>
+          <span class="icon">:)</span>
         </p>
       </v-col>
       <v-col cols="12" class="d-flex justify-center mt-5">
@@ -222,18 +224,26 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .page-container.-clips {
-  padding-bottom: 200px;
+  padding: 8px 0 200px;
 
   & .clip__list {
     margin: auto;
     max-width: 1340px;
     width: 90%;
 
+    @media (--sp) {
+      width: 95%;
+    }
+
     & .list__length-text {
-      color: var(--color-secondary);
+      color: var(--color-text-light);
       font-size: 18px;
       font-weight: bold;
       letter-spacing: .04em;
+
+      @media (--sp) {
+        font-size: 17px;
+      }
     }
 
     & .list__item {
@@ -246,8 +256,16 @@ export default defineComponent({
         }
       }
 
-      & img {
-        border-radius: 8px;
+      & figure {
+        height: 100%;
+        width: 100%;
+
+        & img {
+          border-radius: 8px;
+          object-fit: cover;
+          height: 100%;
+          width: 100%;
+        }
       }
     }
   }
@@ -255,15 +273,31 @@ export default defineComponent({
   & .clip__nothing {
     margin-top: 120px;
 
+    @media (--sp) {
+      margin-top: 80px;
+    }
+
     & .clip__nothing-text {
+      color: var(--color-text-light);
       font-size: 18px;
       letter-spacing: .02em;
 
+      @media (--sp) {
+        font-size: 17px;
+      }
+
       & .icon {
+        color: var(--color-text-light);
         display: block;
         font-size: 24px;
         letter-spacing: .1em;
+        padding-left: 20px;
         transform: rotate(90deg);
+
+        @media (--sp) {
+          font-size: 20px;
+          padding-left: 16px;
+        }
       }
     }
   }

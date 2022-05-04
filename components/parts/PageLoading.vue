@@ -16,12 +16,20 @@
   height: 100vh;
   width: 100%;
 
+  @media (--sp) {
+    margin-top: -56px;
+  }
+
   & .spinner__wrap {
     position: absolute;
     top: calc(50% - 30px);
     right: 0;
     left: 0;
     margin: 0 auto;
+
+    @media (--sp) {
+      top: calc(50% - 24px);
+    }
 
     & .spinner,
     & .spinner * {
@@ -35,6 +43,12 @@
       position: relative;
       height: 60px;
       width: 60px;
+
+      @media (--sp) {
+        border: 3px solid var(--color-accent);
+        height: 48px;
+        width: 48px;
+      }
 
       & .spinner__inner {
         animation: spinner__inner-animation 4s infinite ease-in;

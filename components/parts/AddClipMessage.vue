@@ -13,8 +13,19 @@
 <style lang="postcss" scoped>
 .addClipMessage {
   position: fixed;
-  top: 64px;
-  right: 20px;
   z-index: 5;
+
+  @media (--not-sp) {
+    top: 64px;
+    right: 20px;
+  }
+
+  @media (--sp) {
+    bottom: 112px;
+    right: 0;
+    left: 0;
+    margin: auto;
+    max-width: 90%;
+  }
 }
 </style>

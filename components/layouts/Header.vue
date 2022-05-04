@@ -113,6 +113,11 @@ export default defineComponent({
     height: 40px;
     width: 40px;
 
+    @media (--sp) {
+      height: 36px;
+      width: 36px;
+    }
+
     & .mdi {
       color: #fff;
       display: flex;
@@ -121,6 +126,10 @@ export default defineComponent({
       font-size: 20px !important;
       height: 100%;
       width: 100%;
+
+      @media (--sp) {
+        font-size: 18px !important;
+      }
     }
 
     & img {
@@ -133,10 +142,14 @@ export default defineComponent({
 }
 
 .header__menu-toggle .mdi {
-  color: var(--color-secondary);
+  color: var(--color-primary);
   display: block;
   font-size: 28px !important;
   transition: all .15s;
+
+  @media (--sp) {
+    font-size: 24px !important;
+  }
 
   &:hover {
     @media (--not-sp) {
@@ -148,7 +161,7 @@ export default defineComponent({
 .header__menu-greeting {
   background-color: rgba(97, 171, 155, .2);
   border-bottom: 2px solid var(--color-accent);
-  color: var(--color-secondary);
+  color: var(--color-text-light);
   font-size: 14px;
   font-weight: bold;
 }
