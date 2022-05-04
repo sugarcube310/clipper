@@ -15,6 +15,7 @@ import { auth } from '@/plugins/firebase'
 
 export default defineComponent({
   created () {
+    /* ログイン認証状態のチェック */
     this.$store.dispatch('checkAuth')
   },
 
@@ -22,7 +23,7 @@ export default defineComponent({
     const router = useRouter()
 
     onMounted(() => {
-      // ログイン済みの場合は一覧ページに遷移
+      /* ログイン済みの場合は一覧ページに遷移 */
       auth.onAuthStateChanged((user) => {
         if (user) {
           return router.push('/clips/')

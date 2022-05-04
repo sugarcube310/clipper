@@ -19,6 +19,7 @@ import { auth } from '@/plugins/firebase'
 
 export default defineComponent({
   created () {
+    /* ログイン認証状態のチェック */
     this.$store.dispatch('checkAuth')
   },
 
@@ -36,7 +37,7 @@ export default defineComponent({
       setTimeout(() => {
         reactiveState.isPageLoading = false
 
-        // 未ログインの場合はログインページに遷移
+        /* 未ログインの場合はログインページに遷移 */
         auth.onAuthStateChanged((user) => {
           if (!user) {
             return router.push('/login/')
