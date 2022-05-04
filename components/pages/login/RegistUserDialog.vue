@@ -15,7 +15,7 @@
     >
       <v-icon>mdi-close</v-icon>
     </v-btn>
-    <div class="registerDialog__head mb-8">
+    <div class="registerDialog__head">
       <h2 class="text-center pt-2">
         あなたのアカウントを<br class="hidden-pc">作成しましょう
       </h2>
@@ -202,11 +202,15 @@ export default defineComponent({
   }
 
   & .registerDialog__head {
-    margin-top: -4px;
+    margin: -4px auto 40px;
+
+    @media (--sp) {
+      margin-bottom: 24px;
+    }
 
     & h2 {
       color: var(--color-text-light);
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 500;
       letter-spacing: .02em;
       line-height: 1.5;
@@ -226,7 +230,7 @@ export default defineComponent({
         transform: rotate(90deg);
 
         @media (--sp) {
-          font-size: 18px;
+          font-size: 17px;
         }
       }
     }
