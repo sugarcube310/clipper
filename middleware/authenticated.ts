@@ -1,6 +1,6 @@
 import { auth } from '@/plugins/firebase'
 
-export default function ({ store, route, redirect }: { from: any, store: any, route: any, redirect: any }) {
+export default function ({ route, redirect }: { route: any, redirect: any }) {
   if (route.name === 'login') {
     // ログインページで、既にログイン認証がされている場合は一覧ページにリダイレクトさせる
     auth.onAuthStateChanged((user) => {
