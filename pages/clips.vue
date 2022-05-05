@@ -1,38 +1,35 @@
 <template>
   <div class="page-container -clips">
-    <transition
+    <v-row
       v-if="clips.length >= 1"
-      name="fade-long"
-      appear
+      class="clip__list"
+    >
+      <v-col cols="12" class="mb-4">
+        <p class="mb-0 list__length-text">
+          あなたのクリップ：{{ clips.length }}件
+        </p>
+        <v-switch
+          v-model="isShowAllClips"
+          color="accent"
+          inset
+          hide-details
+          label="非公開のクリップを表示する"
+          @change="switchShowClips()"
+        ></v-switch>
+      </v-col>
+      <v-col
+        cols="6"
+        md="3"
+        class="d-flex align-start justify-center list__item"
+        v-for="(clip, i) in clips"
+        :key="i"
+        @click="showClipDetail(clip)"
       >
-      <v-row class="clip__list">
-        <v-col cols="12" class="mb-4">
-          <p class="mb-0 list__length-text">
-            あなたのクリップ：{{ clips.length }}件
-          </p>
-          <v-switch
-            v-model="isShowAllClips"
-            color="accent"
-            inset
-            hide-details
-            label="非公開のクリップを表示する"
-            @change="switchShowClips()"
-          ></v-switch>
-        </v-col>
-        <v-col
-          cols="6"
-          md="3"
-          class="d-flex align-start justify-center list__item"
-          v-for="(clip, i) in clips"
-          :key="i"
-          @click="showClipDetail(clip)"
-        >
-          <figure>
-            <img :src="clip.data.image_url" alt="">
-          </figure>
-        </v-col>
-      </v-row>
-    </transition>
+        <figure>
+          <img :src="clip.data.image_url" alt="">
+        </figure>
+      </v-col>
+    </v-row>
 
     <v-row
       v-else

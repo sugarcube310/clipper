@@ -137,7 +137,7 @@
     <DeleteClip
       ref="deleteClipDialogRef"
       :clip="clip"
-      @close='onClose()'
+      @close='onClose(), switchEditMode()'
     />
   </v-dialog>
 </template>
