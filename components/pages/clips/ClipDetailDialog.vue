@@ -76,22 +76,6 @@
           class="d-flex justify-center mt-2"
         >
           <v-btn
-            color="warning"
-            depressed
-            class="rounded-lg"
-            height="44"
-            width="160"
-            @click="deleteClip()"
-          >
-            クリップを削除
-          </v-btn>
-        </v-col>
-        <v-col
-          v-if="isClipEditMode"
-          cols="12"
-          class="d-flex justify-center"
-        >
-          <v-btn
             color="accent"
             depressed
             class="rounded-lg mr-3"
@@ -112,6 +96,23 @@
             @click="switchEditMode()"
           >
             キャンセル
+          </v-btn>
+        </v-col>
+        <v-col
+          v-if="isClipEditMode"
+          cols="12"
+          class="d-flex justify-center"
+        >
+          <v-btn
+            color="warning"
+            small
+            depressed
+            class="rounded-lg"
+            height="40"
+            width="140"
+            @click="deleteClip()"
+          >
+            クリップを削除
           </v-btn>
         </v-col>
         <v-col

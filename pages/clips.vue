@@ -1,35 +1,38 @@
 <template>
   <div class="page-container -clips">
-    <v-row
+    <transition
       v-if="clips.length >= 1"
-      class="clip__list"
-    >
-      <v-col cols="12" class="mb-4">
-        <p class="mb-0 list__length-text">
-          あなたのクリップ：{{ clips.length }}件
-        </p>
-        <v-switch
-          v-model="isShowAllClips"
-          color="accent"
-          inset
-          hide-details
-          label="非公開のクリップを表示する"
-          @change="switchShowClips()"
-        ></v-switch>
-      </v-col>
-      <v-col
-        cols="6"
-        md="3"
-        class="d-flex align-start justify-center list__item"
-        v-for="(clip, i) in clips"
-        :key="i"
-        @click="showClipDetail(clip)"
+      name="fade-long"
+      appear
       >
-        <figure>
-          <img :src="clip.data.image_url" alt="">
-        </figure>
-      </v-col>
-    </v-row>
+      <v-row class="clip__list">
+        <v-col cols="12" class="mb-4">
+          <p class="mb-0 list__length-text">
+            あなたのクリップ：{{ clips.length }}件
+          </p>
+          <v-switch
+            v-model="isShowAllClips"
+            color="accent"
+            inset
+            hide-details
+            label="非公開のクリップを表示する"
+            @change="switchShowClips()"
+          ></v-switch>
+        </v-col>
+        <v-col
+          cols="6"
+          md="3"
+          class="d-flex align-start justify-center list__item"
+          v-for="(clip, i) in clips"
+          :key="i"
+          @click="showClipDetail(clip)"
+        >
+          <figure>
+            <img :src="clip.data.image_url" alt="">
+          </figure>
+        </v-col>
+      </v-row>
+    </transition>
 
     <v-row
       v-else
@@ -57,7 +60,7 @@
 
     <AddClip
       ref="addClipDialogRef"
-      @add="addClipComplete"
+      @add="addClipComplete()"
     />
 
     <transition name="fade" appear>
@@ -66,7 +69,7 @@
 
     <ClipDetailDialog
       ref="clipDetailDialogRef"
-      @save="getPublicClips()"
+      @save="switchShowClips()"
     />
   </div>
 </template>
@@ -199,6 +202,8 @@ export default defineComponent({
 
       /* クリップ追加完了メッセージを表示 */
       addClipComplete () {
+        methods.switchShowClips()
+
         reactiveState.isShowAddClipMessage = true
         setTimeout(() => {
           reactiveState.isShowAddClipMessage = false

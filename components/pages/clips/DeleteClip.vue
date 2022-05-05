@@ -105,13 +105,14 @@ export default defineComponent({
   padding: 60px 20px;
 
   & .deleteClipDialog__text {
-    color: var(--color-text-light);
+    color: var(--color-primary);
     font-size: 18px;
     font-weight: bold;
-    letter-spacing: .025em;
+    letter-spacing: .04em;
 
     @media (--sp) {
-      font-size: 17px;
+      font-size: 16px;
+      letter-spacing: .02em;
     }
   }
 }
