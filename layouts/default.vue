@@ -3,7 +3,7 @@
     <Header v-show="!isPageLoading" />
     <v-main>
       <PageLoading v-if="isPageLoading" />
-      <transition v-else name="fade-long" appear>
+      <transition v-else name="fade" appear>
         <v-container>
           <Nuxt />
         </v-container>

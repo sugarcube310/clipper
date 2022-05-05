@@ -56,5 +56,10 @@ export default {
 
   endLoading (state) {
     state.loading = false
+  },
+
+  /**** ログアウト完了メッセージの表示切り替え ****/
+  switchLogoutMessage (state, status) {
+    state.isShowLogoutMessage = status
   }
 }

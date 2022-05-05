@@ -90,6 +90,11 @@
       </div>
 
       <RegistUserDialog ref="registUserDialogRef" />
+
+      <transition name="fade" appear>
+        <LogoutMessage v-if="$store.getters.isShowLogoutMessage" />
+      </transition>
+
     </section>
   </div>
 </template>
@@ -225,7 +230,7 @@ export default defineComponent({
   }
 
   & .register__text {
-    color: var(--color-primary);
+    color: var(--color-text-light);
     cursor: pointer;
     display: inline-block;
     font-size: 14px;
@@ -242,7 +247,7 @@ export default defineComponent({
 
     &:hover {
       @media (--not-sp) {
-        text-decoration-color: var(--color-primary);
+        text-decoration-color: var(--color-text-light);
       }
     }
   }

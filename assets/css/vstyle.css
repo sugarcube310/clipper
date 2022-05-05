@@ -45,3 +45,9 @@
 .v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
   color: var(--color-text-light) !important;
 }
+
+.v-input label,
+.v-input input,
+.v-input textarea {
+  color: var(--color-text-light) !important;
+}

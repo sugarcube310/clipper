@@ -76,10 +76,13 @@ export default {
   logout ({ commit }) {
     auth.signOut()
     .then(() => {
+      this.$router.push('/')
+      commit('switchLogin', false)
+      commit('switchLogoutMessage', true)
+
       setTimeout(() => {
-        this.$router.push('/')
-        commit('switchLogin', false)
-      }, 1000)
+        commit('switchLogoutMessage', false)
+      }, 3000)
     })
     .catch((error) => {
       console.log(`Logout error: ${ error.message }`)

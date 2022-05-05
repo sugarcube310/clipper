@@ -17,5 +17,9 @@ export default {
 
   registerErrorMessage: (state) => {
     return state.registerErrorMessage
+  },
+
+  isShowLogoutMessage: (state) => {
+    return state.isShowLogoutMessage
   }
 }

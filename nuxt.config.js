@@ -60,7 +60,8 @@ export default {
       '~/components/layouts',
       '~/components/parts',
       '~/components/pages/login',
-      '~/components/pages/clips'
+      '~/components/pages/clips',
+      '~/components/pages/mypage'
     ]
   },
 
@@ -107,8 +108,8 @@ export default {
           secondary: '#999',
           accent: '#61ab9b',
           info: colors.teal.lighten1,
-          warning: '#b78590',
-          error: '#c00',
+          warning: '#c4919d',
+          error: '#bf3654',
           success: '#61ab9b'
         }
       }

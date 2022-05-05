@@ -250,7 +250,7 @@ export default defineComponent({
   }
 
   & .login__text {
-    color: var(--color-primary);
+    color: var(--color-text-light);
     cursor: pointer;
     display: inline-block;
     font-size: 14px;
@@ -267,7 +267,7 @@ export default defineComponent({
 
     &:hover {
       @media (--not-sp) {
-        text-decoration-color: var(--color-primary);
+        text-decoration-color: var(--color-text-light);
       }
     }
   }

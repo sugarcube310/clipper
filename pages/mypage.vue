@@ -1,6 +1,7 @@
 <template>
   <div class="page-container -mypage">
     <PageBackButton />
+
     <v-row class="user__profile">
       <v-col cols="12">
         <div
@@ -86,11 +87,10 @@
         ></v-textarea>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row v-if="!isEditProfileMode">
       <v-col
-        v-if="!isEditProfileMode"
         cols="12"
-        class="form__submit text-center mt-3"
+        class="text-center mt-3"
       >
         <v-btn
           color="accent"
@@ -105,10 +105,11 @@
           プロフィールを編集
         </v-btn>
       </v-col>
+    </v-row>
+    <v-row v-else>
       <v-col
-        v-else
         cols="12"
-        class="form__submit text-center mt-3"
+        class="text-center mt-2 mb-5"
       >
         <v-btn
           color="accent"
@@ -133,12 +134,31 @@
           キャンセル
         </v-btn>
       </v-col>
+      <v-col
+        cols="12"
+        class="text-center"
+      >
+        <v-btn
+          color="error"
+          depressed
+          small
+          text
+          class="rounded-lg"
+          height="40"
+          width="140"
+          @click="openDeleteAccountDialog()"
+        >
+          アカウントを削除
+        </v-btn>
+      </v-col>
     </v-row>
+
+    <DeleteAccount ref="deleteAccountDialogRef" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from '@vue/composition-api'
+import { defineComponent, reactive, toRefs, ref } from '@vue/composition-api'
 import { mapGetters } from 'vuex'
 import { auth, dbUsersRef } from '@/plugins/firebase'
 
@@ -146,7 +166,10 @@ export default defineComponent({
   computed: {
     ...mapGetters(['user'])
   },
+
   setup () {
+    const deleteAccountDialogRef = ref<any>(null)
+
     /** Reactive State **/
     const reactiveState = reactive({
       isLoading: false,
@@ -227,11 +250,19 @@ export default defineComponent({
         reactiveState.profile.image = ''
         reactiveState.profile.introduction = ''
       },
+
+      /* アカウント削除 */
+      openDeleteAccountDialog () {
+        if (deleteAccountDialogRef.value) {
+          deleteAccountDialogRef.value.isOpenDialog = true
+        }
+      }
     }
 
     return {
       ...toRefs(reactiveState),
-      ...methods
+      ...methods,
+      deleteAccountDialogRef
     }
   }
 })

@@ -14,7 +14,8 @@ export const state = () => ({
   },
   loading: false,
   loginErrorMessage: '',
-  registerErrorMessage: ''
+  registerErrorMessage: '',
+  isShowLogoutMessage: false
 })
 
 export default {
