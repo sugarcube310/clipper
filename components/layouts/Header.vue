@@ -108,14 +108,38 @@ export default defineComponent({
 <style lang="postcss">
 .header__user-icon {
   & .icon-image {
-    background-color: var(--color-accent);
     border-radius: 50%;
+    position: relative;
     height: 40px;
     width: 40px;
 
     @media (--sp) {
       height: 36px;
       width: 36px;
+    }
+
+    &.-no-setting {
+      background-color: var(--color-secondary);
+    }
+
+    &::after {
+      content: '';
+      background-color: rgba(117, 117, 117, .1);
+      border-radius: 50%;
+      display: block;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: all .3s;
+      height: 100%;
+      width: 100%;
+    }
+
+    &:hover::after {
+      @media (--not-sp) {
+        opacity: 1;
+      }
     }
 
     & .mdi {
