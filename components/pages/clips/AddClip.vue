@@ -75,7 +75,7 @@
                           class="d-flex ml-auto"
                           height="40"
                           width="40"
-                          @click="clearFile()"
+                          @click="clearForm()"
                         >
                           <v-icon color="secondary">mdi-delete</v-icon>
                         </v-btn>
@@ -176,7 +176,7 @@ export default defineComponent({
       /* クリップ追加ダイアログを閉じる */
       onClose () {
         reactiveState.isOpenDialog = false
-        methods.clearFile()
+        methods.clearForm()
       },
 
       /* ファイルドロップエリアに入ったときの処理 */
@@ -234,10 +234,11 @@ export default defineComponent({
         }
       },
 
-      /* 選択したファイルの削除 */
-      clearFile () {
+      /* フォームクリア */
+      clearForm () {
         if (reactiveState.form.image.data) {
           reactiveState.form.image.data = ''
+          reactiveState.form.private_setting = false
         }
       },
 
