@@ -24,11 +24,10 @@ export default defineComponent({
 
     onMounted(() => {
       /* ログイン済みの場合は一覧ページに遷移 */
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          return router.push('/clips/')
-        }
-      })
+      const user = auth.currentUser
+      if (user) {
+        return router.push('/clips/')
+      }
     })
   }
 })

@@ -190,35 +190,43 @@ export default defineComponent({
         if (reactiveState.isEditProfileMode) {
           reactiveState.isLoading = true
 
-          auth.onAuthStateChanged((user) => {
-            if (user) {
-              const uid = user.uid
+          const user = auth.currentUser
+          if (user) {
+            const uid = user.uid
 
-              dbUsersRef
-              .doc(uid)
-              .set({
-                name: reactiveState.profile.name,
-                image: reactiveState.profile.image ? reactiveState.profile.image : (this as any).user.image,
-                introduction: reactiveState.profile.introduction
-              }, { merge: true })
-              .then(() => {
-                (this as any).$store.dispatch('updateUserStore')
-                console.log('Successfully: Updated user data.')
+            dbUsersRef
+            .doc(uid)
+            .set({
+              name: reactiveState.profile.name,
+              image: reactiveState.profile.image ? reactiveState.profile.image : (this as any).user.image,
+              introduction: reactiveState.profile.introduction,
+              updated_time: new Date()
+            }, { merge: true })
+            .then(() => {
+              (this as any).$store.dispatch('updateUserStore')
+              console.log('Successfully: Updated user data. (from Mypage)')
 
-                setTimeout(() => {
-                  reactiveState.isLoading = false
-                  reactiveState.isEditProfileMode = false
-                }, 1000)
-              })
-              .catch((error) => {
-                console.error(error)
-              })
-            }
-          })
+              setTimeout(() => {
+                reactiveState.isLoading = false
+                reactiveState.isEditProfileMode = false
+                methods.clearForm()
+              }, 1000)
+            })
+            .catch((error) => {
+              console.error(error)
+            })
+          }
         } else {
           return
         }
-      }
+      },
+
+      /* フォームクリア */
+      clearForm () {
+        reactiveState.profile.name = ''
+        reactiveState.profile.image = ''
+        reactiveState.profile.introduction = ''
+      },
     }
 
     return {
@@ -303,7 +311,7 @@ export default defineComponent({
       }
 
       &.-no-setting {
-        background-color: var(--color-accent);
+        background-color: var(--color-secondary);
 
         & .mdi {
           color: #fff;

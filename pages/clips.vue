@@ -95,85 +95,83 @@ export default defineComponent({
     const methods = {
       /* すべてのクリップを一覧取得 */
       getAllClips () {
-        auth.onAuthStateChanged((user) => {
-          if (user) {
-            const uid = user.uid
+        const user = auth.currentUser
+        if (user) {
+          const uid = user.uid
 
-            dbPicturesRef
-            .where('user_id', '==', uid)
-            .onSnapshot((querySnapshot) => {
-              const docs = [] as any[]
+          dbPicturesRef
+          .where('user_id', '==', uid)
+          .onSnapshot((querySnapshot) => {
+            const docs = [] as any[]
 
-              querySnapshot.forEach((doc) => {
-                const id =  doc.id
-                const data = doc.data()
+            querySnapshot.forEach((doc) => {
+              const id =  doc.id
+              const data = doc.data()
 
-                docs.push({
-                  id: id,
-                  data: {
-                    created_time: data.created_time.toDate(),
-                    image_url: data.image_url,
-                    private_setting: data.private_setting
-                  }
-                })
+              docs.push({
+                id: id,
+                data: {
+                  created_time: data.created_time.toDate(),
+                  image_url: data.image_url,
+                  private_setting: data.private_setting
+                }
               })
-
-              reactiveState.clips = Array.from(new Set(docs))
-
-              // 作成日時の降順でソート
-              const sortResult = reactiveState.clips.sort((item, item2) => {
-                if (item.data.created_time.getTime() > item2.data.created_time.getTime()) return -1
-                if (item.data.created_time.getTime() < item2.data.created_time.getTime()) return 1
-                return 0
-              })
-              reactiveState.clips = sortResult
             })
-          } else {
-            return
-          }
-        })
+
+            reactiveState.clips = Array.from(new Set(docs))
+
+            // 作成日時の降順でソート
+            const sortResult = reactiveState.clips.sort((item, item2) => {
+              if (item.data.created_time.getTime() > item2.data.created_time.getTime()) return -1
+              if (item.data.created_time.getTime() < item2.data.created_time.getTime()) return 1
+              return 0
+            })
+            reactiveState.clips = sortResult
+          })
+        } else {
+          return
+        }
       },
 
       /* 公開設定中のクリップのみ一覧取得 */
       getPublicClips () {
-        auth.onAuthStateChanged((user) => {
-          if (user) {
-            const uid = user.uid
+        const user = auth.currentUser
+        if (user) {
+          const uid = user.uid
 
-            dbPicturesRef
-            .where('user_id', '==', uid)
-            .where('private_setting', '==', false)
-            .onSnapshot((querySnapshot) => {
-              const docs = [] as any[]
+          dbPicturesRef
+          .where('user_id', '==', uid)
+          .where('private_setting', '==', false)
+          .onSnapshot((querySnapshot) => {
+            const docs = [] as any[]
 
-              querySnapshot.forEach((doc) => {
-                const id =  doc.id
-                const data = doc.data()
+            querySnapshot.forEach((doc) => {
+              const id =  doc.id
+              const data = doc.data()
 
-                docs.push({
-                  id: id,
-                  data: {
-                    created_time: data.created_time.toDate(),
-                    image_url: data.image_url,
-                    private_setting: data.private_setting
-                  }
-                })
+              docs.push({
+                id: id,
+                data: {
+                  created_time: data.created_time.toDate(),
+                  image_url: data.image_url,
+                  private_setting: data.private_setting
+                }
               })
-
-              reactiveState.clips = Array.from(new Set(docs))
-
-              // 作成日時の降順でソート
-              const sortResult = reactiveState.clips.sort((item, item2) => {
-                if (item.data.created_time.getTime() > item2.data.created_time.getTime()) return -1
-                if (item.data.created_time.getTime() < item2.data.created_time.getTime()) return 1
-                return 0
-              })
-              reactiveState.clips = sortResult
             })
-          } else {
-            return
-          }
-        })
+
+            reactiveState.clips = Array.from(new Set(docs))
+
+            // 作成日時の降順でソート
+            const sortResult = reactiveState.clips.sort((item, item2) => {
+              if (item.data.created_time.getTime() > item2.data.created_time.getTime()) return -1
+              if (item.data.created_time.getTime() < item2.data.created_time.getTime()) return 1
+              return 0
+            })
+            reactiveState.clips = sortResult
+          })
+        } else {
+          return
+        }
       },
 
       /* 表示するクリップの切り替え */

@@ -38,11 +38,10 @@ export default defineComponent({
         reactiveState.isPageLoading = false
 
         /* 未ログインの場合はログインページに遷移 */
-        auth.onAuthStateChanged((user) => {
-          if (!user) {
-            return router.push('/login/')
-          }
-        })
+        const user = auth.currentUser
+        if (!user) {
+          return router.push('/login/')
+        }
       }, 3000)
     })
 

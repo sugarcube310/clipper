@@ -244,40 +244,39 @@ export default defineComponent({
       /* クリップ追加 */
       addClip () {
         if (reactiveState.form.image.url !== '') {
-          return auth.onAuthStateChanged((user) => {
-            if (user) {
-              reactiveState.isLoading = true
+          const user = auth.currentUser
+          if (user) {
+            reactiveState.isLoading = true
 
-              setTimeout(() => {
-                const uid = user.uid
-                const image_url = reactiveState.form.image.url
-                const private_setting = reactiveState.form.private_setting
+            setTimeout(() => {
+              const uid = user.uid
+              const image_url = reactiveState.form.image.url
+              const private_setting = reactiveState.form.private_setting
 
-                dbPicturesRef
-                .doc()
-                .set({
-                  created_time: new Date(),
-                  image_url: image_url,
-                  private_setting: private_setting,
-                  user_id: uid
-                })
-                .then(() => {
-                  console.log('Successfully: Added the Clip!')
+              dbPicturesRef
+              .doc()
+              .set({
+                created_time: new Date(),
+                image_url: image_url,
+                private_setting: private_setting,
+                user_id: uid
+              })
+              .then(() => {
+                console.log('Successfully: Added the Clip!')
 
-                  reactiveState.isLoading = false
-                  methods.onClose()
+                reactiveState.isLoading = false
+                methods.onClose()
 
-                  emit('add')
+                emit('add')
 
-                  // 公開クリップ件数を更新
-                  methods.updateUserData()
-                })
-                .catch((error) => {
-                  console.error(error)
-                })
-              }, 1000)
-            }
-          })
+                // 公開クリップ件数を更新
+                methods.updateUserData()
+              })
+              .catch((error) => {
+                console.error(error)
+              })
+            }, 1000)
+          }
         } else {
           return
         }
@@ -285,36 +284,36 @@ export default defineComponent({
 
       /* ユーザー情報を更新(公開クリップ件数) */
       updateUserData () {
-        auth.onAuthStateChanged((user) => {
-          if (user) {
-            const uid = user.uid
+        const user = auth.currentUser
+        if (user) {
+          const uid = user.uid
 
-            dbPicturesRef
-            .where('user_id', '==', uid)
-            .where('private_setting', '==', false)
-            .onSnapshot((querySnapshot) => {
-              const docs = [] as any[]
+          dbPicturesRef
+          .where('user_id', '==', uid)
+          .where('private_setting', '==', false)
+          .onSnapshot((querySnapshot) => {
+            const docs = [] as any[]
 
-              querySnapshot.forEach((doc) => {
-                docs.push(doc)
-              })
-
-              dbUsersRef
-              .doc(uid)
-              .set({
-                releases: docs.length,
-              },  { merge: true })
-              .then(() => {
-                console.log('Successfully: Updated user data.')
-              })
-              .catch((error) => {
-                console.error(error)
-              })
+            querySnapshot.forEach((doc) => {
+              docs.push(doc)
             })
-          } else {
-            return
-          }
-        })
+
+            dbUsersRef
+            .doc(uid)
+            .set({
+              releases: docs.length,
+              updated_time: new Date()
+            },  { merge: true })
+            .then(() => {
+              console.log('Successfully: Updated user data. (from AddClip)')
+            })
+            .catch((error) => {
+              console.error(error)
+            })
+          })
+        } else {
+          return
+        }
       }
     }
 

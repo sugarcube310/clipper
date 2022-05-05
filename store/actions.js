@@ -13,9 +13,10 @@ export default {
           commit('getUserData', { uid: user.uid, email: user.email })
           commit('switchLogin', true)
           commit('clearLoginFormError')
+
+          this.$router.push('/clips/')
         }
       })
-      this.$router.push('/clips/')
     })
     .catch((error) => {
       dispatch('showLoginError', error.code)
@@ -47,7 +48,8 @@ export default {
             created_time: new Date(),
             email: user.email,
             name: payload.name,
-            profile: '',
+            image: '',
+            introduction: '',
             releases: 0
           })
           .then(() => {

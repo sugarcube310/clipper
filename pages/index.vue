@@ -12,13 +12,12 @@ import { useRouter } from '@/plugins/use-router'
 export default defineComponent({
   setup () {
     const router = useRouter()
-    auth.onAuthStateChanged((user) => {
-      if (!user) {
-        router.push('/login/')
-      } else {
-        router.push('/clips/')
-      }
-    })
+    const user = auth.currentUser
+    if (!user) {
+      router.push('/login/')
+    } else {
+      router.push('/clips/')
+    }
   }
 })
 </script>
