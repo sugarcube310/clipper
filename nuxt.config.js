@@ -48,7 +48,8 @@ export default {
   router: {
     trailingSlash: true,
     middleware: [
-      'slash-redirect'
+      'slash-redirect',
+      'authenticated'
     ]
   },
 

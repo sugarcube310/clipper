@@ -9,26 +9,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from '@vue/composition-api'
-import { useRouter } from '@/plugins/use-router'
-import { auth } from '@/plugins/firebase'
+import { defineComponent } from '@vue/composition-api'
 
 export default defineComponent({
   created () {
     /* ログイン認証状態のチェック */
     this.$store.dispatch('checkAuth')
-  },
-
-  setup () {
-    const router = useRouter()
-
-    onMounted(() => {
-      /* ログイン済みの場合は一覧ページに遷移 */
-      const user = auth.currentUser
-      if (user) {
-        return router.push('/clips/')
-      }
-    })
   }
 })
 </script>
