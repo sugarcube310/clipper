@@ -1,6 +1,6 @@
 export default {
   /**** ユーザー情報の取得 ****/
-  getUserData (state, payload, name) {
+  getUserData (state, payload) {
     state.user.uid = payload.uid
     state.user.email = payload.email
     state.user.name = payload.name ? payload.name : ''
