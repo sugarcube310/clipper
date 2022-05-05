@@ -35,31 +35,30 @@ export default {
     /* ユーザー登録処理 */
     auth.createUserWithEmailAndPassword(payload.email, payload.password)
     .then(() => {
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          commit('getUserData', { uid: user.uid, email: user.email })
-          commit('switchLogin', true)
-          commit('clearRegisterFormError')
+      const user = auth.currentUser
+      if (user) {
+        commit('getUserData', { uid: user.uid, email: user.email })
+        commit('switchLogin', true)
+        commit('clearRegisterFormError')
 
-          // users コレクションに登録
-          dbUsersRef
-          .doc(user.uid)
-          .set({
-            created_time: new Date(),
-            email: user.email,
-            name: payload.name,
-            image: '',
-            introduction: '',
-            releases: 0
-          })
-          .then(() => {
-            console.log('User registration succeeded!')
-          })
-          .catch((error) => {
-            console.error(error)
-          })
-        }
-      })
+        // users コレクションに登録
+        dbUsersRef
+        .doc(user.uid)
+        .set({
+          created_time: new Date(),
+          email: user.email,
+          name: payload.name,
+          image: '',
+          introduction: '',
+          releases: 0
+        })
+        .then(() => {
+          console.log('User registration succeeded!')
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+      }
       this.$router.push('/clips/')
     })
     .catch((error) => {
