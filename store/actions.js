@@ -115,9 +115,7 @@ export default {
       .then((doc) => {
         if (doc.exists) {
           const data = doc.data()
-          setTimeout(() => {
-            commit('getUserData', { uid: user.uid, email: user.email, name: data.name, image: data.image, introduction: data.introduction, releases: data.releases })
-          }, 500)
+          commit('getUserData', { uid: user.uid, email: user.email, name: data.name, image: data.image, introduction: data.introduction, releases: data.releases })
         } else {
           return
         }
