@@ -90,9 +90,6 @@ export default {
 
   /**** ログイン認証状態のチェック ****/
   checkAuth ({ dispatch, commit }) {
-    // ユーザー情報を更新
-    dispatch('updateUserStore')
-
     // ログイン状態を更新
     auth.onAuthStateChanged((user) => {
       user = user ? user : {}
@@ -100,28 +97,29 @@ export default {
         const isAuthenticated = user.uid ? true : false
         commit('switchLogin', isAuthenticated)
       }
+
+      // ユーザー情報を更新
+      dispatch('updateUserStore')
     })
   },
 
   /**** ストアのユーザー情報を更新 ****/
   updateUserStore ({ commit }) {
-    auth.onAuthStateChanged((user) => {
-      user = user ? user : {}
-      if (user) {
-        dbUsersRef
-        .doc(user.uid)
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            const data = doc.data()
-            commit('getUserData', { uid: user.uid, email: user.email, name: data.name, image: data.image, introduction: data.introduction, releases: data.releases })
-          } else {
-            return
-          }
-        }).catch((error) => {
-          console.log(error)
-        })
-      }
-    })
+    const user = auth.currentUser
+    if (user) {
+      dbUsersRef
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const data = doc.data()
+          commit('getUserData', { uid: user.uid, email: user.email, name: data.name, image: data.image, introduction: data.introduction, releases: data.releases })
+        } else {
+          return
+        }
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
   }
 }
