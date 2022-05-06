@@ -72,22 +72,19 @@ export default defineComponent({
       deleteClip () {
         reactiveState.isLoading = true
 
-        setTimeout(() => {
-          const clip_id = props.clip.id
+        const clip_id = props.clip.id
 
-          dbPicturesRef
-          .doc(clip_id)
-          .delete()
-          .then(() => {
-            reactiveState.isLoading = false
-          }).catch((error) => {
-            console.error(error)
-          })
-
+        dbPicturesRef
+        .doc(clip_id)
+        .delete()
+        .then(() => {
           reactiveState.isLoading = false
           methods.onClose()
           emit('close')
-        }, 1000)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
       }
     }
 
