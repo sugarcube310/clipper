@@ -47,15 +47,20 @@
         >
           {{ user.name }}
         </p>
-        <v-text-field
+        <v-form
           v-else
-          v-model="profile.name"
-          label="ユーザー名"
-          hide-details
-          outlined
-          color="secondary"
-          class="rounded-lg mb-8"
-        ></v-text-field>
+          class="form -mypage"
+          @submit.prevent="updateProfile()"
+        >
+          <v-text-field
+            v-model="profile.name"
+            label="ユーザー名"
+            hide-details
+            outlined
+            color="secondary"
+            class="rounded-lg mb-8"
+          ></v-text-field>
+        </v-form>
       </v-col>
       <v-col
         v-if="!isEditProfileMode"
@@ -76,15 +81,20 @@
         >
           {{ user.introduction }}
         </p>
-        <v-textarea
+        <v-form
           v-else-if="isEditProfileMode"
-          v-model="profile.introduction"
-          label="自己紹介文"
-          hide-details
-          outlined
-          color="secondary"
-          class="rounded-lg"
-        ></v-textarea>
+          class="form -mypage"
+          @submit.prevent="updateProfile()"
+        >
+          <v-textarea
+            v-model="profile.introduction"
+            label="自己紹介文"
+            hide-details
+            outlined
+            color="secondary"
+            class="rounded-lg"
+          ></v-textarea>
+        </v-form>
       </v-col>
     </v-row>
     <v-row v-if="!isEditProfileMode">
@@ -361,6 +371,10 @@ export default defineComponent({
         }
       }
     }
+  }
+
+  & .form {
+    width: 100%;
   }
 
   & .user__name {
