@@ -67,7 +67,8 @@
 
     <ClipDetailDialog
       ref="clipDetailDialogRef"
-      @save="switchShowClips(), updateUserStore()"
+      @save="switchShowClips()"
+      @update="updateUserStore()"
     />
   </div>
 </template>

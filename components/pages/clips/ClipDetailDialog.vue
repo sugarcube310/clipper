@@ -223,6 +223,9 @@ export default defineComponent({
             }, { merge: true })
             .then(() => {
               console.log('Successfully: The Clip is published!')
+
+              // Storeのユーザー情報を更新
+              emit('update')
             })
             .catch((error: any) => {
               console.log(error)
@@ -237,6 +240,9 @@ export default defineComponent({
             }, { merge: true })
             .then(() => {
               console.log('Successfully: The Clip is Closed.')
+
+              // Storeのユーザー情報を更新
+              emit('update')
             })
             .catch((error: any) => {
               console.log(error)
