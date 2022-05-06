@@ -17,11 +17,11 @@
 
   @media (--not-sp) {
     top: 64px;
-    right: 20px;
+    right: 40px;
   }
 
   @media (--sp) {
-    bottom: 112px;
+    top: 60px;
     right: 0;
     left: 0;
     margin: auto;
