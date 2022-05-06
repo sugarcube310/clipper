@@ -304,8 +304,11 @@ export default defineComponent({
             .set({
               releases: docs.length,
               updated_time: new Date()
-            },  { merge: true })
+            }, { merge: true })
             .then(() => {
+              // Storeのユーザー情報を更新
+              emit('update')
+
               console.log('Successfully: Updated user data. (from AddClip)')
             })
             .catch((error) => {

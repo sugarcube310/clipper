@@ -58,6 +58,7 @@
     <AddClip
       ref="addClipDialogRef"
       @add="addClipComplete()"
+      @update="updateUserStore()"
     />
 
     <transition name="fade" appear>
@@ -205,6 +206,11 @@ export default defineComponent({
         setTimeout(() => {
           reactiveState.isShowAddClipMessage = false
         }, 3000)
+      },
+
+      /* Storeのユーザー情報を更新 */
+      updateUserStore () {
+        (this as any).$store.dispatch('updateUserStore')
       }
     }
 
