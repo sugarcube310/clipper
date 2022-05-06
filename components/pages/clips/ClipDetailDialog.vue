@@ -73,7 +73,7 @@
         <v-col
           v-if="isClipEditMode"
           cols="12"
-          class="d-flex justify-center mt-2"
+          class="d-flex justify-center mt-3"
         >
           <v-btn
             color="accent"
@@ -101,12 +101,13 @@
         <v-col
           v-if="isClipEditMode"
           cols="12"
-          class="d-flex justify-center"
+          class="d-flex justify-center pa-0"
         >
           <v-btn
-            color="warning"
-            small
+            color="error"
             depressed
+            small
+            text
             class="rounded-lg"
             height="40"
             width="140"
