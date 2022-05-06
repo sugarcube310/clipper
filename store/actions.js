@@ -90,20 +90,22 @@ export default {
 
   /**** ログイン認証状態のチェック ****/
   checkAuth ({ dispatch, commit }) {
-    // ログイン状態を更新
     auth.onAuthStateChanged((user) => {
       user = user ? user : {}
       if (user) {
+        // ログイン状態を更新
         const isAuthenticated = user.uid ? true : false
         commit('switchLogin', isAuthenticated)
-      }
 
-      // ユーザー情報を更新
-      dispatch('updateUserStore')
+        // Storeのユーザー情報を更新
+        dispatch('updateUserStore')
+      } else {
+        return
+      }
     })
   },
 
-  /**** ストアのユーザー情報を更新 ****/
+  /**** Storeのユーザー情報を更新 ****/
   updateUserStore ({ commit }) {
     const user = auth.currentUser
     if (user) {
@@ -113,13 +115,17 @@ export default {
       .then((doc) => {
         if (doc.exists) {
           const data = doc.data()
-          commit('getUserData', { uid: user.uid, email: user.email, name: data.name, image: data.image, introduction: data.introduction, releases: data.releases })
+          setTimeout(() => {
+            commit('getUserData', { uid: user.uid, email: user.email, name: data.name, image: data.image, introduction: data.introduction, releases: data.releases })
+          }, 500)
         } else {
           return
         }
       }).catch((error) => {
         console.log(error)
       })
+    } else {
+      return
     }
   }
 }
