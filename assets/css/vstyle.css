@@ -51,3 +51,9 @@
 .v-input textarea {
   color: var(--color-text-light) !important;
 }
+
+.v-input--selection-controls {
+  @media (--sp) {
+    margin-top: 12px !important;
+  }
+}

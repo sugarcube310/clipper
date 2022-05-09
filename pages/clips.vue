@@ -1,59 +1,59 @@
 <template>
   <div class="page-container -clips">
-    <v-row
-      v-if="clips.length >= 1"
-      class="clip__list"
-    >
-      <v-col cols="12" class="mb-4">
-        <p class="mb-0 list__length-text">
-          あなたのクリップ：{{ clips.length }}件
-        </p>
-        <v-switch
-          v-model="isShowAllClips"
-          color="accent"
-          inset
-          hide-details
-          label="非公開のクリップを表示する"
-          @change="switchShowClips()"
-        ></v-switch>
-      </v-col>
-      <v-col
-        cols="6"
-        md="3"
-        class="d-flex align-start justify-center list__item"
-        v-for="(clip, i) in clips"
-        :key="i"
-        @click="showClipDetail(clip)"
-      >
-        <figure>
-          <img :src="clip.data.image_url" alt="">
-        </figure>
-      </v-col>
-    </v-row>
+    <div v-if="clips.length > 0">
+      <v-row class="clip__list-head">
+        <v-col cols="12">
+          <p class="mb-0 pl-2 list__length-text">
+            あなたのクリップ：{{ clips.length }}件
+          </p>
+          <v-switch
+            v-model="isShowAllClips"
+            color="accent"
+            class="pl-2"
+            inset
+            hide-details
+            label="非公開のクリップを表示する"
+            @change="switchShowClips()"
+          ></v-switch>
+        </v-col>
+      </v-row>
 
-    <v-row
-      v-else
-      class="d-flex justify-center clip__nothing"
-    >
-      <v-col cols="12">
-        <p class="mb-0 text-center clip__nothing-text">
-          お気に入りの画像を追加しましょう！
-          <span class="icon">:)</span>
-        </p>
-      </v-col>
-      <v-col cols="12" class="d-flex justify-center mt-5">
-        <v-btn
-          color="accent"
-          depressed
-          class="rounded-lg"
-          height="44"
-          width="102"
-          @click="openAddClipDialog()"
+      <ul class="clip__list">
+        <li
+          class="list__item"
+          v-for="(clip, i) in clips"
+          :key="i"
+          @click="showClipDetail(clip)"
         >
-          追加
-        </v-btn>
-      </v-col>
-    </v-row>
+          <figure>
+            <img :src="clip.data.image_url" alt="">
+          </figure>
+        </li>
+      </ul>
+    </div>
+
+    <div v-else>
+      <v-row class="d-flex justify-center clip__nothing">
+        <v-col cols="12">
+          <p class="mb-0 text-center clip__nothing-text">
+            お気に入りの画像を追加しましょう！
+            <span class="icon">:)</span>
+          </p>
+        </v-col>
+        <v-col cols="12" class="d-flex justify-center mt-5">
+          <v-btn
+            color="accent"
+            depressed
+            class="rounded-lg"
+            height="44"
+            width="102"
+            @click="openAddClipDialog()"
+          >
+            追加
+          </v-btn>
+        </v-col>
+      </v-row>
+    </div>
 
     <AddClip
       ref="addClipDialogRef"
@@ -233,14 +233,16 @@ export default defineComponent({
 .page-container.-clips {
   padding: 8px 0 200px;
 
-  & .clip__list {
-    margin: auto;
-    max-width: 1340px;
-    width: 90%;
+  @media (--sp) {
+    padding-bottom: 100px;
+  }
 
-    @media (--sp) {
-      width: 95%;
-    }
+  & .clip__list-head {
+      margin-bottom: 20px;
+
+      @media (--sp) {
+        margin-bottom: 12px;
+      }
 
     & .list__length-text {
       color: var(--color-text-light);
@@ -249,12 +251,36 @@ export default defineComponent({
       letter-spacing: .04em;
 
       @media (--sp) {
-        font-size: 17px;
+        font-size: 16px;
       }
+    }
+  }
+
+  & .clip__list {
+    column-count: 4;
+    column-gap: 0;
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      column-count: 3;
+    }
+
+    @media (--sp) {
+      column-count: 2;
+    }
+
+    @media (max-width: 359px) {
+      column-count: 1;
     }
 
     & .list__item {
+      box-sizing: border-box;
+      break-inside: avoid;
       cursor: pointer;
+      padding: 8px 8px 12px 8px;
+      page-break-inside: avoid;
       transition: all .3s;
 
       &:hover {
@@ -263,15 +289,12 @@ export default defineComponent({
         }
       }
 
-      & figure {
-        height: 100%;
-        width: 100%;
+      & img {
+        border-radius: 16px;
+        vertical-align: bottom;
 
-        & img {
-          border-radius: 8px;
-          object-fit: cover;
-          height: 100%;
-          width: 100%;
+        @media (--sp) {
+          border-radius: 12px !important;
         }
       }
     }
@@ -290,7 +313,7 @@ export default defineComponent({
       letter-spacing: .02em;
 
       @media (--sp) {
-        font-size: 17px;
+        font-size: 16px;
       }
 
       & .icon {
@@ -302,8 +325,8 @@ export default defineComponent({
         transform: rotate(90deg);
 
         @media (--sp) {
-          font-size: 20px;
-          padding-left: 16px;
+          font-size: 18px;
+          padding-left: 12px;
         }
       }
     }
