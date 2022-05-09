@@ -270,8 +270,8 @@ export default defineComponent({
 
                 emit('add')
 
-                // 公開クリップ件数を更新
-                methods.updateUserData()
+                // ユーザー情報(公開クリップ件数)を更新
+                methods.updateUser()
               })
               .catch((error) => {
                 console.error(error)
@@ -283,8 +283,8 @@ export default defineComponent({
         }
       },
 
-      /* ユーザー情報を更新(公開クリップ件数) */
-      updateUserData () {
+      /* ユーザー情報を更新 */
+      updateUser () {
         const user = auth.currentUser
         if (user) {
           const uid = user.uid
@@ -306,9 +306,7 @@ export default defineComponent({
               updated_time: new Date()
             }, { merge: true })
             .then(() => {
-              // Storeのユーザー情報を更新
               emit('update')
-
               console.log('Successfully: Updated user data. (from AddClip)')
             })
             .catch((error) => {

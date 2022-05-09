@@ -50,7 +50,7 @@
         <v-form
           v-else
           class="form -mypage"
-          @submit.prevent="updateProfile()"
+          @submit.prevent="updateUser()"
         >
           <v-text-field
             v-model="profile.name"
@@ -84,7 +84,7 @@
         <v-form
           v-else-if="isEditProfileMode"
           class="form -mypage"
-          @submit.prevent="updateProfile()"
+          @submit.prevent="updateUser()"
         >
           <v-textarea
             v-model="profile.introduction"
@@ -129,7 +129,7 @@
           width="130"
           :loading="isLoading"
           :disabled="isLoading"
-          @click="updateProfile()"
+          @click="updateUser()"
         >
           保存
         </v-btn>
@@ -219,7 +219,7 @@ export default defineComponent({
       },
 
       /* ユーザー情報を更新(ユーザー名、アイコン画像、自己紹介) */
-      updateProfile () {
+      updateUser () {
         if (reactiveState.isEditProfileMode) {
           reactiveState.isLoading = true
 
@@ -236,8 +236,8 @@ export default defineComponent({
               updated_time: new Date()
             }, { merge: true })
             .then(() => {
-              // Storeのユーザー情報を更新
-              (this as any).$store.dispatch('updateUserStore')
+              // ユーザー情報を更新
+              (this as any).$store.dispatch('fetchUserData')
 
               console.log('Successfully: Updated user data. (from Mypage)')
 
@@ -268,6 +268,10 @@ export default defineComponent({
         if (deleteAccountDialogRef.value) {
           deleteAccountDialogRef.value.isOpenDialog = true
         }
+      },
+
+      getUerData () {
+        (this as any).$store.dispatch('getUerData')
       }
     }
 

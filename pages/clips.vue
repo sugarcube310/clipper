@@ -58,7 +58,7 @@
     <AddClip
       ref="addClipDialogRef"
       @add="addClipComplete()"
-      @update="updateUserStore()"
+      @update="updateUser()"
     />
 
     <transition name="fade" appear>
@@ -68,7 +68,7 @@
     <ClipDetailDialog
       ref="clipDetailDialogRef"
       @save="switchShowClips()"
-      @update="updateUserStore()"
+      @update="updateUser()"
     />
   </div>
 </template>
@@ -209,9 +209,9 @@ export default defineComponent({
         }, 3000)
       },
 
-      /* Storeのユーザー情報を更新 */
-      updateUserStore () {
-        (this as any).$store.dispatch('updateUserStore')
+      /* ユーザー情報を更新 */
+      updateUser () {
+        (this as any).$store.dispatch('fetchUserData')
       }
     }
 

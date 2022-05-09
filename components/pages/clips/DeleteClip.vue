@@ -45,7 +45,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@vue/composition-api'
-import { dbPicturesRef } from '@/plugins/firebase'
+import { auth, dbUsersRef, dbPicturesRef } from '@/plugins/firebase'
 
 export default defineComponent({
   props: {
@@ -78,13 +78,56 @@ export default defineComponent({
         .doc(clip_id)
         .delete()
         .then(() => {
+          console.log('Successfully: Deleted the Clip.')
+
           reactiveState.isLoading = false
           methods.onClose()
+
           emit('close')
+
+          // ユーザー情報(公開クリップ件数)を更新
+          methods.updateUser()
         })
         .catch((error) => {
           console.error(error)
         })
+      },
+
+      /* ユーザー情報を更新 */
+      updateUser () {
+        const user = auth.currentUser
+        if (user) {
+          const uid = user.uid
+
+          dbPicturesRef
+          .where('user_id', '==', uid)
+          .where('private_setting', '==', false)
+          .onSnapshot((querySnapshot) => {
+            const docs = [] as any[]
+
+            querySnapshot.forEach((doc) => {
+              docs.push(doc)
+            })
+
+            dbUsersRef
+            .doc(uid)
+            .set({
+              releases: docs.length,
+              updated_time: new Date()
+            }, { merge: true })
+            .then(() => {
+              // Storeのユーザー情報を更新
+              emit('update')
+
+              console.log('Successfully: Updated user data. (from DeleteClip)')
+            })
+            .catch((error) => {
+              console.error(error)
+            })
+          })
+        } else {
+          return
+        }
       }
     }
 

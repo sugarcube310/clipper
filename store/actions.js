@@ -10,7 +10,7 @@ export default {
     .then(() => {
       auth.onAuthStateChanged((user) => {
         if (user) {
-          commit('getUserData', { uid: user.uid, email: user.email })
+          commit('setUserData', { uid: user.uid, email: user.email })
           commit('switchLogin', true)
           commit('clearLoginFormError')
 
@@ -37,7 +37,7 @@ export default {
     .then(() => {
       const user = auth.currentUser
       if (user) {
-        commit('getUserData', { uid: user.uid, email: user.email })
+        commit('setUserData', { uid: user.uid, email: user.email })
         commit('switchLogin', true)
         commit('clearRegisterFormError')
 
@@ -97,25 +97,30 @@ export default {
         const isAuthenticated = user.uid ? true : false
         commit('switchLogin', isAuthenticated)
 
-        // Storeのユーザー情報を更新
-        dispatch('updateUserStore')
+        dispatch('fetchUserData')
       } else {
         return
       }
     })
   },
 
-  /**** Storeのユーザー情報を更新 ****/
-  updateUserStore ({ commit }) {
+  /**** FireStoreからユーザー情報を取得・取得したデータでStoreのuserを更新 ****/
+  fetchUserData ({ commit }) {
     const user = auth.currentUser
+
     if (user) {
+      const uid = user.uid
+
+      // FireStoreからユーザー情報を取得
       dbUsersRef
-      .doc(user.uid)
+      .doc(uid)
       .get()
       .then((doc) => {
         if (doc.exists) {
           const data = doc.data()
-          commit('getUserData', { uid: user.uid, email: user.email, name: data.name, image: data.image, introduction: data.introduction, releases: data.releases })
+
+          // Storeのuserを更新
+          commit('setUserData', { uid: user.uid, email: user.email, name: data.name, image: data.image, introduction: data.introduction, releases: data.releases })
         } else {
           return
         }
