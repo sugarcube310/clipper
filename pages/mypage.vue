@@ -218,7 +218,7 @@ export default defineComponent({
         }
       },
 
-      /* ユーザー情報を更新(ユーザー名、アイコン画像、自己紹介) */
+      /* ユーザー情報を更新 */
       updateUser () {
         if (reactiveState.isEditProfileMode) {
           reactiveState.isLoading = true
@@ -236,10 +236,9 @@ export default defineComponent({
               updated_time: new Date()
             }, { merge: true })
             .then(() => {
-              // ユーザー情報を更新
               (this as any).$store.dispatch('fetchUserData')
 
-              console.log('Successfully: Updated user data. (from Mypage)')
+              console.log('Successfully: Updated user data.')
 
               setTimeout(() => {
                 reactiveState.isLoading = false

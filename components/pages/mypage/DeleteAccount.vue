@@ -11,7 +11,8 @@
             アカウントを削除します。<br>本当によろしいですか？
           </p>
           <p class="deleteAccountDialog__text text-center">
-            ※保存したクリップも削除されます。
+            ※保存したクリップも削除されます。<br>
+            ※削除すると、元には戻せません。
           </p>
         </v-col>
         <v-col
@@ -83,7 +84,7 @@ export default defineComponent({
 
         const user = auth.currentUser
         if (user) {
-          reactiveState.deletingMessage = '削除中です。まもなくログアウトします。'
+          reactiveState.deletingMessage = '削除しています。まもなくログアウトします。'
 
           setTimeout(() => {
             // Authenticationからユーザーを削除
@@ -133,7 +134,8 @@ export default defineComponent({
   & .deleteAccountDialog__text {
     color: var(--color-primary);
     font-size: 14px;
-    letter-spacing: .04em;
+    letter-spacing: .08em;
+    line-height: 1.75;
 
     @media (--sp) {
       font-size: 12px;
