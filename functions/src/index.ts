@@ -46,21 +46,25 @@ exports.deleteAccount = functions.auth.user().onDelete((user) => {
       })
 
       // クリップのデータをFirestoreから削除
-      docs.forEach((doc) => {
-        const id =  doc.id
+      if (docs.length > 0) {
+        docs.forEach((doc) => {
+          const id =  doc.id
 
-        setTimeout(() => {
-          dbPicturesRef
-          .doc(id)
-          .delete()
-          .then(() => {
-            console.log(`Deleted Clip from Firebase.(id: ${ id })`)
-          })
-          .catch((error) => {
-            console.error(error)
-          })
-        }, 1000)
-      })
+          setTimeout(() => {
+            dbPicturesRef
+            .doc(id)
+            .delete()
+            .then(() => {
+              console.log(`Deleted Clip from Firebase.(id: ${ id })`)
+            })
+            .catch((error) => {
+              console.error(error)
+            })
+          }, 1000)
+        })
+      } else {
+        return
+      }
     })
   })
 })
