@@ -76,7 +76,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref, onMounted } from '@vue/composition-api'
 import { mapGetters } from 'vuex'
-import { auth, dbPicturesRef } from '@/plugins/firebase'
+import { auth, dbUsersRef, dbPicturesRef } from '@/plugins/firebase'
 
 export default defineComponent({
   computed: {
@@ -211,7 +211,39 @@ export default defineComponent({
 
       /* ユーザー情報を更新 */
       updateUser () {
-        (this as any).$store.dispatch('fetchUserData')
+        // (this as any).$store.dispatch('fetchUserData')
+
+        const user = auth.currentUser
+        if (user) {
+          const uid = user.uid
+
+          dbPicturesRef
+          .where('user_id', '==', uid)
+          .where('private_setting', '==', false)
+          .onSnapshot((querySnapshot) => {
+            const docs = [] as any[]
+
+            querySnapshot.forEach((doc) => {
+              docs.push(doc)
+            })
+
+            dbUsersRef
+            .doc(uid)
+            .set({
+              releases: docs.length,
+              updated_time: new Date()
+            }, { merge: true })
+            .then(() => {
+              (this as any).$store.dispatch('fetchUserData')
+              console.log('Successfully: Updated user data.')
+            })
+            .catch((error) => {
+              console.error(error)
+            })
+          })
+        } else {
+          return
+        }
       }
     }
 

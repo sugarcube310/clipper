@@ -147,7 +147,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@vue/composition-api'
-import { auth, dbUsersRef, dbPicturesRef } from '@/plugins/firebase'
+import { auth, dbPicturesRef } from '@/plugins/firebase'
 
 export default defineComponent({
   setup (_, { emit }) {
@@ -271,48 +271,13 @@ export default defineComponent({
                 emit('add')
 
                 // ユーザー情報(公開クリップ件数)を更新
-                methods.updateUser()
+                emit('update')
               })
               .catch((error) => {
                 console.error(error)
               })
             }, 1000)
           }
-        } else {
-          return
-        }
-      },
-
-      /* ユーザー情報を更新 */
-      updateUser () {
-        const user = auth.currentUser
-        if (user) {
-          const uid = user.uid
-
-          dbPicturesRef
-          .where('user_id', '==', uid)
-          .where('private_setting', '==', false)
-          .onSnapshot((querySnapshot) => {
-            const docs = [] as any[]
-
-            querySnapshot.forEach((doc) => {
-              docs.push(doc)
-            })
-
-            dbUsersRef
-            .doc(uid)
-            .set({
-              releases: docs.length,
-              updated_time: new Date()
-            }, { merge: true })
-            .then(() => {
-              emit('update')
-              console.log('Successfully: Updated user data. (from AddClip)')
-            })
-            .catch((error) => {
-              console.error(error)
-            })
-          })
         } else {
           return
         }
