@@ -115,6 +115,7 @@ export default defineComponent({
                 data: {
                   created_time: data.created_time.toDate(),
                   image_url: data.image_url,
+                  title: data.title ? data.title : '',
                   private_setting: data.private_setting
                 }
               })
@@ -156,6 +157,7 @@ export default defineComponent({
                 data: {
                   created_time: data.created_time.toDate(),
                   image_url: data.image_url,
+                  title: data.title ? data.title : '',
                   private_setting: data.private_setting
                 }
               })

@@ -4,44 +4,58 @@
     width="800"
   >
     <div class="clipDetailDialog__inner">
-      <v-row class="clip__detail">
-        <v-menu
-          rounded="lg"
-          bottom
+      <v-menu
+        rounded="lg"
+        bottom
+      >
+        <template v-slot:activator="{ attrs, on }">
+          <v-btn
+            icon
+            class="d-flex ml-auto"
+            v-bind="attrs"
+            v-on="on"
+            height="40"
+            width="40"
+          >
+            <span class="mdi mdi-dots-horizontal"></span>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="menu in editMenus"
+            :key="menu.id"
+            link
+            @click="onClickMenu(menu)"
+          >
+            <v-list-item-title v-text="menu.title"></v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
+      <v-row class="clip__overview">
+        <v-col
+          cols="12"
+          class="pa-0 mt-2"
         >
-          <template v-slot:activator="{ attrs, on }">
-            <v-btn
-              icon
-              class="d-flex ml-auto"
-              v-bind="attrs"
-              v-on="on"
-              height="40"
-              width="40"
-            >
-              <v-icon>mdi-dots-horizontal</v-icon>
-            </v-btn>
-          </template>
-          <v-list>
-            <v-list-item
-              v-for="menu in editMenus"
-              :key="menu.id"
-              link
-              @click="onClickMenu(menu)"
-            >
-              <v-list-item-title v-text="menu.title"></v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-        <v-col cols="12" class="pa-0 mt-2">
-          <figure class="detail__image">
+          <figure class="clip__image">
             <img :src="clip.image_url" alt="">
           </figure>
         </v-col>
         <v-col
-          v-if="isClipEditMode"
+          v-if="clip.title"
           cols="12"
-          class="mt-2 mb-0 pb-0 pl-0"
         >
+          <p class="mb-0 clip__title">
+            {{ clip.title }}
+          </p>
+        </v-col>
+      </v-row>
+
+      <v-row
+        v-if="isClipEditMode"
+        class="mt-0"
+      >
+        <v-col cols="12" class="d-flex justify-center mt-2">
           <v-checkbox
             v-if="clip.private_setting"
             v-model="isPublic"
@@ -60,20 +74,8 @@
           ></v-checkbox>
         </v-col>
         <v-col
-          v-else
           cols="12"
-          class="d-flex justify-start pl-0"
-        >
-          <p class="mb-0 detail__time">
-            追加日時：{{ $dateFns.format(new Date(), 'yyyy年MM月dd日 HH時mm分') }}
-          </p>
-        </v-col>
-      </v-row>
-      <v-row class="mt-2">
-        <v-col
-          v-if="isClipEditMode"
-          cols="12"
-          class="d-flex justify-center mt-3"
+          class="d-flex justify-center"
         >
           <v-btn
             color="accent"
@@ -99,9 +101,8 @@
           </v-btn>
         </v-col>
         <v-col
-          v-if="isClipEditMode"
           cols="12"
-          class="d-flex justify-center pa-0"
+          class="d-flex justify-center pa-1"
         >
           <v-btn
             color="error"
@@ -116,8 +117,12 @@
             クリップを削除
           </v-btn>
         </v-col>
+      </v-row>
+      <v-row
+        v-else
+        class="mt-2"
+      >
         <v-col
-          v-else
           cols="12"
           class="d-flex justify-center"
         >
@@ -159,6 +164,7 @@ export default defineComponent({
         id: '',
         created_time: '',
         image_url: '',
+        title: '',
         private_setting: false
       },
       editMenus: [
@@ -182,6 +188,7 @@ export default defineComponent({
         reactiveState.clip.id = clip.id
         reactiveState.clip.created_time = format(clip.data.created_time, 'yyyy.MM.dd HH:mm')
         reactiveState.clip.image_url = clip.data.image_url
+        reactiveState.clip.title = clip.data.title
         reactiveState.clip.private_setting = clip.data.private_setting
       },
 
@@ -269,29 +276,35 @@ export default defineComponent({
 <style lang="postcss" scoped>
 .clipDetailDialog__inner {
   background-color: #fff;
-  padding: 40px 40px 48px;
+  padding: 40px 80px 48px;
 
   @media (--sp) {
-    padding: 20px 24px 32px;
+    padding: 20px 20px 32px;
     width: 100%;
   }
 
-  & .clip__detail {
-    margin: auto;
-    width: 85%;
-
-    @media (--sp) {
-      width: 100%;
-    }
-
-    & .detail__time {
-      color: var(--color-primary);
-      font-size: 13px;
-      letter-spacing: .02em;
+  & .mdi {
+      font-size: 32px !important;
 
       @media (--sp) {
-        font-size: 12px;
+        font-size: 28px !important;
       }
+    }
+
+  & .clip__overview {
+    margin: auto;
+    width: 100%;
+  }
+
+  & .clip__title {
+    color: var(--color-primary);
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: .08em;
+    text-align: center;
+
+    @media (--sp) {
+      font-size: 12px;
     }
   }
 }

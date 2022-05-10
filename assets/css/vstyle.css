@@ -28,6 +28,10 @@
 
 .v-label {
   color: var(--color-text-light) !important;
+
+  @media (--sp) {
+    font-size: 14px !important;
+  }
 }
 
 .v-application .rounded-lg {
@@ -39,6 +43,12 @@
 
   @media (--sp) {
     border-radius: 8px !important;
+  }
+}
+
+.v-application--is-ltr .v-input--selection-controls__input {
+  @media (--sp) {
+    margin-right: 4px !important;
   }
 }
 

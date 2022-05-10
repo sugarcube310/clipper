@@ -61,7 +61,7 @@
               <v-col v-else>
                 <v-col
                   cols="12"
-                  class="py-1"
+                  class="py-0"
                 >
                   <div class="filePrevArea">
                     <v-tooltip top>
@@ -87,13 +87,23 @@
                     </figure>
                   </div>
                 </v-col>
-                <v-col cols="12" class="d-flex justify-center mt-2 pb-1">
+                <v-col cols="12" class="mt-5 py-1">
+                  <v-text-field
+                    v-model="form.title"
+                    label="タイトル(任意)"
+                    hide-details
+                    outlined
+                    color="secondary"
+                    class="rounded-lg"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" class="pb-0">
                   <v-checkbox
                     v-model="form.private_setting"
                     label="非公開設定"
                     hint="非公開設定にすると、クリップ一覧には表示されなくなります。"
                     persistent-hint
-                    color="primary"
+                    color="accent"
                     class="mt-0 pt-0"
                   ></v-checkbox>
                 </v-col>
@@ -159,6 +169,7 @@ export default defineComponent({
           data: '',
           url: ''
         },
+        title: '',
         private_setting: false,
       },
       isEnter: false,
@@ -238,6 +249,7 @@ export default defineComponent({
       clearForm () {
         if (reactiveState.form.image.data) {
           reactiveState.form.image.data = ''
+          reactiveState.form.title = ''
           reactiveState.form.private_setting = false
         }
       },
@@ -252,6 +264,7 @@ export default defineComponent({
             setTimeout(() => {
               const uid = user.uid
               const image_url = reactiveState.form.image.url
+              const title = reactiveState.form.title
               const private_setting = reactiveState.form.private_setting
 
               dbPicturesRef
@@ -259,6 +272,7 @@ export default defineComponent({
               .set({
                 created_time: new Date(),
                 image_url: image_url,
+                title: title,
                 private_setting: private_setting,
                 user_id: uid
               })
@@ -299,17 +313,17 @@ export default defineComponent({
 
 .addClipDialog__inner {
   background-color: #fff;
-  padding: 48px 40px;
+  padding: 48px 80px;
 
   @media (--sp) {
-    padding: 40px 24px;
+    padding: 40px 40px;
   }
 
   & .addClipDialog__head {
     margin-bottom: 40px;
 
     @media (--sp) {
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     & h2 {
@@ -345,7 +359,6 @@ export default defineComponent({
       text-align: center;
       margin: auto;
       height: 320px;
-      width: 85%;
 
       @media (--sp) {
         border: 3px solid #848484;
@@ -353,7 +366,6 @@ export default defineComponent({
         font-size: 14px;
         margin-top: 8px;
         height: 180px;
-        width: 95%;
       }
 
       &.enter {
@@ -400,13 +412,6 @@ export default defineComponent({
     }
 
     & .filePrevArea {
-      margin: auto;
-      width: 80%;
-
-      @media (--sp) {
-        width: 100%;
-      }
-
       & img {
         border-radius: 16px;
         pointer-events: none;
