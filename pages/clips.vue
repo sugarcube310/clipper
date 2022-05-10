@@ -211,8 +211,6 @@ export default defineComponent({
 
       /* ユーザー情報を更新 */
       updateUser () {
-        // (this as any).$store.dispatch('fetchUserData')
-
         const user = auth.currentUser
         if (user) {
           const uid = user.uid
