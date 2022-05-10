@@ -13,6 +13,8 @@ export const storage = firebase.storage()
 export const firestore = firebase.firestore()
 export const dbUsersRef = firestore.collection('users')
 export const dbPicturesRef = firestore.collection('pictures')
-export const functions = firebase.app().functions('asia-northeast1')
+export const functions = firebase.app().functions('us-central1')
+
+// functions.useFunctionsEmulator('http://localhost:5000')
 
 auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
