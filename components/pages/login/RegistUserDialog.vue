@@ -29,7 +29,7 @@
         class="form -register"
         @submit.prevent
       >
-        <v-row class="mb-8">
+        <v-row class="mb-6">
           <v-col cols="12">
             <v-text-field
               v-model="form.email"
