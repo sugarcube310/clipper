@@ -22,7 +22,14 @@ img {
 
 .page-container {
   height: 100%;
+  margin: auto;
+  max-width: 1260px;
   overflow: hidden;
+  width: 90%;
+
+  @media (--sp) {
+    width: 88%;
+  }
 }
 
 .hidden-sp {
@@ -69,6 +76,43 @@ img {
   box-sizing: border-box;
 }
 
-.color-gray__button {
+.-color-gray {
   color: #666 !important;
+}
+
+.button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  height: 44px !important;
+  width: 160px !important;
+
+  @media (--sp) {
+    font-size: 14px !important;
+    height: 40px !important;
+    width: 108px !important;
+  }
+}
+
+.button-group .button:first-child {
+  @media (--not-sp) {
+    margin-right: 12px;
+  }
+
+  @media (--sp) {
+    margin-right: 4px;
+  }
+}
+
+.button-group .button:nth-child(2) {
+  @media (--not-sp) {
+    margin-left: 12px;
+  }
+
+  @media (--sp) {
+    margin-left: 4px;
+  }
 }

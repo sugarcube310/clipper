@@ -17,12 +17,12 @@
         </v-col>
         <v-col
           cols="12"
-          class="d-flex justify-center"
+          class="button-group"
         >
           <v-btn
             color="warning"
             depressed
-            class="rounded-lg mr-3"
+            class="rounded-lg button"
             height="44"
             width="120"
             :loading="isLoading"
@@ -34,7 +34,7 @@
           <v-btn
             color="#e8e8e8"
             depressed
-            class="rounded-lg ml-3 color-gray__button"
+            class="rounded-lg button -color-gray"
             height="44"
             width="120"
             @click="onClose()"
@@ -116,6 +116,10 @@ export default defineComponent({
   background-color: #fff;
   padding: 60px 24px;
 
+  @media (--sp) {
+    padding: 40px 20px;
+  }
+
   & .deleteAccountDialog__title {
     color: var(--color-error);
     font-size: 18px;
@@ -139,6 +143,7 @@ export default defineComponent({
 
     @media (--sp) {
       font-size: 12px;
+      margin-bottom: 4px;
       letter-spacing: .02em;
     }
   }

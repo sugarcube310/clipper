@@ -122,14 +122,12 @@
             <v-row>
               <v-col
                 cols="12"
-                class="form__submit text-center"
+                class="button-group"
               >
                 <v-btn
                   color="accent"
                   depressed
-                  class="rounded-lg"
-                  height="44"
-                  width="160"
+                  class="rounded-lg button"
                   :loading="isLoading"
                   :disabled="isLoading"
                   @click="addClip()"
@@ -139,9 +137,7 @@
                 <v-btn
                   color="#e8e8e8"
                   depressed
-                  class="rounded-lg color-gray__button"
-                  height="44"
-                  width="160"
+                  class="rounded-lg button -color-gray"
                   @click="onClose()"
                 >
                   キャンセル
@@ -313,10 +309,10 @@ export default defineComponent({
 
 .addClipDialog__inner {
   background-color: #fff;
-  padding: 48px 80px;
+  padding: 40px 80px 48px;
 
   @media (--sp) {
-    padding: 40px 40px;
+    padding: 32px 20px 40px;
   }
 
   & .addClipDialog__head {
@@ -398,9 +394,13 @@ export default defineComponent({
         z-index: 1;
 
         @media (--sp) {
-          border-radius: 4px;
+          border-radius: 6px;
           font-size: 14px;
           padding: 4px 16px;
+        }
+
+        @media (max-width: 359px) {
+          font-size: 13px;
         }
 
         &:hover {
@@ -436,26 +436,6 @@ export default defineComponent({
 
       @media (--sp) {
         margin-top: 4px;
-      }
-
-      & button:not(.color-gray__button) {
-        @media (--not-sp) {
-          margin-right: 12px;
-        }
-
-        @media (--sp) {
-          margin-bottom: 8px;
-        }
-      }
-
-      & button.color-gray__button {
-        @media (--not-sp) {
-          margin-left: 12px;
-        }
-
-        @media (--sp) {
-          margin-top: 8px;
-        }
       }
     }
   }

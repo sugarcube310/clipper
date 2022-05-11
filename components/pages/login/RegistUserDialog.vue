@@ -30,20 +30,22 @@
         @submit.prevent
       >
         <v-row class="mb-8">
-          <v-col cols="12" class="py-1">
+          <v-col cols="12">
             <v-text-field
               v-model="form.email"
               label="メールアドレス"
+              hide-details
               outlined
               color="secondary"
               class="rounded-lg"
               required
             ></v-text-field>
           </v-col>
-          <v-col cols="12" class="py-1">
+          <v-col cols="12">
             <v-text-field
               v-model="form.password"
               label="パスワード"
+              hide-details
               outlined
               color="secondary"
               class="rounded-lg"
@@ -54,10 +56,11 @@
               @click:append="isShowPassword = !isShowPassword"
             ></v-text-field>
           </v-col>
-          <v-col cols="12" class="py-1">
+          <v-col cols="12">
             <v-text-field
               v-model="form.name"
               label="ユーザー名"
+              hide-details
               outlined
               color="secondary"
               class="rounded-lg"
@@ -80,7 +83,7 @@
             </p>
           </v-col>
 
-          <v-col cols="12" class="form__submit text-center">
+          <v-col cols="12" class="d-flex justify-center mt-2">
             <v-btn
               color="accent"
               depressed
@@ -198,14 +201,14 @@ export default defineComponent({
   padding: 32px 40px 40px;
 
   @media (--sp) {
-    padding: 24px 24px 36px;
+    padding: 20px 20px 40px;
   }
 
   & .registerDialog__head {
     margin: -4px auto 40px;
 
     @media (--sp) {
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     & h2 {
@@ -216,7 +219,7 @@ export default defineComponent({
       line-height: 1.5;
 
       @media (--sp) {
-        font-size: 17px;
+        font-size: 16px;
       }
     }
 
@@ -230,7 +233,7 @@ export default defineComponent({
         transform: rotate(90deg);
 
         @media (--sp) {
-          font-size: 17px;
+          font-size: 16px;
         }
       }
     }
@@ -246,6 +249,10 @@ export default defineComponent({
 
     @media (--sp) {
       font-size: 11px;
+    }
+
+    @media (max-width: 359px) {
+      font-size: 10px;
     }
   }
 
@@ -263,6 +270,10 @@ export default defineComponent({
     @media (--sp) {
       font-size: 12px;
       margin: 24px 0 0;
+    }
+
+    @media (max-width: 359px) {
+      font-size: 11px;
     }
 
     &:hover {

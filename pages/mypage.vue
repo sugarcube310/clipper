@@ -113,14 +113,14 @@
         </v-col>
         <v-col
           cols="12"
-          class="text-center mt-2 mb-5"
+          class="d-flex justify-center text-center mt-2 mb-5 button-group"
         >
           <v-btn
             color="accent"
             depressed
-            class="rounded-lg mr-2"
+            class="rounded-lg button"
             height="44"
-            width="130"
+            width="120"
             :loading="isLoading"
             :disabled="isLoading"
             @click="updateUser()"
@@ -130,9 +130,9 @@
           <v-btn
             color="#e8e8e8"
             depressed
-            class="rounded-lg ml-2 color-gray__button"
+            class="rounded-lg button -color-gray"
             height="44"
-            width="130"
+            width="120"
             @click="switchEditMode()"
           >
             キャンセル
@@ -147,7 +147,7 @@
             depressed
             small
             text
-            class="rounded-lg"
+            class="rounded-lg button"
             height="40"
             width="140"
             @click="openDeleteAccountDialog()"
@@ -285,9 +285,9 @@ export default defineComponent({
   width: 50%;
 
   @media (--sp) {
-    max-width: 100%;
-    width: 90%;
     margin-top: 20px;
+    max-width: 100%;
+    width: 100%;
   }
 
   & .user__icon {

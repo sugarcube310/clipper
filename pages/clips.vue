@@ -46,7 +46,7 @@
             depressed
             class="rounded-lg"
             height="44"
-            width="102"
+            width="120"
             @click="openAddClipDialog()"
           >
             追加
@@ -285,6 +285,10 @@ export default defineComponent({
       @media (--sp) {
         font-size: 16px;
       }
+
+      @media (max-width: 359px) {
+        font-size: 15px;
+      }
     }
   }
 
@@ -348,6 +352,10 @@ export default defineComponent({
         font-size: 16px;
       }
 
+      @media (max-width: 359px) {
+        font-size: 15px;
+      }
+
       & .icon {
         color: var(--color-text-light);
         display: block;
@@ -359,6 +367,10 @@ export default defineComponent({
         @media (--sp) {
           font-size: 18px;
           padding-left: 12px;
+        }
+
+        @media (max-width: 359px) {
+          font-size: 16px;
         }
       }
     }

@@ -75,14 +75,12 @@
         </v-col>
         <v-col
           cols="12"
-          class="d-flex justify-center"
+          class="button-group"
         >
           <v-btn
             color="accent"
             depressed
-            class="rounded-lg mr-3"
-            height="44"
-            width="120"
+            class="rounded-lg button"
             :loading="isLoading"
             :disabled="isLoading"
             @click="saveEdit(clip, isPublic, isPrivate)"
@@ -92,9 +90,7 @@
           <v-btn
             color="#e8e8e8"
             depressed
-            class="rounded-lg ml-3 color-gray__button"
-            height="44"
-            width="120"
+            class="rounded-lg button -color-gray"
             @click="switchEditMode()"
           >
             キャンセル
@@ -109,7 +105,7 @@
             depressed
             small
             text
-            class="rounded-lg"
+            class="rounded-lg button"
             height="40"
             width="140"
             @click="deleteClip()"
@@ -129,9 +125,7 @@
           <v-btn
             color="#e8e8e8"
             depressed
-            class="rounded-lg color-gray__button"
-            height="44"
-            width="120"
+            class="rounded-lg button -color-gray"
             @click="onClose()"
           >
             閉じる
