@@ -21,6 +21,8 @@ img {
 }
 
 .page-container {
+  color: var(--color-text);
+  font-family: var(--font-family-base);
   height: 100%;
   margin: auto;
   max-width: 1260px;
