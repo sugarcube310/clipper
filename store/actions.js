@@ -1,4 +1,5 @@
 import { auth, storage, dbUsersRef, dbPicturesRef } from '@/plugins/firebase'
+import firebase from 'firebase/compat/app'
 
 export default {
   /**** ログイン ****/
@@ -20,6 +21,18 @@ export default {
     })
     .catch((error) => {
       dispatch('showLoginError', error.code)
+      console.log(`Login error: ${ error.message }`)
+    })
+  },
+
+  googleLogin () {
+    const provider = new firebase.auth.GoogleAuthProvider()
+    auth
+    .signInWithPopup(provider)
+    .then((result) => {
+      console.log(result)
+    })
+    .catch((error) => {
       console.log(`Login error: ${ error.message }`)
     })
   },

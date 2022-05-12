@@ -87,6 +87,11 @@
                   ログイン
                 </v-btn>
               </v-col>
+              <v-col cols="12">
+                <v-btn @click="onGoogleLogin()">
+                  Google Login
+                </v-btn>
+              </v-col>
             </v-row>
           </v-form>
 
@@ -148,6 +153,10 @@ export default defineComponent({
         }
       },
 
+      onGoogleLogin () {
+        (this as any).$store.dispatch('googleLogin')
+      },
+
       /* アカウント新規登録のダイアログを表示 */
       openRegistUserDialog () {
         if (registUserDialogRef.value) {
@@ -162,8 +171,6 @@ export default defineComponent({
       const result = numbers[random]
 
       reactiveState.randomNumber = result
-
-      console.log(reactiveState.randomNumber)
     })
 
     return {
