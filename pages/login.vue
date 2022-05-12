@@ -1,5 +1,8 @@
 <template>
-  <div class="d-flex align-center justify-center page-container -login">
+  <div
+    class="d-flex align-center justify-center page-container -login"
+    :class="`-bg${ randomNumber }`"
+  >
     <section class="login">
       <div class="login__inner">
         <div class="mb-10 login__head">
@@ -10,7 +13,8 @@
             Clipperへようこそ！
           </h1>
           <p class="login__title-subtext">
-            クリッパーは、あなただけのお気に入り画像を<br class="hidden-pc">クリップ(保存)しておけるアプリです。
+            クリッパーは、あなただけのお気に入り画像を<br>
+            クリップ(保存)しておけるアプリです。
           </p>
         </div>
 
@@ -26,7 +30,7 @@
                   label="メールアドレス"
                   hide-details
                   outlined
-                  color="secondary"
+                  color="primary"
                   class="rounded-lg"
                   required
                 ></v-text-field>
@@ -37,7 +41,7 @@
                   label="パスワード"
                   hide-details
                   outlined
-                  color="secondary"
+                  color="primary"
                   class="rounded-lg"
                   required
                   autocomplete="on"
@@ -107,7 +111,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, ref } from '@vue/composition-api'
+import { defineComponent, reactive, toRefs, ref, onMounted } from '@vue/composition-api'
 import { mapGetters } from 'vuex'
 
 export default defineComponent({
@@ -127,7 +131,8 @@ export default defineComponent({
         password: ''
       },
       isShowPassword: false,
-      formErrorMessage: ''
+      formErrorMessage: '',
+      randomNumber: 1
     })
 
     /** Methods **/
@@ -151,6 +156,16 @@ export default defineComponent({
       }
     }
 
+    onMounted(() => {
+      const numbers = [1, 2, 3]
+      const random = Math.floor(Math.random()*numbers.length)
+      const result = numbers[random]
+
+      reactiveState.randomNumber = result
+
+      console.log(reactiveState.randomNumber)
+    })
+
     return {
       ...toRefs(reactiveState),
       ...methods,
@@ -161,109 +176,148 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.login__inner {
-  & .login__head {
-    & .login__title {
-      color: var(--color-primary);
-      font-family: var(--font-family-base);
-      font-size: 24px;
-      letter-spacing: .08em;
-      line-height: 1.75;
-      text-align: center;
+html {
+  overflow: hidden;
+}
+.page-container.-login {
+  background-image: url('~@/assets/images/login/bg01.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  width: 100%;
 
-      @media (--sp) {
-        font-size: 20px;
+  &.-bg1 {
+    background-image: url('~@/assets/images/login/bg01.jpg');
+  }
+
+  &.-bg2 {
+    background-image: url('~@/assets/images/login/bg02.jpg');
+  }
+
+  &.-bg3 {
+    background-image: url('~@/assets/images/login/bg03.jpg');
+  }
+
+  &::before {
+    content: '';
+    backdrop-filter: blur(6px);
+    background-color: rgba(0, 0, 0, .12);
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  & .login {
+    z-index: 2;
+
+    & .login__head {
+      & .login__title {
+        color: #fffff7;
+        font-family: var(--font-family-base);
+        font-size: 28px;
+        letter-spacing: .12em;
+        line-height: 1.75;
+        text-align: center;
+
+        @media (--sp) {
+          font-size: 20px;
+        }
+      }
+
+      & .login__title-subtext {
+        color: #fffff7;
+        font-size: 16px;
+        font-weight: 300;
+        margin-top: 20px;
+        letter-spacing: .08em;
+        line-height: 1.75;
+        text-align: center;
+
+        @media (--sp) {
+          font-size: 12px;
+          margin-top: 12px;
+          letter-spacing: .04em;
+        }
+
+        @media (max-width: 359px) {
+          font-size: 11px;
+        }
+      }
+
+      & .login__title-image {
+        margin-bottom: 24px;
+        pointer-events: none;
+
+        @media (--sp) {
+          margin-bottom: 16px;
+        }
+
+        & img {
+          width: 70px;
+
+          @media (--sp) {
+            width: 54px;
+          }
+        }
       }
     }
 
-    & .login__title-subtext {
+    & .form__wrapper {
+      background-color: rgba(255, 255, 247, .4);
+      border-radius: 16px;
+      margin: auto;
+      max-width: 480px;
+      padding: 40px;
+
+      @media (--sp) {
+        border-radius: 12px;
+        max-width: 90%;
+        padding: 32px 24px;
+      }
+
+      & .form__error-text {
+        color: #c00;
+        font-size: 12px;
+        letter-spacing: .02em;
+        line-height: 1.75;
+        white-space: pre-line;
+        margin-top: -24px;
+
+        @media (--sp) {
+          font-size: 10px;
+        }
+      }
+    }
+
+    & .register__text {
       color: var(--color-text-light);
+      cursor: pointer;
+      display: inline-block;
       font-size: 14px;
-      font-weight: 300;
-      margin-top: 16px;
-      letter-spacing: .025em;
-      line-height: 1.75;
-      text-align: center;
+      margin-top: 32px;
+      letter-spacing: .04em;
+      text-decoration: underline;
+      text-decoration-color: transparent;
+      text-underline-offset: 4px;
+      transition: all .15s;
 
       @media (--sp) {
         font-size: 12px;
-        margin-top: 12px;
-        letter-spacing: .04em;
+        margin: 24px 0 0;
       }
 
       @media (max-width: 359px) {
         font-size: 11px;
       }
-    }
 
-    & .login__title-image {
-      margin-bottom: 20px;
-      pointer-events: none;
-
-      @media (--sp) {
-        margin-bottom: 16px;
-      }
-
-      & img {
-        width: 70px;
-
-        @media (--sp) {
-          width: 54px;
+      &:hover {
+        @media (--not-sp) {
+          text-decoration-color: var(--color-text-light);
         }
-      }
-    }
-  }
-
-  & .form__wrapper {
-    border: 1px solid rgba(102, 102, 102, .7);
-    border-radius: 16px;
-    margin: auto;
-    max-width: 480px;
-    padding: 40px;
-
-    @media (--sp) {
-      border-radius: 12px;
-      max-width: 100%;
-      padding: 32px 24px;
-    }
-
-    & .form__error-text {
-      color: #c00;
-      font-size: 12px;
-      letter-spacing: .02em;
-      line-height: 1.75;
-      white-space: pre-line;
-      margin-top: -24px;
-
-      @media (--sp) {
-        font-size: 10px;
-      }
-    }
-  }
-
-  & .register__text {
-    color: var(--color-text-light);
-    cursor: pointer;
-    display: inline-block;
-    font-size: 14px;
-    margin-top: 32px;
-    text-decoration: underline;
-    text-decoration-color: transparent;
-    text-underline-offset: 4px;
-    transition: all .15s;
-
-    @media (--sp) {
-      font-size: 12px;
-      margin: 24px 0 0;
-    }
-
-    @media (max-width: 359px) {
-      font-size: 11px;
-    }
-
-    &:hover {
-      @media (--not-sp) {
-        text-decoration-color: var(--color-text-light);
       }
     }
   }
