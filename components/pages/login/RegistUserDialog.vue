@@ -46,7 +46,7 @@
               label="メールアドレス"
               hide-details
               outlined
-              color="primary"
+              color="secondary"
               class="rounded-lg"
               required
             ></v-text-field>
@@ -57,7 +57,7 @@
               label="パスワード"
               hide-details
               outlined
-              color="primary"
+              color="secondary"
               class="rounded-lg"
               required
               autocomplete="on"
@@ -72,7 +72,7 @@
               label="ユーザー名"
               hide-details
               outlined
-              color="primary"
+              color="secondary"
               class="rounded-lg"
               required
             ></v-text-field>
@@ -228,7 +228,7 @@ export default defineComponent({
     }
 
     & h2 {
-      color: var(--color-primary);
+      color: var(--color-text-light);
       font-size: 20px;
       font-weight: bold;
       letter-spacing: .04em;
@@ -242,7 +242,7 @@ export default defineComponent({
 
     & .registerDialog__head-icon {
       & .icon {
-        color: var(--color-primary);
+        color: var(--color-text-light);
         display: inline-block;
         font-size: 20px;
         font-weight: bold;

@@ -3,6 +3,10 @@
     class="d-flex align-center justify-center page-container -login"
     :class="`-bg${ randomNumber }`"
   >
+    <section
+      class="login-image"
+      :class="`-bg${ randomNumber }`"
+    ></section>
     <section class="login">
       <div class="login__inner">
         <div class="mb-10 login__head">
@@ -14,7 +18,7 @@
           </h1>
           <p class="login__title-subtext">
             クリッパーは、あなただけのお気に入り画像を<br>
-            クリップ(保存)しておけるアプリです。
+            クリップ（保存）しておけるアプリです。
           </p>
         </div>
 
@@ -30,7 +34,7 @@
                   label="メールアドレス"
                   hide-details
                   outlined
-                  color="primary"
+                  color="secondary"
                   class="rounded-lg"
                   required
                 ></v-text-field>
@@ -41,7 +45,7 @@
                   label="パスワード"
                   hide-details
                   outlined
-                  color="primary"
+                  color="secondary"
                   class="rounded-lg"
                   required
                   autocomplete="on"
@@ -174,71 +178,120 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-html {
-  overflow: hidden;
-}
 .page-container.-login {
-  background-image: url('~@/assets/images/login/bg01.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-  width: 100%;
-
-  &.-bg1 {
+  @media (--sp) {
     background-image: url('~@/assets/images/login/bg01.jpg');
-  }
-
-  &.-bg2 {
-    background-image: url('~@/assets/images/login/bg02.jpg');
-  }
-
-  &.-bg3 {
-    background-image: url('~@/assets/images/login/bg03.jpg');
-  }
-
-  &::before {
-    content: '';
-    backdrop-filter: blur(6px);
-    background-color: rgba(0, 0, 0, .08);
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
     height: 100%;
     width: 100%;
+
+    &.-bg1 {
+      background-image: url('~@/assets/images/login/bg01.jpg');
+    }
+
+    &.-bg2 {
+      background-image: url('~@/assets/images/login/bg02.jpg');
+    }
+
+    &.-bg3 {
+      background-image: url('~@/assets/images/login/bg03.jpg');
+    }
+
+    &::before {
+      content: '';
+      backdrop-filter: blur(1px);
+      background-color: rgba(0, 0, 0, .08);
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  & .login-image {
+    background-image: url('~@/assets/images/login/bg01.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    height: 100%;
+    width: 50%;
+
+    &.-bg1 {
+      background-image: url('~@/assets/images/login/bg01.jpg');
+    }
+
+    &.-bg2 {
+      background-image: url('~@/assets/images/login/bg02.jpg');
+    }
+
+    &.-bg3 {
+      background-image: url('~@/assets/images/login/bg03.jpg');
+    }
+
+    &::before {
+      content: '';
+      backdrop-filter: blur(1px);
+      background-color: rgba(0, 0, 0, .08);
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+
+      @media (--sp) {
+        backdrop-filter: blur(4px);
+      }
+    }
+
+    @media (--sp) {
+      display: none;
+    }
   }
 
   & .login {
     z-index: 2;
 
+    @media (--not-sp) {
+      background-color: #fff;
+      width: 50%;
+    }
+
     & .login__head {
       & .login__title {
-        color: #fffff7;
+        color: var(--color-text-light);
         font-family: var(--font-family-base);
-        font-size: 28px;
-        letter-spacing: .12em;
+        font-size: 26px;
+        letter-spacing: .125em;
         line-height: 1.75;
         text-align: center;
 
         @media (--sp) {
+          color: #fffff7;
           font-size: 20px;
         }
       }
 
       & .login__title-subtext {
-        color: #fffff7;
-        font-size: 16px;
+        color: var(--color-text-light);
+        font-size: 14px;
         font-weight: 300;
         margin-top: 20px;
         letter-spacing: .08em;
-        line-height: 1.75;
+        line-height: 2;
         text-align: center;
 
         @media (--sp) {
+          color: #fffff7;
           font-size: 12px;
           margin-top: 12px;
-          letter-spacing: .04em;
+          line-height: 2;
         }
 
         @media (max-width: 359px) {
@@ -255,7 +308,7 @@ html {
         }
 
         & img {
-          width: 70px;
+          width: 68px;
 
           @media (--sp) {
             width: 54px;
@@ -265,13 +318,16 @@ html {
     }
 
     & .form__wrapper {
-      background-color: rgba(255, 255, 247, .4);
+      border: 1px solid var(--color-secondary);
       border-radius: 16px;
       margin: auto;
       max-width: 480px;
       padding: 40px;
+      width: 80%;
 
       @media (--sp) {
+        background-color: rgba(255, 255, 247, .5);
+        border: none;
         border-radius: 12px;
         max-width: 90%;
         padding: 32px 24px;
