@@ -55,11 +55,14 @@
         v-if="isClipEditMode"
         class="mt-0"
       >
-        <v-col cols="12" class="d-flex justify-center mt-2">
+        <v-col
+          cols="12"
+          class="d-flex justify-center pb-1"
+        >
           <v-checkbox
             v-if="clip.private_setting"
             v-model="isPublic"
-            label="クリップを公開する"
+            label="公開する"
             hide-details
             color="accent"
             class="mt-0 pt-0"
@@ -67,7 +70,7 @@
           <v-checkbox
             v-else
             v-model="isPrivate"
-            label="クリップを非公開にする"
+            label="非公開にする"
             hide-details
             color="accent"
             class="mt-0 pt-0"
@@ -105,7 +108,7 @@
             depressed
             small
             text
-            class="rounded-lg button"
+            class="rounded-lg"
             height="40"
             width="140"
             @click="deleteClip()"

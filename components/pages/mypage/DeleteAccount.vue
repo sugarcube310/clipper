@@ -6,7 +6,10 @@
   >
     <div class="deleteAccountDialog__inner">
       <v-row>
-        <v-col cols="12" class="d-flex flex-column justify-center">
+        <v-col
+          cols="12"
+          class="d-flex flex-column justify-center"
+        >
           <p class="deleteAccountDialog__title text-center">
             アカウントを削除します。<br>本当によろしいですか？
           </p>
@@ -47,7 +50,10 @@
           name="fade"
           appear
         >
-          <v-col cols="12" class="d-flex justify-center mt-5">
+          <v-col
+            cols="12"
+            class="d-flex justify-center mt-5"
+          >
             <p class="deletingMessage text-center">
               {{ deletingMessage }}
             </p>

@@ -6,7 +6,10 @@
   >
     <div class="deleteClipDialog__inner">
       <v-row>
-        <v-col cols="12" class="d-flex justify-center">
+        <v-col
+          cols="12"
+          class="d-flex justify-center mb-5"
+        >
           <p class="deleteClipDialog__text text-center">
             このクリップを削除しますか？
           </p>
@@ -54,6 +57,7 @@ export default defineComponent({
       required: true
     }
   },
+
   setup (props, { emit }) {
     /** Reactive State **/
     const reactiveState = reactive({
@@ -111,11 +115,11 @@ export default defineComponent({
     color: var(--color-primary);
     font-size: 18px;
     font-weight: bold;
-    letter-spacing: .04em;
+    letter-spacing: .06em;
 
     @media (--sp) {
-      font-size: 16px;
-      letter-spacing: .02em;
+      font-size: 14px;
+      letter-spacing: .04em;
     }
   }
 }

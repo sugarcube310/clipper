@@ -1,8 +1,8 @@
 <template>
-  <div class="page-container -login d-flex align-center justify-center">
+  <div class="d-flex align-center justify-center page-container -login">
     <section class="login">
       <div class="login__inner">
-        <div class="login__head mb-10">
+        <div class="mb-10 login__head">
           <figure class="login__title-image">
             <img src="~/assets/images/common/clip.png" alt="" class="d-block ma-auto">
           </figure>
@@ -16,8 +16,8 @@
 
         <div class="form__wrapper">
           <v-form
-            class="form -login"
             @submit.prevent
+            class="form -login"
           >
             <v-row class="mb-6">
               <v-col cols="12">
@@ -47,7 +47,10 @@
                 ></v-text-field>
               </v-col>
 
-              <v-col cols="12" class="py-0">
+              <v-col
+                cols="12"
+                class="py-0"
+              >
                 <p
                   v-if="formErrorMessage && !$store.getters.loginErrorMessage"
                   class="form__error-text text-center"
@@ -62,7 +65,10 @@
                 </p>
               </v-col>
 
-              <v-col cols="12" class="d-flex justify-center mt-2">
+              <v-col
+                cols="12"
+                class="d-flex justify-center mt-2"
+              >
                 <v-btn
                   color="accent"
                   depressed
@@ -96,7 +102,6 @@
       <transition name="fade" appear>
         <LogoutMessage v-if="$store.getters.isShowLogoutMessage" />
       </transition>
-
     </section>
   </div>
 </template>
@@ -225,16 +230,12 @@ export default defineComponent({
     & .form__error-text {
       color: #c00;
       font-size: 12px;
-      letter-spacing: .01em;
+      letter-spacing: .02em;
       line-height: 1.75;
       white-space: pre-line;
       margin-top: -24px;
 
       @media (--sp) {
-        font-size: 11px;
-      }
-
-      @media (max-width: 359px) {
         font-size: 10px;
       }
     }

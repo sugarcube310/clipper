@@ -1,6 +1,9 @@
 <template>
   <div class="page-container -clips">
-    <div v-if="clips.length > 0">
+    <section
+      v-if="clips.length > 0"
+      class="clips"
+    >
       <v-row class="clip__list-head">
         <v-col cols="12">
           <p class="pl-2 list__length-text">
@@ -9,8 +12,7 @@
           <v-switch
             v-model="isShowAllClips"
             color="accent"
-            class="pl-2"
-            inset
+            class="pl-2 clips__show-switch"
             hide-details
             label="非公開のクリップを表示する"
             @change="switchShowClips()"
@@ -30,17 +32,26 @@
           </figure>
         </li>
       </ul>
-    </div>
+    </section>
 
-    <div v-else>
-      <v-row class="d-flex justify-center clip__nothing">
-        <v-col cols="12">
-          <p class="text-center clip__nothing-text">
+    <section
+      v-else
+      class="no-clips"
+    >
+      <v-row class="d-flex justify-center">
+        <v-col
+          cols="12"
+          class="mb-5"
+        >
+          <p class="text-center no-clips__text">
             お気に入りの画像を追加しましょう！
             <span class="icon">:)</span>
           </p>
         </v-col>
-        <v-col cols="12" class="d-flex justify-center mt-5">
+        <v-col
+          cols="12"
+          class="d-flex justify-center"
+        >
           <v-btn
             color="accent"
             depressed
@@ -53,7 +64,7 @@
           </v-btn>
         </v-col>
       </v-row>
-    </div>
+    </section>
 
     <AddClip
       ref="addClipDialogRef"
@@ -271,15 +282,96 @@ export default defineComponent({
     padding-bottom: 100px;
   }
 
-  & .clip__list-head {
+  & .clips {
+    & .clip__list-head {
       margin-bottom: 20px;
 
       @media (--sp) {
         margin-bottom: 12px;
       }
 
-    & .list__length-text {
-      color: var(--color-text-light);
+      & .list__length-text {
+        color: var(--color-text-light);
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: .04em;
+
+        @media (--sp) {
+          font-size: 16px;
+        }
+
+        @media (max-width: 359px) {
+          font-size: 15px;
+        }
+      }
+
+      & .clips__show-switch {
+        margin-top: 12px;
+
+        @media (--sp) {
+          margin-top: 8px;
+        }
+
+        & .v-input--selection-controls__input {
+          margin-right: 12px;
+        }
+      }
+    }
+
+    & .clip__list {
+      column-count: 4;
+      column-gap: 0;
+      list-style-type: none;
+      padding: 0;
+      width: 100%;
+
+      @media (max-width: 768px) {
+        column-count: 3;
+      }
+
+      @media (--sp) {
+        column-count: 2;
+      }
+
+      @media (max-width: 359px) {
+        column-count: 1;
+      }
+
+      & .list__item {
+        box-sizing: border-box;
+        break-inside: avoid;
+        cursor: pointer;
+        padding: 8px 8px 12px 8px;
+        page-break-inside: avoid;
+        transition: all .3s;
+
+        &:hover {
+          @media (--not-sp) {
+            opacity: .8;
+          }
+        }
+
+        & img {
+          border-radius: 16px;
+          vertical-align: bottom;
+
+          @media (--sp) {
+            border-radius: 12px !important;
+          }
+        }
+      }
+    }
+  }
+
+  & .no-clips {
+    padding-top: 160px;
+
+    @media (--sp) {
+      padding-top: 80px;
+    }
+
+    & .no-clips__text {
+      color: var(--color-secondary);
       font-size: 18px;
       font-weight: bold;
       letter-spacing: .04em;
@@ -289,79 +381,14 @@ export default defineComponent({
       }
 
       @media (max-width: 359px) {
-        font-size: 15px;
-      }
-    }
-  }
-
-  & .clip__list {
-    column-count: 4;
-    column-gap: 0;
-    list-style-type: none;
-    padding: 0;
-    width: 100%;
-
-    @media (max-width: 768px) {
-      column-count: 3;
-    }
-
-    @media (--sp) {
-      column-count: 2;
-    }
-
-    @media (max-width: 359px) {
-      column-count: 1;
-    }
-
-    & .list__item {
-      box-sizing: border-box;
-      break-inside: avoid;
-      cursor: pointer;
-      padding: 8px 8px 12px 8px;
-      page-break-inside: avoid;
-      transition: all .3s;
-
-      &:hover {
-        @media (--not-sp) {
-          opacity: .8;
-        }
-      }
-
-      & img {
-        border-radius: 16px;
-        vertical-align: bottom;
-
-        @media (--sp) {
-          border-radius: 12px !important;
-        }
-      }
-    }
-  }
-
-  & .clip__nothing {
-    margin-top: 120px;
-
-    @media (--sp) {
-      margin-top: 80px;
-    }
-
-    & .clip__nothing-text {
-      color: var(--color-text-light);
-      font-size: 18px;
-      letter-spacing: .02em;
-
-      @media (--sp) {
-        font-size: 16px;
-      }
-
-      @media (max-width: 359px) {
-        font-size: 15px;
+        font-size: 14px;
       }
 
       & .icon {
-        color: var(--color-text-light);
+        color: var(--color-secondary);
         display: block;
         font-size: 24px;
+        font-weight: bold;
         letter-spacing: .1em;
         padding-left: 20px;
         transform: rotate(90deg);

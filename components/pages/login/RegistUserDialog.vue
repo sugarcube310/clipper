@@ -20,8 +20,18 @@
         あなたのアカウントを<br class="hidden-pc">作成しましょう
       </h2>
       <div class="registerDialog__head-icon text-center">
-        <p v-if="formErrorMessage || $store.getters.registerErrorMessage" class="icon">:o</p>
-        <p v-else class="icon">:)</p>
+        <p
+          v-if="formErrorMessage || $store.getters.registerErrorMessage"
+          class="icon"
+        >
+          :o
+        </p>
+        <p
+          v-else
+          class="icon"
+        >
+          :)
+        </p>
       </div>
     </div>
     <div class="form__wrapper">
@@ -68,7 +78,10 @@
             ></v-text-field>
           </v-col>
 
-          <v-col cols="12" class="py-0">
+          <v-col
+            cols="12"
+            class="py-0"
+          >
             <p
               v-if="formErrorMessage && !$store.getters.registerErrorMessage"
               class="form__error-text text-center"
@@ -83,7 +96,10 @@
             </p>
           </v-col>
 
-          <v-col cols="12" class="d-flex justify-center mt-2">
+          <v-col
+            cols="12"
+            class="d-flex justify-center mt-2"
+          >
             <v-btn
               color="accent"
               depressed
@@ -242,16 +258,10 @@ export default defineComponent({
   & .form__error-text {
     color: #c00;
     font-size: 12px;
-    letter-spacing: .01em;
+    letter-spacing: .02em;
     line-height: 1.75;
-    white-space: pre-line;
-    margin-top: -24px;
 
     @media (--sp) {
-      font-size: 11px;
-    }
-
-    @media (max-width: 359px) {
       font-size: 10px;
     }
   }

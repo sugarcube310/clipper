@@ -1,7 +1,7 @@
 <template>
   <div class="addClip">
     <v-btn
-      class="ma-4 addClip__button"
+      class="ma-4 addClip-button"
       fixed
       bottom
       right
@@ -22,16 +22,16 @@
       <div class="addClipDialog__inner">
         <div class="addClipDialog__head">
           <h2 class="text-center">
-            クリップを追加する
+            クリップを追加
           </h2>
         </div>
         <div class="form__wrapper">
           <v-form class="form -addClip">
-            <v-row class="mb-1">
+            <v-row>
               <v-col
                 v-if="!form.image.data"
                 cols="12"
-                class="py-1"
+                class="py-0"
               >
                 <div
                   class="fileDropArea"
@@ -61,7 +61,7 @@
               <v-col v-else>
                 <v-col
                   cols="12"
-                  class="py-0"
+                  class="pa-0"
                 >
                   <div class="filePrevArea">
                     <v-tooltip top>
@@ -72,32 +72,37 @@
                           fab
                           outlined
                           color="secondary"
-                          class="d-flex ml-auto"
-                          height="40"
-                          width="40"
+                          class="d-flex ml-auto fileDelete-button"
                           @click="clearForm()"
                         >
-                          <v-icon color="secondary">mdi-delete</v-icon>
+                          <span class="mdi mdi-delete"></span>
                         </v-btn>
                       </template>
                       <span>ファイルを削除</span>
                     </v-tooltip>
-                    <figure class="mt-3">
+                    <figure>
                       <img :src="form.image.url" alt="">
                     </figure>
                   </div>
                 </v-col>
-                <v-col cols="12" class="mt-5 py-1">
+                <v-col
+                  cols="12"
+                  class="px-0 py-1"
+                >
                   <v-text-field
                     v-model="form.title"
                     label="タイトル(任意)"
                     hide-details
                     outlined
+                    dense
                     color="secondary"
                     class="rounded-lg"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" class="pb-0">
+                <v-col
+                  cols="12"
+                  class="px-0 pb-0"
+                >
                   <v-checkbox
                     v-model="form.private_setting"
                     label="非公開設定"
@@ -109,17 +114,14 @@
                 </v-col>
               </v-col>
             </v-row>
-            <v-row>
-              <v-col cols="12" class="py-0">
-                <p
-                  v-if="formErrorMessage"
-                  class="form__error-text text-center"
-                >
+            <v-row v-if="formErrorMessage">
+              <v-col cols="12">
+                <p class="form__error-text text-center">
                   {{ formErrorMessage }}
                 </p>
               </v-col>
             </v-row>
-            <v-row>
+            <v-row class="pt-5">
               <v-col
                 cols="12"
                 class="button-group"
@@ -230,6 +232,8 @@ export default defineComponent({
 
       /* インプットボタンからファイルを選択したときの処理 */
       inputFile (e: any) {
+        reactiveState.formErrorMessage = ''
+
         reactiveState.form.image.data = e.target.files[0]
         if (reactiveState.form.image.data) {
           const reader = new FileReader()
@@ -303,7 +307,7 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.addClip__button {
+.addClip-button {
   bottom: 92px;
 
   @media (--sp) {
@@ -320,7 +324,7 @@ export default defineComponent({
   padding: 40px 80px 48px;
 
   @media (--sp) {
-    padding: 32px 20px 40px;
+    padding: 24px 20px 40px;
   }
 
   & .addClipDialog__head {
@@ -331,10 +335,9 @@ export default defineComponent({
     }
 
     & h2 {
-      color: var(--color-text-light);
+      color: var(--color-primary);
       font-size: 22px;
-      font-weight: 500;
-      letter-spacing: .02em;
+      letter-spacing: .04em;
       line-height: 1.5;
 
       @media (--sp) {
@@ -396,7 +399,7 @@ export default defineComponent({
         font-weight: normal;
         letter-spacing: .04em;
         line-height: 1.85;
-        margin-top: 4px;
+        margin-top: 8px;
         padding: 4px 20px;
         transition: all .3s;
         z-index: 1;
@@ -404,6 +407,7 @@ export default defineComponent({
         @media (--sp) {
           border-radius: 6px;
           font-size: 14px;
+          margin-top: 4px;
           padding: 4px 16px;
         }
 
@@ -420,12 +424,49 @@ export default defineComponent({
     }
 
     & .filePrevArea {
-      & img {
-        border-radius: 16px;
-        pointer-events: none;
+      margin-bottom: 12px;
+
+      @media (--sp) {
+        margin-bottom: 8px;
+      }
+
+      & .fileDelete-button {
+        height: 40px;
+        width: 40px;
 
         @media (--sp) {
-          border-radius: 12px;
+          height: 36px;
+          width: 36px;
+        }
+
+        & .mdi {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px !important;
+          height: 100%;
+          width: 100%;
+
+          @media (--sp) {
+            font-size: 20px !important;
+          }
+        }
+      }
+
+      & figure {
+        margin-top: 12px;
+
+        @media (--sp) {
+          margin-top: 8px;
+        }
+
+        & img {
+          border-radius: 16px;
+          pointer-events: none;
+
+          @media (--sp) {
+            border-radius: 12px;
+          }
         }
       }
     }
@@ -433,10 +474,12 @@ export default defineComponent({
     & .form__error-text {
       color: #c00;
       font-size: 12px;
-      letter-spacing: .01em;
+      letter-spacing: .02em;
       line-height: 1.75;
-      white-space: pre-line;
-      margin-top: -24px;
+
+      @media (--sp) {
+        font-size: 10px;
+      }
     }
 
     & .form__submit {

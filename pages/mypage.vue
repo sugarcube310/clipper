@@ -2,7 +2,7 @@
   <div class="page-container -mypage">
     <PageBackButton />
 
-    <div class="user__profile">
+    <section class="user__profile">
       <v-row>
         <v-col cols="12">
           <div
@@ -49,7 +49,10 @@
             {{ user.name }}
           </p>
         </v-col>
-        <v-col cols="12" class="mb-5">
+        <v-col
+          cols="12"
+          class="mb-5"
+        >
           <p class="text-center user__releases">
             公開クリップ数：{{ user.releases }}件
           </p>
@@ -156,7 +159,7 @@
           </v-btn>
         </v-col>
       </v-row>
-    </div>
+    </section>
 
     <DeleteAccount ref="deleteAccountDialogRef" />
   </div>

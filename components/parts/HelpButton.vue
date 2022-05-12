@@ -24,8 +24,8 @@
 
     <v-list class="help__menu">
       <v-list-item
-        v-for="menu in menus"
-        :key="menu.id"
+        v-for="(menu, i) in menus"
+        :key="i"
         :to="menu.link"
       >
         <v-list-item-title v-text="menu.title"></v-list-item-title>
@@ -36,35 +36,25 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@vue/composition-api'
-import { useRouter } from '@/plugins/use-router'
 
 export default defineComponent({
   setup () {
-    const router = useRouter()
-
     /** Reactive State **/
     const reactiveState = reactive({
       menus: [
         {
-          id: 'terms',
           title: '利用規約',
           link: '/terms/'
         },
         {
-          id: 'privacy-policy',
           title: 'プライバシーポリシー',
           link: '/privacy-policy/'
         }
       ]
     })
 
-    /** Methods **/
-    const methods = {
-    }
-
     return {
-      ...toRefs(reactiveState),
-      ...methods
+      ...toRefs(reactiveState)
     }
   }
 })
@@ -72,7 +62,10 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .help__menu .v-list-item__title {
+  color: var(--color-primary);
   font-size: 14px;
+  font-weight: bold;
+  letter-spacing: .04em;
 
   @media (--sp) {
     font-size: 12px;

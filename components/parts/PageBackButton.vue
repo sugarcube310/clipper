@@ -8,16 +8,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 import { useRouter } from '@/plugins/use-router'
 
 export default defineComponent({
   setup () {
     const router = useRouter()
-
-    /** Reactive State **/
-    const reactiveState = reactive({
-    })
 
     /** Methods **/
     const methods = {
@@ -27,7 +23,6 @@ export default defineComponent({
     }
 
     return {
-      ...toRefs(reactiveState),
       ...methods
     }
   }

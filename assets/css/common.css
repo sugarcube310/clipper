@@ -25,12 +25,10 @@ img {
   font-family: var(--font-family-base);
   height: 100%;
   margin: auto;
-  max-width: 1260px;
   overflow: hidden;
-  width: 90%;
 
   @media (--sp) {
-    width: 88%;
+    width: 90%;
   }
 }
 
@@ -78,10 +76,6 @@ img {
   box-sizing: border-box;
 }
 
-.-color-gray {
-  color: #666 !important;
-}
-
 .button-group {
   display: flex;
   align-items: center;
@@ -97,6 +91,10 @@ img {
     height: 40px !important;
     width: 108px !important;
   }
+}
+
+.button.-color-gray {
+  color: #666 !important;
 }
 
 .button-group .button:first-child {
