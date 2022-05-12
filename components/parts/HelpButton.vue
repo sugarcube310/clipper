@@ -30,6 +30,9 @@
       >
         <v-list-item-title v-text="menu.title"></v-list-item-title>
       </v-list-item>
+      <v-list-item>
+        <p class="copyRight">&copy; 2022 i.sato</p>
+      </v-list-item>
     </v-list>
   </v-menu>
 </template>
@@ -61,14 +64,30 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.help__menu .v-list-item__title {
-  color: var(--color-primary);
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: .04em;
+.help__menu {
+  & .v-list-item__title {
+    color: var(--color-primary);
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: .04em;
 
-  @media (--sp) {
-    font-size: 12px;
+    @media (--sp) {
+      font-size: 12px;
+    }
+  }
+
+  & .copyRight {
+    border-top: 1px solid rgba(153, 153, 153, .4);
+    color: var(--color-secondary);
+    font-size: 11px;
+    padding-top: 12px;
+    letter-spacing: .06em;
+    width: 100%;
+
+    @media (--sp) {
+      font-size: 10px;
+      letter-spacing: .08em;
+    }
   }
 }
 
