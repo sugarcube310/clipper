@@ -162,8 +162,6 @@ export default defineComponent({
       const result = numbers[random]
 
       reactiveState.randomNumber = result
-
-      console.log(reactiveState.randomNumber)
     })
 
     return {
