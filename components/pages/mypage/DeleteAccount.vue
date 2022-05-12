@@ -48,7 +48,7 @@
           appear
         >
           <v-col cols="12" class="d-flex justify-center mt-5">
-            <p class="deletingMessage text-center mb-0">
+            <p class="deletingMessage text-center">
               {{ deletingMessage }}
             </p>
           </v-col>

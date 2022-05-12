@@ -45,7 +45,7 @@
           v-if="clip.title"
           cols="12"
         >
-          <p class="mb-0 clip__title">
+          <p class="clip__title">
             {{ clip.title }}
           </p>
         </v-col>

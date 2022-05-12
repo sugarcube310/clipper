@@ -323,7 +323,7 @@ export default defineComponent({
     }
 
     & h2 {
-      color: #555;
+      color: var(--color-text-light);
       font-size: 22px;
       font-weight: 500;
       letter-spacing: .02em;

@@ -45,12 +45,12 @@
           cols="12"
           class="d-flex flex-column align-center justify-center user__name"
         >
-          <p class="mb-0 text-center">
+          <p class="text-center">
             {{ user.name }}
           </p>
         </v-col>
         <v-col cols="12" class="mb-5">
-          <p class="mb-0 text-center user__releases">
+          <p class="text-center user__releases">
             公開クリップ数：{{ user.releases }}件
           </p>
         </v-col>
@@ -60,7 +60,7 @@
         >
           <p
             v-if="user.introduction"
-            class="mb-0 text-center"
+            class="text-center"
           >
             {{ user.introduction }}
           </p>

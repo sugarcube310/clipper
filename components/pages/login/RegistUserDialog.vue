@@ -20,8 +20,8 @@
         あなたのアカウントを<br class="hidden-pc">作成しましょう
       </h2>
       <div class="registerDialog__head-icon text-center">
-        <p v-if="formErrorMessage || $store.getters.registerErrorMessage" class="icon mb-0">:o</p>
-        <p v-else class="icon mb-0">:)</p>
+        <p v-if="formErrorMessage || $store.getters.registerErrorMessage" class="icon">:o</p>
+        <p v-else class="icon">:)</p>
       </div>
     </div>
     <div class="form__wrapper">
@@ -198,7 +198,7 @@ export default defineComponent({
 <style lang="postcss" scoped>
 .registerDialog__inner {
   background-color: #fff;
-  padding: 32px 40px 40px;
+  padding: 32px 40px 48px;
 
   @media (--sp) {
     padding: 20px 20px 40px;

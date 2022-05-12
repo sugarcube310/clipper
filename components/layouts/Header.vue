@@ -40,7 +40,7 @@
       </template>
       <v-list class="pt-0">
         <div class="pa-4 mb-2 header__menu-greeting">
-          <p class="mb-0">
+          <p>
             {{ user.name }}さん、こんにちは！
           </p>
         </div>

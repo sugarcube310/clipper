@@ -3,7 +3,7 @@
     <div v-if="clips.length > 0">
       <v-row class="clip__list-head">
         <v-col cols="12">
-          <p class="mb-0 pl-2 list__length-text">
+          <p class="pl-2 list__length-text">
             あなたのクリップ：{{ clips.length }}件
           </p>
           <v-switch
@@ -35,7 +35,7 @@
     <div v-else>
       <v-row class="d-flex justify-center clip__nothing">
         <v-col cols="12">
-          <p class="mb-0 text-center clip__nothing-text">
+          <p class="text-center clip__nothing-text">
             お気に入りの画像を追加しましょう！
             <span class="icon">:)</span>
           </p>
