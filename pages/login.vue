@@ -209,7 +209,7 @@ html {
   &::before {
     content: '';
     backdrop-filter: blur(6px);
-    background-color: rgba(0, 0, 0, .1);
+    background-color: rgba(0, 0, 0, .08);
     display: block;
     position: absolute;
     top: 0;
