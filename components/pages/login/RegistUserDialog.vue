@@ -2,7 +2,7 @@
   <v-dialog
     v-model="isOpenDialog"
     persistent
-    width="560"
+    width="480"
   >
   <div class="registerDialog__inner">
     <v-btn
@@ -17,7 +17,7 @@
     </v-btn>
     <div class="registerDialog__head">
       <h2 class="text-center pt-2">
-        あなたのアカウントを<br class="hidden-pc">作成しましょう
+        アカウントを作成しましょう
       </h2>
       <div class="registerDialog__head-icon text-center">
         <p
@@ -46,7 +46,7 @@
               label="メールアドレス"
               hide-details
               outlined
-              color="secondary"
+              color="primary"
               class="rounded-lg"
               required
             ></v-text-field>
@@ -57,7 +57,7 @@
               label="パスワード"
               hide-details
               outlined
-              color="secondary"
+              color="primary"
               class="rounded-lg"
               required
               autocomplete="on"
@@ -72,7 +72,7 @@
               label="ユーザー名"
               hide-details
               outlined
-              color="secondary"
+              color="primary"
               class="rounded-lg"
               required
             ></v-text-field>
@@ -105,7 +105,7 @@
               depressed
               class="rounded-lg"
               height="44"
-              width="180"
+              width="172"
               type="submit"
               :loading="$store.getters.loading"
               :disabled="$store.getters.loading"
@@ -221,35 +221,38 @@ export default defineComponent({
   }
 
   & .registerDialog__head {
-    margin: -4px auto 40px;
+    margin: 0 auto 40px;
 
     @media (--sp) {
       margin-bottom: 20px;
     }
 
     & h2 {
-      color: var(--color-text-light);
+      color: var(--color-primary);
       font-size: 20px;
-      font-weight: 500;
-      letter-spacing: .02em;
+      font-weight: bold;
+      letter-spacing: .04em;
       line-height: 1.5;
 
       @media (--sp) {
         font-size: 16px;
+        letter-spacing: .025em;
       }
     }
 
     & .registerDialog__head-icon {
       & .icon {
-        color: var(--color-text-light);
+        color: var(--color-primary);
         display: inline-block;
         font-size: 20px;
-        margin-top: 4px;
+        font-weight: bold;
+        margin-top: 8px;
         letter-spacing: .1em;
         transform: rotate(90deg);
 
         @media (--sp) {
           font-size: 16px;
+          margin-top: 4px;
         }
       }
     }

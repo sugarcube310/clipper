@@ -193,7 +193,7 @@ export default defineComponent({
 
 .header__menu {
   & .header__menu-greeting {
-    background-color: rgba(97, 171, 155, .2);
+    background-color: rgba(97, 171, 155, .15);
     border-bottom: 2px solid var(--color-accent);
     color: var(--color-text-light);
     font-size: 14px;
