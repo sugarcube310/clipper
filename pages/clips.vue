@@ -70,6 +70,8 @@
       @save="switchShowClips()"
       @update="updateUser()"
     />
+
+    <HelpButton />
   </div>
 </template>
 

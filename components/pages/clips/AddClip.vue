@@ -303,8 +303,16 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.addClip__button::before {
-  background-color: #fff !important;
+.addClip__button {
+  bottom: 92px;
+
+  @media (--sp) {
+    bottom: 88px;
+  }
+
+  &::before {
+    background-color: #fff !important;
+  }
 }
 
 .addClipDialog__inner {
