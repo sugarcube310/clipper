@@ -65,6 +65,10 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
+.help__button {
+  background-color: #fff;
+}
+
 .help__menu {
   & .v-list-item__title {
     color: var(--color-text-light);

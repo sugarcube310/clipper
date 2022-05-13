@@ -343,6 +343,7 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .addClip-button {
+  background-color: #fff;
   bottom: 92px;
 
   @media (--sp) {
