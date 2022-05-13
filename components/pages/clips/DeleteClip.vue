@@ -46,7 +46,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@vue/composition-api'
-import { dbPicturesRef } from '@/plugins/firebase'
+import { auth, storage, dbPicturesRef } from '@/plugins/firebase'
 
 export default defineComponent({
   props: {
@@ -72,27 +72,69 @@ export default defineComponent({
 
       /* クリップ削除 */
       deleteClip () {
-        reactiveState.isLoading = true
+        const user = auth.currentUser
+        if (user) {
+          reactiveState.isLoading = true
 
-        const clip_id = props.clip.id
+          const uid = user.uid
 
-        dbPicturesRef
-        .doc(clip_id)
-        .delete()
-        .then(() => {
-          console.log('Successfully: Deleted the Clip.')
+          const storageRef = storage.ref()
+          const fileUrl = `${ uid }/${ props.clip.file_name }`
+          const deleteFileRef = storageRef.child(fileUrl)
 
-          reactiveState.isLoading = false
-          methods.onClose()
+          setTimeout(() => {
+            // Storageからファイルを削除
+            deleteFileRef
+            .delete()
+            .then(() => {
+              // Storageからの削除に成功したら、Firestoreからデータを削除
+              // Firestoreでは .where(条件).delete() ができないみたいなので、一度条件に合うドキュメントを取得してから削除する
+              dbPicturesRef
+              .where('user_id', '==', uid)
+              .where('file_name', '==', props.clip.file_name)
+              .get()
+              .then((querySnapshot) => { // ※ 単一のドキュメント取得で.where(条件)は使えないみたいなのでquerySnapshotにしている
+                const docs = [] as any[]
 
-          emit('close')
+                querySnapshot.forEach((doc) => {
+                  docs.push({
+                    id: doc.id,
+                    data: doc.data()
+                  })
+                })
 
-          // ユーザー情報(公開クリップ件数)を更新
-          emit('update')
-        })
-        .catch((error) => {
-          console.error(error)
-        })
+                docs.forEach((doc) => {
+                  dbPicturesRef
+                  .doc(doc.id)
+                  .delete()
+                  .then(() => {
+                    methods.onClose()
+
+                    emit('close')
+
+                    // ユーザー情報(公開クリップ件数)を更新
+                    emit('update')
+
+                    reactiveState.isLoading = false
+
+                    console.log('Successfully: Deleted the Clip.')
+                  })
+                  .catch((error) => {
+                    console.error('ERROR: Unable to delete from Firestore.', error)
+                  })
+                })
+              })
+              .catch((error) => {
+                console.error('ERROR: Unable to get data from Firestore.', error)
+              })
+            })
+            .catch((error) => {
+              console.error('ERROR: Unable to delete from Storage.', error)
+            })
+          }, 1000)
+        } else {
+          return
+        }
       }
     }
 

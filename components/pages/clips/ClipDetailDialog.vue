@@ -38,7 +38,7 @@
           class="pa-0 mt-2 mb-1"
         >
           <figure class="clip__image">
-            <img :src="clip.image_url" alt="">
+            <img :src="clip.file_url" alt="">
           </figure>
         </v-col>
         <v-col
@@ -163,7 +163,8 @@ export default defineComponent({
       clip: {
         id: '',
         created_time: '',
-        image_url: '',
+        file_name: '',
+        file_url: '',
         title: '',
         private_setting: false
       },
@@ -187,7 +188,8 @@ export default defineComponent({
 
         reactiveState.clip.id = clip.id
         reactiveState.clip.created_time = format(clip.data.created_time, 'yyyy.MM.dd HH:mm')
-        reactiveState.clip.image_url = clip.data.image_url
+        reactiveState.clip.file_name = clip.data.file_name
+        reactiveState.clip.file_url = clip.data.file_url
         reactiveState.clip.title = clip.data.title
         reactiveState.clip.private_setting = clip.data.private_setting
       },

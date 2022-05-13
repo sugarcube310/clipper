@@ -28,7 +28,7 @@
           @click="showClipDetail(clip)"
         >
           <figure>
-            <img :src="clip.data.image_url" alt="">
+            <img :src="clip.data.file_url" alt="">
           </figure>
         </li>
       </ul>
@@ -95,6 +95,7 @@ export default defineComponent({
   computed: {
     ...mapGetters(['user'])
   },
+
   setup () {
     const addClipDialogRef = ref<any>(null)
     const clipDetailDialogRef = ref<any>(null)
@@ -127,7 +128,8 @@ export default defineComponent({
                 id: id,
                 data: {
                   created_time: data.created_time.toDate(),
-                  image_url: data.image_url,
+                  file_name: data.file_name,
+                  file_url: data.file_url,
                   title: data.title ? data.title : '',
                   private_setting: data.private_setting
                 }
@@ -169,7 +171,8 @@ export default defineComponent({
                 id: id,
                 data: {
                   created_time: data.created_time.toDate(),
-                  image_url: data.image_url,
+                  file_name: data.file_name,
+                  file_url: data.file_url,
                   title: data.title ? data.title : '',
                   private_setting: data.private_setting
                 }

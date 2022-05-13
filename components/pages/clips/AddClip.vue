@@ -158,9 +158,14 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@vue/composition-api'
-import { auth, dbPicturesRef } from '@/plugins/firebase'
+import { mapGetters } from 'vuex'
+import { auth, storage, dbPicturesRef } from '@/plugins/firebase'
 
 export default defineComponent({
+  computed: {
+    ...mapGetters(['user'])
+  },
+
   setup (_, { emit }) {
     /** Reactive State **/
     const reactiveState = reactive({
@@ -168,6 +173,7 @@ export default defineComponent({
       form: {
         image: {
           data: '',
+          name: '',
           url: ''
         },
         title: '',
@@ -215,6 +221,7 @@ export default defineComponent({
             fileName.toUpperCase().match(/\.(gif)$/i)
           ) {
             reactiveState.form.image.data = files[0]
+            reactiveState.form.image.name = files[0].name
 
             if (reactiveState.form.image.data) {
               const reader = new FileReader()
@@ -238,6 +245,8 @@ export default defineComponent({
         reactiveState.formErrorMessage = ''
 
         reactiveState.form.image.data = e.target.files[0]
+        reactiveState.form.image.name = e.target.files[0].name
+
         if (reactiveState.form.image.data) {
           const reader = new FileReader()
           // @ts-ignore
@@ -264,34 +273,57 @@ export default defineComponent({
           if (user) {
             reactiveState.isLoading = true
 
+            const uid = user.uid
+
+            const storageRef = storage.ref()
+            const fileUrl = `${ uid }/${ reactiveState.form.image.name }`
+            const uploadFileRef = storageRef.child(fileUrl)
+
             setTimeout(() => {
-              const uid = user.uid
-              const image_url = reactiveState.form.image.url
-              const title = reactiveState.form.title
-              const private_setting = reactiveState.form.private_setting
+              // Storageにファイルを保存
+              uploadFileRef
+              .putString(reactiveState.form.image.url, 'data_url')
+              .then((item) => {
+                const data = item.metadata
 
-              dbPicturesRef
-              .doc()
-              .set({
-                created_time: new Date(),
-                image_url: image_url,
-                title: title,
-                private_setting: private_setting,
-                user_id: uid
-              })
-              .then(() => {
-                console.log('Successfully: Added the Clip!')
+                // 保存されたらファイルのURLを取得
+                uploadFileRef
+                .getDownloadURL()
+                .then((url) => {
+                  // Storageに保存したファイルのURLを取得できたら、Firestoreにファイルのデータを保存
+                  dbPicturesRef
+                  .doc()
+                  .set({
+                    created_time: new Date(),
+                    file_name: data.name,
+                    file_fullPath: data.fullPath,
+                    file_url: url,
+                    title: reactiveState.form.title ? reactiveState.form.title : '',
+                    private_setting: reactiveState.form.private_setting,
+                    user_id: uid
+                  })
+                  .then(() => {
+                    methods.onClose()
 
-                reactiveState.isLoading = false
-                methods.onClose()
+                    emit('add')
 
-                emit('add')
+                    // ユーザー情報(公開クリップ件数)を更新
+                    emit('update')
 
-                // ユーザー情報(公開クリップ件数)を更新
-                emit('update')
+                    reactiveState.isLoading = false
+
+                    console.log('Successfully: Added the Clip!')
+                  })
+                  .catch((error) => {
+                    console.error('ERROR: Unable to add the Clip.', error)
+                  })
+                })
+                .catch((error) => {
+                  console.error('ERROR: Unable to get file URL.', error)
+                })
               })
               .catch((error) => {
-                console.error(error)
+                console.error('ERROR: Unable to save file to storage.', error)
               })
             }, 1000)
           }
