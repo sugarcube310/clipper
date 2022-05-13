@@ -33,7 +33,6 @@ export default {
     .then(() => {
       auth.onAuthStateChanged((user) => {
         if (user) {
-          console.log('user: ' + JSON.stringify(user))
           commit('setUserData', { uid: user.uid, email: user.email })
           commit('switchLogin', true)
 
