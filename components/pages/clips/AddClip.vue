@@ -351,7 +351,7 @@ export default defineComponent({
   & .form {
     & .fileDropArea {
       background-color: rgba(102, 102, 102, .02);
-      border: 4px solid var(--color-primary);
+      border: 3px solid var(--color-primary);
       border-radius: 20px;
       box-sizing: content-box;
       color: var(--color-primary);
@@ -370,11 +370,10 @@ export default defineComponent({
       height: 320px;
 
       @media (--sp) {
-        border: 3px solid var(--color-primary);
-        border-radius: 16px;
+        border-radius: 12px;
         font-size: 14px;
         margin-top: 8px;
-        height: 180px;
+        height: 160px;
       }
 
       &.enter {
