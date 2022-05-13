@@ -75,9 +75,9 @@
           <v-btn
             color="accent"
             depressed
-            class="rounded-lg"
-            height="44"
-            width="180"
+            rounded
+            height="52"
+            width="200"
             :loading="isLoading"
             :disabled="isLoading"
             @click="switchEditMode()"
@@ -98,32 +98,32 @@
           >
             <v-text-field
               v-model="profile.name"
-              label="ユーザー名"
-              hide-details
-              outlined
+              placeholder="ユーザー名"
               color="secondary"
-              class="rounded-lg mb-8"
+              hide-details
+              filled
+              rounded
+              class="mb-8"
             ></v-text-field>
             <v-textarea
               v-model="profile.introduction"
-              label="自己紹介文"
-              hide-details
-              outlined
+              placeholder="自己紹介文"
               color="secondary"
-              class="rounded-lg"
+              hide-details
+              filled
+              rounded
             ></v-textarea>
           </v-form>
         </v-col>
         <v-col
           cols="12"
-          class="d-flex justify-center text-center mt-2 mb-5 button-group"
+          class="d-flex justify-center text-center my-3 button-group"
         >
           <v-btn
             color="accent"
             depressed
-            class="rounded-lg button"
-            height="44"
-            width="120"
+            rounded
+            class="button"
             :loading="isLoading"
             :disabled="isLoading"
             @click="updateUser()"
@@ -133,9 +133,8 @@
           <v-btn
             color="#e8e8e8"
             depressed
-            class="rounded-lg button -color-gray"
-            height="44"
-            width="120"
+            rounded
+            class="button -color-gray"
             @click="switchEditMode()"
           >
             キャンセル
@@ -148,9 +147,10 @@
           <v-btn
             color="error"
             depressed
+            rounded
             small
             text
-            class="rounded-lg button"
+            class="button -small"
             height="40"
             width="140"
             @click="openDeleteAccountDialog()"
@@ -304,7 +304,7 @@ export default defineComponent({
     }
 
     & .inputButton {
-      background-color: rgba(117, 117, 117, .7);
+      background-color: rgba(117, 117, 117, .4);
       border-radius: 50%;
       display: flex;
       align-items: center;

@@ -55,7 +55,7 @@
           <v-btn
             color="accent"
             depressed
-            class="rounded-lg"
+            rounded
             height="44"
             width="120"
             @click="openAddClipDialog()"
@@ -371,7 +371,7 @@ export default defineComponent({
     }
 
     & .no-clips__text {
-      color: var(--color-secondary);
+      color: var(--color-primary);
       font-size: 18px;
       font-weight: bold;
       letter-spacing: .04em;
@@ -385,7 +385,7 @@ export default defineComponent({
       }
 
       & .icon {
-        color: var(--color-secondary);
+        color: var(--color-primary);
         display: block;
         font-size: 24px;
         font-weight: bold;

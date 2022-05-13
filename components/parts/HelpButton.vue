@@ -10,11 +10,12 @@
     <template v-slot:activator="{ on, attrs }">
       <v-btn
         class="ma-4 help__button"
+        outlined
         fixed
         bottom
         right
         fab
-        color="white"
+        color="primary"
         v-bind="attrs"
         v-on="on"
       >
@@ -66,7 +67,7 @@ export default defineComponent({
 <style lang="postcss" scoped>
 .help__menu {
   & .v-list-item__title {
-    color: var(--color-primary);
+    color: var(--color-text-light);
     font-size: 14px;
     font-weight: bold;
     letter-spacing: .04em;
@@ -97,7 +98,7 @@ export default defineComponent({
   }
 
   & .mdi {
-    color: var(--color-secondary);
+    color: var(--color-primary);
     display: flex;
     align-items: center;
     justify-content: center;

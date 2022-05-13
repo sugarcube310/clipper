@@ -25,9 +25,8 @@
           <v-btn
             color="warning"
             depressed
-            class="rounded-lg button"
-            height="44"
-            width="120"
+            rounded
+            class="button"
             :loading="isLoading"
             :disabled="isLoading"
             @click="deleteAccount()"
@@ -37,9 +36,8 @@
           <v-btn
             color="#e8e8e8"
             depressed
-            class="rounded-lg button -color-gray"
-            height="44"
-            width="120"
+            rounded
+            class="button -color-gray"
             @click="onClose()"
           >
             キャンセル
@@ -144,12 +142,13 @@ export default defineComponent({
   & .deleteAccountDialog__text {
     color: var(--color-primary);
     font-size: 14px;
+    margin: 20px 0 8px !important;
     letter-spacing: .08em;
     line-height: 1.75;
 
     @media (--sp) {
       font-size: 12px;
-      margin-bottom: 4px;
+      margin: 16px 0 4px !important;
       letter-spacing: .02em;
     }
   }

@@ -105,7 +105,7 @@ export default {
       themes: {
         light: {
           primary: '#757575',
-          secondary: '#999',
+          secondary: '#a5a5a5',
           accent: '#61ab9b',
           info: colors.teal.lighten1,
           warning: '#c4919d',

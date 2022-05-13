@@ -21,9 +21,8 @@
           <v-btn
             color="warning"
             depressed
-            class="rounded-lg button"
-            height="44"
-            width="120"
+            rounded
+            class="button"
             :loading="isLoading"
             :disabled="isLoading"
             @click="deleteClip()"
@@ -33,9 +32,8 @@
           <v-btn
             color="#e8e8e8"
             depressed
-            class="rounded-lg button -color-gray"
-            height="44"
-            width="120"
+            rounded
+            class="button -color-gray"
             @click="onClose()"
           >
             キャンセル

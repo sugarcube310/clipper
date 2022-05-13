@@ -2,14 +2,15 @@
   <div class="addClip">
     <v-btn
       class="ma-4 addClip-button"
+      outlined
       fixed
       bottom
       right
       fab
-      color="white"
+      color="primary"
       @click="openDialog()"
     >
-      <v-icon large color="secondary">
+      <v-icon large color="primary">
         mdi-plus
       </v-icon>
     </v-btn>
@@ -91,12 +92,12 @@
                 >
                   <v-text-field
                     v-model="form.title"
-                    label="タイトル(任意)"
-                    hide-details
-                    outlined
-                    dense
+                    placeholder="タイトル(任意)"
                     color="secondary"
-                    class="rounded-lg"
+                    hide-details
+                    dense
+                    filled
+                    rounded
                   ></v-text-field>
                 </v-col>
                 <v-col
@@ -129,7 +130,8 @@
                 <v-btn
                   color="accent"
                   depressed
-                  class="rounded-lg button"
+                  rounded
+                  class="button"
                   :loading="isLoading"
                   :disabled="isLoading"
                   @click="addClip()"
@@ -139,7 +141,8 @@
                 <v-btn
                   color="#e8e8e8"
                   depressed
-                  class="rounded-lg button -color-gray"
+                  rounded
+                  class="button -color-gray"
                   @click="onClose()"
                 >
                   キャンセル
@@ -335,10 +338,9 @@ export default defineComponent({
     }
 
     & h2 {
-      color: var(--color-primary);
+      color: var(--color-text-light);
       font-size: 22px;
-      letter-spacing: .04em;
-      line-height: 1.5;
+      letter-spacing: .05em;
 
       @media (--sp) {
         font-size: 18px;
@@ -349,10 +351,10 @@ export default defineComponent({
   & .form {
     & .fileDropArea {
       background-color: rgba(102, 102, 102, .02);
-      border: 4px solid #848484;
+      border: 4px solid var(--color-primary);
       border-radius: 20px;
       box-sizing: content-box;
-      color: rgba(102, 102, 102, .8);
+      color: var(--color-primary);
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -368,7 +370,7 @@ export default defineComponent({
       height: 320px;
 
       @media (--sp) {
-        border: 3px solid #848484;
+        border: 3px solid var(--color-primary);
         border-radius: 16px;
         font-size: 14px;
         margin-top: 8px;
@@ -391,7 +393,7 @@ export default defineComponent({
       }
 
       & .inputButton {
-        background-color: #848484;
+        background-color: var(--color-primary);
         border-radius: 8px;
         color: #fff;
         cursor: pointer;

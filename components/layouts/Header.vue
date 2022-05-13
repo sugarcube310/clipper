@@ -206,7 +206,7 @@ export default defineComponent({
   }
 
   & .v-list-item__title {
-    color: var(--color-primary);
+    color: var(--color-text-light);
     font-size: 15px;
     font-weight: bold;
     letter-spacing: .04em;

@@ -1,7 +1,7 @@
 <template>
   <div class="logoutMessage">
     <v-alert
-      color="primary lighten-1"
+      color="secondary lighten-1"
       dark
       border="left"
       class="mb-0 pl-6"

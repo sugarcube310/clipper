@@ -35,7 +35,7 @@
       <v-row class="clip__overview">
         <v-col
           cols="12"
-          class="pa-0 mt-2"
+          class="pa-0 mt-2 mb-1"
         >
           <figure class="clip__image">
             <img :src="clip.image_url" alt="">
@@ -57,7 +57,7 @@
       >
         <v-col
           cols="12"
-          class="d-flex justify-center pb-1"
+          class="d-flex justify-center"
         >
           <v-checkbox
             v-if="clip.private_setting"
@@ -83,7 +83,8 @@
           <v-btn
             color="accent"
             depressed
-            class="rounded-lg button"
+            rounded
+            class="button"
             :loading="isLoading"
             :disabled="isLoading"
             @click="saveEdit(clip, isPublic, isPrivate)"
@@ -93,7 +94,8 @@
           <v-btn
             color="#e8e8e8"
             depressed
-            class="rounded-lg button -color-gray"
+            rounded
+            class="button -color-gray"
             @click="switchEditMode()"
           >
             キャンセル
@@ -106,9 +108,9 @@
           <v-btn
             color="error"
             depressed
+            rounded
             small
             text
-            class="rounded-lg"
             height="40"
             width="140"
             @click="deleteClip()"
@@ -128,7 +130,8 @@
           <v-btn
             color="#e8e8e8"
             depressed
-            class="rounded-lg button -color-gray"
+            rounded
+            class="button -color-gray"
             @click="onClose()"
           >
             閉じる

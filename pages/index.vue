@@ -5,19 +5,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
-import { auth } from '@/plugins/firebase'
+import { defineComponent, onMounted } from '@vue/composition-api'
 import { useRouter } from '@/plugins/use-router'
 
 export default defineComponent({
   setup () {
     const router = useRouter()
-    auth.onAuthStateChanged((user) => {
-      if (!user) {
-        router.push('/login/')
-      } else {
-        router.push('/clips/')
-      }
+
+    onMounted(() => {
+      router.push('/login/')
     })
   }
 })

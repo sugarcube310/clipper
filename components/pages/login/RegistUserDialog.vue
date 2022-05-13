@@ -43,22 +43,22 @@
           <v-col cols="12">
             <v-text-field
               v-model="form.email"
-              label="メールアドレス"
-              hide-details
-              outlined
+              placeholder="メールアドレス"
               color="secondary"
-              class="rounded-lg"
+              hide-details
+              filled
+              rounded
               required
             ></v-text-field>
           </v-col>
           <v-col cols="12">
             <v-text-field
               v-model="form.password"
-              label="パスワード"
-              hide-details
-              outlined
               color="secondary"
-              class="rounded-lg"
+              placeholder="パスワード"
+              hide-details
+              filled
+              rounded
               required
               autocomplete="on"
               :append-icon="isShowPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -69,11 +69,11 @@
           <v-col cols="12">
             <v-text-field
               v-model="form.name"
-              label="ユーザー名"
-              hide-details
-              outlined
+              placeholder="ユーザー名"
               color="secondary"
-              class="rounded-lg"
+              hide-details
+              filled
+              rounded
               required
             ></v-text-field>
           </v-col>
@@ -103,9 +103,9 @@
             <v-btn
               color="accent"
               depressed
-              class="rounded-lg"
-              height="44"
-              width="172"
+              rounded
+              height="52"
+              width="180"
               type="submit"
               :loading="$store.getters.loading"
               :disabled="$store.getters.loading"
@@ -221,10 +221,10 @@ export default defineComponent({
   }
 
   & .registerDialog__head {
-    margin: 0 auto 40px;
+    margin: 0 auto 24px;
 
     @media (--sp) {
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     & h2 {
@@ -235,8 +235,12 @@ export default defineComponent({
       line-height: 1.5;
 
       @media (--sp) {
-        font-size: 16px;
+        font-size: 18px;
         letter-spacing: .025em;
+      }
+
+      @media (max-width: 359px) {
+        font-size: 16px;
       }
     }
 
@@ -251,8 +255,12 @@ export default defineComponent({
         transform: rotate(90deg);
 
         @media (--sp) {
-          font-size: 16px;
+          font-size: 18px;
           margin-top: 4px;
+        }
+
+        @media (max-width: 359px) {
+          font-size: 16px;
         }
       }
     }
