@@ -7,7 +7,8 @@ export default {
     commit('startLoading')
 
     /* ログイン処理 */
-    auth.signInWithEmailAndPassword(payload.email, payload.password)
+    auth
+    .signInWithEmailAndPassword(payload.email, payload.password)
     .then(() => {
       auth.onAuthStateChanged((user) => {
         if (user) {
@@ -25,12 +26,20 @@ export default {
     })
   },
 
-  googleLogin () {
+  googleLogin ({ commit }) {
     const provider = new firebase.auth.GoogleAuthProvider()
     auth
     .signInWithPopup(provider)
-    .then((result) => {
-      console.log(result)
+    .then(() => {
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          console.log('user: ' + JSON.stringify(user))
+          commit('setUserData', { uid: user.uid, email: user.email })
+          commit('switchLogin', true)
+
+          this.$router.push('/clips/')
+        }
+      })
     })
     .catch((error) => {
       console.log(`Login error: ${ error.message }`)
@@ -86,7 +95,8 @@ export default {
 
   /**** ログアウト ****/
   logout ({ commit }) {
-    auth.signOut()
+    auth
+    .signOut()
     .then(() => {
       this.$router.push('/')
       commit('switchLogin', false)

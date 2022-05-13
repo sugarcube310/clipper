@@ -31,22 +31,22 @@
               <v-col cols="12">
                 <v-text-field
                   v-model="form.email"
-                  label="メールアドレス"
-                  hide-details
-                  outlined
+                  placeholder="メールアドレス"
                   color="secondary"
-                  class="rounded-lg"
+                  hide-details
+                  filled
+                  rounded
                   required
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
                   v-model="form.password"
-                  label="パスワード"
-                  hide-details
-                  outlined
+                  placeholder="パスワード"
                   color="secondary"
-                  class="rounded-lg"
+                  hide-details
+                  filled
+                  rounded
                   required
                   autocomplete="on"
                   :append-icon="isShowPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -80,8 +80,8 @@
                 <v-btn
                   color="accent"
                   depressed
-                  class="rounded-lg"
-                  height="44"
+                  rounded
+                  height="52"
                   width="160"
                   type="submit"
                   :loading="$store.getters.loading"
@@ -92,9 +92,22 @@
                 </v-btn>
               </v-col>
               <v-col cols="12">
-                <v-btn @click="onGoogleLogin()">
-                  Google Login
-                </v-btn>
+                <p class="google-login__text text-center">
+                  または
+                </p>
+              </v-col>
+              <v-col
+                cols="12"
+                class="pt-0 pb-0"
+              >
+                <div
+                  class="googleLogin-button"
+                  @click="onGoogleLogin()"
+                >
+                  <figure>
+                    <img src="~/assets/images/login/btn_google_signin_light_normal_web.png" alt="">
+                  </figure>
+                </div>
               </v-col>
             </v-row>
           </v-form>
@@ -212,7 +225,7 @@ export default defineComponent({
     &::before {
       content: '';
       backdrop-filter: blur(1px);
-      background-color: rgba(0, 0, 0, .08);
+      background-color: rgba(0, 0, 0, .1);
       display: block;
       position: absolute;
       top: 0;
@@ -223,6 +236,7 @@ export default defineComponent({
   }
 
   & .login-image {
+    background-color: #fffff5;
     background-image: url('~@/assets/images/login/bg01.jpg');
     background-position: center;
     background-repeat: no-repeat;
@@ -246,7 +260,7 @@ export default defineComponent({
     &::before {
       content: '';
       backdrop-filter: blur(1px);
-      background-color: rgba(0, 0, 0, .08);
+      background-color: rgba(255, 255, 247, .1);
       display: block;
       position: absolute;
       top: 0;
@@ -284,6 +298,7 @@ export default defineComponent({
         @media (--sp) {
           color: #fffff7;
           font-size: 20px;
+          text-shadow: 1px 1px 2px var(--color-secondary);
         }
       }
 
@@ -301,6 +316,7 @@ export default defineComponent({
           font-size: 12px;
           margin-top: 12px;
           line-height: 2;
+          text-shadow: 1px 1px 2px var(--color-secondary);
         }
 
         @media (max-width: 359px) {
@@ -328,7 +344,7 @@ export default defineComponent({
 
     & .form__wrapper {
       border: 1px solid var(--color-secondary);
-      border-radius: 16px;
+      border-radius: 20px;
       margin: auto;
       max-width: 480px;
       padding: 40px;
@@ -353,6 +369,30 @@ export default defineComponent({
         @media (--sp) {
           font-size: 10px;
         }
+      }
+    }
+
+    & .google-login__text {
+      color: var(--color-text-light);
+      font-size: 14px;
+      margin-bottom: 4px !important;
+      letter-spacing: .08em;
+
+      @media (--sp) {
+        font-size: 12px;
+      }
+    }
+
+    & .googleLogin-button {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      margin: auto;
+      width: 200px;
+
+      & figure {
+        display: flex;
+        justify-content: center;
       }
     }
 

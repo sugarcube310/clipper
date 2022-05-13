@@ -3,7 +3,7 @@ export default {
   setUserData (state, payload) {
     state.user.uid = payload.uid
     state.user.email = payload.email
-    state.user.name = payload.name ? payload.name : ''
+    state.user.name = payload.name ? payload.name : 'ユーザー'
     state.user.image = payload.image ? payload.image : ''
     state.user.introduction = payload.introduction ? payload.introduction : ''
     state.user.releases = payload.releases ? payload.releases : 0
