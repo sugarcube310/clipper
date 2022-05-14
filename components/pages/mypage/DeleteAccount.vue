@@ -11,13 +11,15 @@
           class="d-flex flex-column justify-center"
         >
           <p class="deleteAccountDialog__title text-center">
-            アカウントを削除します。<br>本当によろしいですか？
+            アカウントの削除
           </p>
           <p class="deleteAccountDialog__text text-center">
-            ※保存したクリップも削除されます。<br>
-            ※削除すると、元には戻せません。
+            アカウントを削除すると、<br>保存したクリップも削除されます。
+            <span>※削除すると、元には戻せません。</span>
           </p>
         </v-col>
+      </v-row>
+      <v-row>
         <v-col
           cols="12"
           class="button-group"
@@ -88,7 +90,7 @@ export default defineComponent({
 
         const user = auth.currentUser
         if (user) {
-          reactiveState.deletingMessage = '削除しています。まもなくログアウトします。'
+          reactiveState.deletingMessage = '削除中です。まもなくログアウトします。'
 
           setTimeout(() => {
             // Authenticationからユーザーを削除
@@ -126,16 +128,15 @@ export default defineComponent({
 
   & .deleteAccountDialog__title {
     color: var(--color-error);
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     margin-bottom: 24px;
     letter-spacing: .04em;
     line-height: 1.75;
 
     @media (--sp) {
-      font-size: 16px;
+      font-size: 18px;
       margin-bottom: 16px;
-      letter-spacing: .02em;
     }
   }
 
@@ -150,6 +151,17 @@ export default defineComponent({
       font-size: 12px;
       margin: 16px 0 4px !important;
       letter-spacing: .02em;
+    }
+
+    & span {
+      color: var(--color-error);
+      display: block;
+      font-size: 12px;
+      margin-top: 8px;
+
+      @media (--sp) {
+        font-size: 11px;
+      }
     }
   }
 
