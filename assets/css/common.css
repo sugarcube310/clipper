@@ -95,17 +95,7 @@ img {
   @media (--sp) {
     font-size: 14px !important;
     height: 40px !important;
-    width: 112px !important;
-  }
-}
-
-.button.-small {
-  font-size: 14px !important;
-  letter-spacing: .04em !important;
-
-  @media (--sp) {
-    font-size: 12px !important;
-    letter-spacing: .02em !important;
+    width: 102px !important;
   }
 }
 
@@ -119,7 +109,7 @@ img {
   }
 
   @media (--sp) {
-    margin-right: 4px;
+    margin-right: 8px;
   }
 }
 
@@ -129,6 +119,6 @@ img {
   }
 
   @media (--sp) {
-    margin-left: 4px;
+    margin-left: 8px;
   }
 }

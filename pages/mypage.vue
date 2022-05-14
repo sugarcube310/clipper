@@ -150,9 +150,8 @@
             rounded
             small
             text
-            class="button -small"
             height="40"
-            width="140"
+            width="160"
             @click="openDeleteAccountDialog()"
           >
             アカウントを削除

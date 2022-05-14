@@ -406,7 +406,7 @@ export default defineComponent({
         border-radius: 12px;
         font-size: 14px;
         margin-top: 8px;
-        height: 160px;
+        height: 180px;
       }
 
       &.enter {
