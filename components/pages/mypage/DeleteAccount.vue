@@ -11,7 +11,7 @@
           class="d-flex flex-column justify-center"
         >
           <p class="deleteAccountDialog__title text-center">
-            アカウントの削除
+            アカウントを削除する
           </p>
           <p class="deleteAccountDialog__text text-center">
             アカウントを削除すると、<br>保存したクリップも削除されます。
