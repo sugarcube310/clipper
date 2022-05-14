@@ -18,4 +18,4 @@ export const functions = firebase.app().functions('asia-northeast1')
 // Functions Emulatorを使うときはコメントアウトを外す
 // functions.useFunctionsEmulator('http://localhost:5001')
 
-auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
