@@ -20,7 +20,7 @@ https://user-images.githubusercontent.com/66762574/168418913-99641f05-3903-4e57-
 
 ### 使用技術
 
-フロントエンド：Nuxt.js, Vuetify
+フロントエンド：Nuxt.js / Vuetify
 
 バックエンド：Firebase( Authentication / Firestore Database / Storage / Hosting / Functions )
 
