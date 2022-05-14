@@ -1,69 +1,35 @@
 # Clipper
 
-## Build Setup
+## 概要
 
-```bash
-# install dependencies
-$ yarn install
+Clipper(クリッパー)は、自分だけのお気に入り画像を保存しておけるインストール不要のギャラリーアプリです。
 
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
-```
-
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
-
-## Special Directories
-
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
-
-### `assets`
-
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
-
-### `components`
-
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
-
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+簡単ログインだけで、誰でも気軽に利用できます。
 
 
-### `pages`
+## 使い方
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+1. [https://your-clipper.web.app/](https://your-clipper.web.app/)にアクセスします。
+2. ログインフォームからメールアドレスとパスワードを入力してログインしてください。初めてご利用になられる方は、「アカウントをお持ちでない方はこちら」から新規登録をお願いします。
+3. アプリにログインできたら、好きな画像を追加します。
+https://user-images.githubusercontent.com/66762574/168418913-99641f05-3903-4e57-a248-16596950bfb7.mp4
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
+4. お気に入り画像をたくさん追加して、あなただけの素敵なギャラリーを作ってください！
 
-### `plugins`
 
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
+### 使用技術
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
+フロントエンド：Nuxt.js, Vuetify
 
-### `static`
+バックエンド：Firebase( Authentication / Firestore Database / Storage / Hosting / Functions )
 
-This directory contains your static files. Each file inside this directory is mapped to `/`.
 
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
+### アップデート予定
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
+今後は以下のような機能の追加を予定しています。
 
-### `store`
+- 画像のダウンロード機能
+- 一覧ソート機能
+- 一覧のURLコピー機能(閲覧のみ可)
 
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+ギャラリーアプリとしてより使いやすく、また「こんな機能が欲しかった」と思えるような機能を随時実装していく予定です。
