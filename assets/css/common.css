@@ -94,7 +94,6 @@ img {
 
   @media (--sp) {
     font-size: 14px !important;
-    letter-spacing: .04em !important;
     height: 40px !important;
     width: 112px !important;
   }
