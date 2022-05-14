@@ -39,11 +39,7 @@
 }
 
 .v-alert:not(.v-sheet--tile) {
-  border-radius: 12px !important;
-
-  @media (--sp) {
-    border-radius: 8px !important;
-  }
+  border-radius: 8px !important;
 }
 
 .v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
