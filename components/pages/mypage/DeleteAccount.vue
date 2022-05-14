@@ -15,7 +15,7 @@
           </p>
           <p class="deleteAccountDialog__text text-center">
             アカウントを削除すると、<br>保存したクリップも削除されます。
-            <span>※削除すると、元には戻せません。</span>
+            <span>※削除すると元には戻せません。</span>
           </p>
         </v-col>
       </v-row>
@@ -66,7 +66,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@vue/composition-api'
-import { auth } from '@/plugins/firebase'
+import { auth, functions } from '@/plugins/firebase'
 
 export default defineComponent({
   setup () {
@@ -87,21 +87,22 @@ export default defineComponent({
       /* アカウント削除 */
       deleteAccount () {
         reactiveState.isLoading = true
+        reactiveState.deletingMessage = '削除しています。まもなくログアウトします。'
 
         const user = auth.currentUser
         if (user) {
-          reactiveState.deletingMessage = '削除中です。まもなくログアウトします。'
+          const uid = user.uid
+          const args = {
+            uid: uid
+          }
+
+          // Authenticationからユーザーを削除
+          const deleteAuth = functions.httpsCallable('deleteAuth')
+          deleteAuth(args)
 
           setTimeout(() => {
-            // Authenticationからユーザーを削除
-            user.delete()
-            .then(() => {
-              console.log('Successfully: deleted user from Authentication.')
-              reactiveState.isLoading = false
-            })
-            .catch((error) => {
-              console.log(error)
-            })
+            (this as any).$store.dispatch('logout')
+            reactiveState.isLoading = false
           }, 3000)
         } else {
           return

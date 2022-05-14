@@ -99,6 +99,7 @@ export default {
     .then(() => {
       this.$router.push('/')
       commit('switchLogin', false)
+      commit('clearLoginFormError')
       commit('switchLogoutMessage', true)
 
       setTimeout(() => {

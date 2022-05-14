@@ -5,10 +5,25 @@ const db = admin.firestore()
 const dbUsersRef = db.collection('users')
 const dbPicturesRef = db.collection('pictures')
 
-// const cors = require('cors')({ origin: true })
+const cors = require('cors')({ origin: true })
 
-/* Authenticationからuserが削除されたら、Firestoreからもデータを削除する*/
-exports.deleteAccount = functions.auth.user().onDelete((user) => {
+export const deleteAuth = functions.region('asia-northeast1').https.onRequest((req, res) => {
+  cors(req, res, () => {
+    const uid = req.body.data.uid
+
+    admin.auth()
+    .deleteUser(uid)
+    .then(() => {
+      return console.log('Successfully: deleted user from Authentication.')
+    })
+    .catch((error) => {
+      return console.error('ERROR: Unable to deleted user from Authentication.', error)
+    })
+  })
+})
+
+/* Authenticationからuserが削除されたら、Firestoreからユーザーのデータを削除する*/
+exports.deleteAccountData = functions.region('asia-northeast1').auth.user().onDelete((user) => {
   const uid = user.uid
 
   new Promise((resolve) => {
@@ -17,11 +32,11 @@ exports.deleteAccount = functions.auth.user().onDelete((user) => {
     .doc(uid)
     .delete()
     .then(() => {
-      console.log(`Deleted user data from Firebase.(uid: ${ uid })`)
+      console.log(`Deleted user data from Firestore.(uid: ${ uid })`)
       resolve('Deleted user.')
     })
     .catch((error) => {
-      console.error(error)
+      console.error(`ERROR: Unable to deleted user from Firestore.(id: ${ uid })`, error)
     })
   })
   .then(() => {
@@ -55,10 +70,10 @@ exports.deleteAccount = functions.auth.user().onDelete((user) => {
             .doc(id)
             .delete()
             .then(() => {
-              console.log(`Deleted Clip from Firebase.(id: ${ id })`)
+              console.log(`Deleted the Clip from Firestore.(id: ${ id })`)
             })
             .catch((error) => {
-              console.error(error)
+              console.error(`ERROR: Unable to deleted the Clip from Firestore.(id: ${ id })`, error)
             })
           }, 1000)
         })
