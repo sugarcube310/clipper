@@ -28,7 +28,7 @@
           @click="showClipDetail(clip)"
         >
           <figure>
-            <img :src="clip.data.file_url" alt="">
+            <img v-lazy="clip.data.file_url" alt="">
           </figure>
         </li>
       </ul>

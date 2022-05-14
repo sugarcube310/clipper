@@ -82,7 +82,7 @@
                       <span>ファイルを削除</span>
                     </v-tooltip>
                     <figure>
-                      <img :src="form.image.url" alt="">
+                      <img v-lazy="form.image.url" alt="">
                     </figure>
                   </div>
                 </v-col>

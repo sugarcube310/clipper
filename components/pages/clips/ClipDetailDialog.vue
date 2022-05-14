@@ -38,7 +38,7 @@
           class="pa-0 mt-2 mb-1"
         >
           <figure class="clip__image">
-            <img :src="clip.file_url" alt="">
+            <img v-lazy="clip.file_url" alt="">
           </figure>
         </v-col>
         <v-col
