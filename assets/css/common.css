@@ -27,12 +27,13 @@ img {
 .page-container {
   color: var(--color-text);
   font-family: var(--font-family-base);
-  height: 100%;
   margin: auto;
   overflow: hidden;
+  height: 100%;
+  width: 100%;
 
   @media (--sp) {
-    width: 90%;
+    width: 95%;
   }
 }
 

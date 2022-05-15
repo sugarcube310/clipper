@@ -281,150 +281,158 @@ export default defineComponent({
 </script>
 
 <style lang="postcss">
-.user__profile {
-  margin: 40px auto 0;
-  max-width: 440px;
-  width: 50%;
+.page-container.-mypage {
+  padding-top: 20px;
 
   @media (--sp) {
-    margin-top: 20px;
-    max-width: 100%;
-    width: 100%;
+    padding-top: 12px;
   }
 
-  & .user__icon {
-    position: relative;
-    height: 140px;
-    width: 140px;
+  & .user__profile {
+    margin: 40px auto 0;
+    max-width: 440px;
+    width: 50%;
 
     @media (--sp) {
-      height: 120px;
-      width: 120px;
-    }
-
-    & .inputButton {
-      background-color: rgba(117, 117, 117, .4);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: bold;
-      letter-spacing: .08em;
-      transition: all .3s;
-      opacity: 0;
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
+      margin-top: 20px;
+      max-width: 100%;
       width: 100%;
-      visibility: hidden;
     }
 
-    &.-edit {
-      & .user__icon-image {
-        cursor: pointer;
+    & .user__icon {
+      position: relative;
+      height: 140px;
+      width: 140px;
+
+      @media (--sp) {
+        height: 120px;
+        width: 120px;
       }
 
-      &:hover {
-        & .inputButton {
-          opacity: 1;
-          visibility: visible;
+      & .inputButton {
+        background-color: rgba(117, 117, 117, .4);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: .08em;
+        transition: all .3s;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        visibility: hidden;
+      }
+
+      &.-edit {
+        & .user__icon-image {
+          cursor: pointer;
+        }
+
+        &:hover {
+          & .inputButton {
+            opacity: 1;
+            visibility: visible;
+          }
         }
       }
-    }
 
-    & .user__icon-image {
-      border-radius: 50%;
-      height: 100%;
-      width: 100%;
-
-      & figure {
+      & .user__icon-image {
+        border-radius: 50%;
         height: 100%;
         width: 100%;
 
-        & img {
-          border-radius: 50%;
-          object-fit: cover;
+        & figure {
           height: 100%;
           width: 100%;
+
+          & img {
+            border-radius: 50%;
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+          }
         }
-      }
 
-      &.-no-setting {
-        background-color: var(--color-secondary);
+        &.-no-setting {
+          background-color: var(--color-secondary);
 
-        & .mdi {
-          color: #fff;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 72px !important;
-          height: 100%;
-          width: 100%;
+          & .mdi {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px !important;
+            height: 100%;
+            width: 100%;
 
-          @media (--sp) {
-            font-size: 64px !important;
+            @media (--sp) {
+              font-size: 64px !important;
+            }
           }
         }
       }
     }
-  }
 
-  & .form {
-    width: 100%;
-  }
-
-  & .user__name {
-    color: var(--color-text-light);
-    font-size: 28px;
-    letter-spacing: .08em;
-    line-height: 2;
-    line-height: 1;
-
-    @media (--sp) {
-      font-size: 26px;
+    & .form {
+      width: 100%;
     }
 
-    & .v-input {
-      width: 100%;
+    & .user__name {
+      color: var(--color-text-light);
+      font-size: 28px;
+      letter-spacing: .08em;
+      line-height: 2;
+      line-height: 1;
 
-      & input {
-        letter-spacing: .04em;
+      @media (--sp) {
+        font-size: 26px;
+      }
+
+      & .v-input {
+        width: 100%;
+
+        & input {
+          letter-spacing: .04em;
+        }
       }
     }
-  }
 
-  & .user__releases {
-    color: var(--color-text-light);
-    font-size: 15px;
-    letter-spacing: .04em;
-
-    @media (--sp) {
-      font-size: 14px;
-    }
-  }
-
-  & .user__introduction {
-    color: var(--color-text-light);
-    letter-spacing: .04em;
-    line-height: 2;
-    margin-top: -32px;
-    white-space: pre-line;
-
-    @media (--sp) {
+    & .user__releases {
+      color: var(--color-text-light);
       font-size: 15px;
+      letter-spacing: .04em;
+
+      @media (--sp) {
+        font-size: 14px;
+      }
     }
 
-    & .v-input {
-      width: 100%;
+    & .user__introduction {
+      color: var(--color-text-light);
+      letter-spacing: .04em;
+      line-height: 2;
+      margin-top: -32px;
+      white-space: pre-line;
 
-      & textarea {
-        letter-spacing: .04em;
-        line-height: 1.75;
-        padding: 8px 8px 8px 0 !important;
+      @media (--sp) {
+        font-size: 15px;
+      }
+
+      & .v-input {
+        width: 100%;
+
+        & textarea {
+          letter-spacing: .04em;
+          line-height: 1.75;
+          padding: 8px 8px 8px 0 !important;
+        }
       }
     }
   }

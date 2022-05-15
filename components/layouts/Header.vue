@@ -6,6 +6,15 @@
     class="px-3 py-1"
     flat
   >
+    <div class="header__logo">
+      <nuxt-link to="/clips/">
+        <figure>
+          <img src="~/assets/images/common/header_logo.png" alt="" class="hidden-sp">
+          <img src="~/assets/images/common/clip.png" alt="" class="hidden-pc">
+        </figure>
+      </nuxt-link>
+    </div>
+
     <v-spacer></v-spacer>
 
     <div class="header__user-icon">
@@ -107,6 +116,25 @@ export default defineComponent({
 </script>
 
 <style lang="postcss">
+.header__logo {
+  cursor: pointer;
+  transition: all .3s;
+
+  &:hover {
+    @media (--not-sp) {
+      opacity: .9;
+    }
+  }
+
+  & img {
+    width: 140px;
+
+    @media (--sp) {
+      width: 36px;
+    }
+}
+}
+
 .header__user-icon {
   & .icon-image {
     border-radius: 50%;
