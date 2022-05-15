@@ -1,70 +1,74 @@
 <template>
   <div class="page-container -clips">
-    <section
-      v-if="clips.length > 0"
-      class="clips"
-    >
-      <v-row class="clip__list-head">
-        <v-col cols="12">
-          <p class="pl-2 list__length-text">
-            あなたのクリップ：{{ clips.length }}件
-          </p>
-          <v-switch
-            v-model="isShowAllClips"
-            color="accent"
-            class="pl-2 clips__show-switch"
-            hide-details
-            label="非公開のクリップを表示する"
-            @change="switchShowClips()"
-          ></v-switch>
-        </v-col>
-      </v-row>
+    <transition-group name="long-fade" appear>
+      <section
+        v-if="clips.length > 0"
+        key="clips"
+        class="clips"
+      >
+        <v-row class="clip__list-head">
+          <v-col cols="12">
+            <p class="pl-2 list__length-text">
+              あなたのクリップ：{{ clips.length }}件
+            </p>
+            <v-switch
+              v-model="isShowAllClips"
+              color="accent"
+              class="pl-2 clips__show-switch"
+              hide-details
+              label="非公開のクリップを表示する"
+              @change="switchShowClips()"
+            ></v-switch>
+          </v-col>
+        </v-row>
 
-      <ul class="clip__list">
-        <li
-          class="list__item"
-          v-for="(clip, i) in clips"
-          :key="i"
-          @click="showClipDetail(clip)"
-        >
-          <figure>
-            <img v-lazy="clip.data.file_url" alt="">
-          </figure>
-        </li>
-      </ul>
-    </section>
-
-    <section
-      v-else
-      class="no-clips"
-    >
-      <v-row class="d-flex justify-center">
-        <v-col
-          cols="12"
-          class="mb-5"
-        >
-          <p class="text-center no-clips__text">
-            お気に入りの画像を追加しましょう！
-            <span class="icon">:)</span>
-          </p>
-        </v-col>
-        <v-col
-          cols="12"
-          class="d-flex justify-center"
-        >
-          <v-btn
-            color="accent"
-            depressed
-            rounded
-            height="44"
-            width="120"
-            @click="openAddClipDialog()"
+        <ul class="clip__list">
+          <li
+            class="list__item"
+            v-for="(clip, i) in clips"
+            :key="i"
+            @click="showClipDetail(clip)"
           >
-            追加
-          </v-btn>
-        </v-col>
-      </v-row>
-    </section>
+            <figure>
+              <img v-lazy="clip.data.file_url" alt="">
+            </figure>
+          </li>
+        </ul>
+      </section>
+
+      <section
+        v-else
+        key="no-clips"
+        class="no-clips"
+      >
+        <v-row class="d-flex justify-center">
+          <v-col
+            cols="12"
+            class="mb-5"
+          >
+            <p class="text-center no-clips__text">
+              お気に入りの画像を追加しましょう！
+              <span class="icon">:)</span>
+            </p>
+          </v-col>
+          <v-col
+            cols="12"
+            class="d-flex justify-center"
+          >
+            <v-btn
+              color="accent"
+              depressed
+              rounded
+              height="44"
+              width="120"
+              @click="openAddClipDialog()"
+            >
+              追加
+            </v-btn>
+          </v-col>
+        </v-row>
+      </section>
+    </transition-group>
 
     <AddClip
       ref="addClipDialogRef"

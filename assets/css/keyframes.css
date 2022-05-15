@@ -1,13 +1,25 @@
 .fade-enter-active,
 .fade-leave-active {
   opacity: 1;
-  transition: opacity .4s;
+  transition: opacity .3s;
 }
 
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
-  transition: opacity .4s;
+  transition: opacity .3s;
+}
+
+.long-fade-enter-active,
+.long-fade-leave-active {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.long-fade-enter,
+.long-fade-leave-to {
+  opacity: 0;
+  transition: opacity 1s;
 }
 
 @keyframes spinner-animation {
