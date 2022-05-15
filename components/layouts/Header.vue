@@ -3,7 +3,7 @@
     app
     fixed
     color="white"
-    class="px-3 py-1"
+    class="px-3"
     flat
   >
     <div class="header__logo">
