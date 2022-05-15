@@ -120,6 +120,10 @@ export default defineComponent({
   cursor: pointer;
   transition: all .3s;
 
+  @media (--not-sp) {
+    margin-top: -4px;
+  }
+
   &:hover {
     @media (--not-sp) {
       opacity: .9;
