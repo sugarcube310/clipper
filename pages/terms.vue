@@ -198,20 +198,21 @@ export default defineComponent({
 
       @media (--sp) {
         font-size: 20px;
+        letter-spacing: .06em;
         line-height: 1.75;
       }
     }
 
     & h3 {
       border-bottom: 1px dotted var(--color-accent);
-      letter-spacing: .06em;
+      letter-spacing: .08em;
       line-height: 2;
       margin-bottom: 8px;
       padding-bottom: 4px;
 
       @media (--sp) {
         font-size: 16px;
-        letter-spacing: .04em;
+        letter-spacing: .06em;
         line-height: 1.75;
       }
     }
@@ -219,12 +220,11 @@ export default defineComponent({
     & p,
     & li {
       font-size: 14px;
-      letter-spacing: .028em;
+      letter-spacing: .02em;
       line-height: 2;
 
       @media (--sp) {
         font-size: 12px;
-        letter-spacing: .02em;
       }
     }
   }
