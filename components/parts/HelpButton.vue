@@ -31,8 +31,8 @@
       >
         <v-list-item-title v-text="menu.title"></v-list-item-title>
       </v-list-item>
-      <v-list-item>
-        <p class="copyRight">&copy; 2022 i.sato</p>
+      <v-list-item class="copyRight">
+        <p>&copy; 2022 i.sato</p>
       </v-list-item>
     </v-list>
   </v-menu>
@@ -46,6 +46,10 @@ export default defineComponent({
     /** Reactive State **/
     const reactiveState = reactive({
       menus: [
+        {
+          title: 'このアプリについて',
+          link: '/how-to-use/'
+        },
         {
           title: '利用規約',
           link: '/terms/'
@@ -81,7 +85,7 @@ export default defineComponent({
     }
   }
 
-  & .copyRight {
+  & .copyRight p {
     border-top: 1px solid rgba(153, 153, 153, .4);
     color: var(--color-secondary);
     font-size: 11px;
