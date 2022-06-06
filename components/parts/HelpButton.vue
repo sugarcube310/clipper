@@ -32,7 +32,7 @@
         <v-list-item-title v-text="menu.title"></v-list-item-title>
       </v-list-item>
       <v-list-item class="copyRight">
-        <p>&copy; 2022 i.sato</p>
+        <p>&copy; 2022 sato</p>
       </v-list-item>
     </v-list>
   </v-menu>
