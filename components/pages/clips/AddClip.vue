@@ -27,7 +27,10 @@
           </h2>
         </div>
         <div class="form__wrapper">
-          <v-form class="form -addClip">
+          <v-form
+            class="form -addClip"
+            @submit.prevent
+          >
             <v-row>
               <v-col
                 v-if="!form.image.data"

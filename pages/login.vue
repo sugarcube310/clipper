@@ -24,8 +24,8 @@
 
         <div class="form__wrapper">
           <v-form
-            @submit.prevent
             class="form -login"
+            @submit.prevent
           >
             <v-row class="mb-6">
               <v-col cols="12">
