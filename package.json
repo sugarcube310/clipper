@@ -7,9 +7,10 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "deploy": "yarn build && firebase deploy --only hosting",
-    "deploy:functions": "cd functions && yarn build && firebase deploy --only functions",
-    "serve:functions": "cd functions && yarn build && firebase emulators:start --only functions"
+    "serve:hosting": "yarn build && firebase serve --only hosting",
+		"deploy:hosting": "yarn build && firebase deploy --only hosting",
+		"serve:functions": "cd functions && yarn build && firebase emulators:start --only functions",
+    "deploy:functions": "cd functions && yarn build && firebase deploy --only functions"
   },
   "dependencies": {
     "@nuxtjs/firebase": "^8.2.2",
